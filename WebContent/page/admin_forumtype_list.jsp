@@ -29,7 +29,7 @@
 							<div class="bootstrap-admin-panel-content">
 								<div id="example_wrapper" class="dataTables_wrapper form-inline"
 									role="grid">
-									<div class="row">
+									<div class="row" style="display:none">
 
 										<div class="col-md-6">
 											<div class="dataTables_filter" id="example_filter">

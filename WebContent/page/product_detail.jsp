@@ -134,7 +134,7 @@
 	<jsp:include page="/resource/inc/web_foot.jsp"></jsp:include>
 </body>
 </html>
-
+${js }
 <script type="text/javascript">
 	function buy(pid) {
 		$.getJSON("${pageContext.request.contextPath}/producttrade/json/buy", {

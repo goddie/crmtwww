@@ -83,7 +83,7 @@
 													<td class="center ">${m.createdDate }</td>
 													<td class="action"><a style="display: none;">编辑 </a> <a
 														class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/task/action/del/${m.id}">
+														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
 															删除 </a> 
 															<c:if test="${m.status!=0&&m.status!=10 }">
 															<a class="btn btn-xs btn-primary"

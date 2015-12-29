@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,6 +69,7 @@ public class ForumController {
 
 		DetachedCriteria criteria2 = forumService.createDetachedCriteria();
 		criteria2.add(Restrictions.eq("isDelete", 0));
+		criteria2.add(Restrictions.eq("isCheck", 1));
 		// List<Article> list = articleService.findByCriteria(criteria);
 
 		page2 = forumService.findPageByCriteria(criteria2, page2);
@@ -131,6 +133,7 @@ public class ForumController {
 
 		DetachedCriteria criteria = forumService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("isCheck", 1));
 		criteria.add(Restrictions.eq("subType", subType));
 		// List<Article> list = articleService.findByCriteria(criteria);
 
@@ -268,6 +271,7 @@ public class ForumController {
 
 		DetachedCriteria criteria = forumReplyService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		//criteria.add(Restrictions.eq("isCheck", 1));
 		criteria.add(Restrictions.eq("forum", forum));
 		// List<Article> list = articleService.findByCriteria(criteria);
 
@@ -276,6 +280,55 @@ public class ForumController {
 		mv.addObject("list", page.getResult());
 
 		mv.addObject("pageHtml", HttpUtil.genPageHtml(page, request));
+
+		return mv;
+	}
+	
+	
+	/**
+	 * 搜索
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/search")
+	public ModelAndView search(HttpServletRequest request) {
+		
+		
+		ModelAndView mv = new ModelAndView("forum_search");
+
+		int p = 1;
+		String pstr = request.getParameter("p");
+		if (!StringUtils.isEmpty(pstr)) {
+			p = Integer.parseInt(pstr);
+		}
+
+		
+		
+		String key = request.getParameter("key");
+		
+		if(StringUtils.isEmpty(key))
+		{
+			mv.addObject("name","无搜索结果");
+			return mv;
+		}
+
+		DetachedCriteria criteria = forumService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("isCheck", 1));
+		
+		criteria.add(Restrictions.like("title", key , MatchMode.ANYWHERE));
+
+
+		Page<Forum> page = new Page<Forum>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+
+		page = forumService.findPageByCriteria(criteria, page);
+
+		mv.addObject("name",key+" 搜索结果:");
+		mv.addObject("list", page.getResult());
+		mv.addObject("page", HttpUtil.genPageHtml(page, request));
 
 		return mv;
 	}

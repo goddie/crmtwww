@@ -72,16 +72,16 @@
 		<property name="driverClassName">
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
-<!-- 		<property name="url"> -->
-<!-- 		<value>jdbc:mysql://s1.yuananjia.com:3306/cr2</value> -->
-<!-- 		</property> -->
-<!-- 		<property name="username"> -->
-<!-- 		<value>cr2</value> -->
-<!-- 		</property> -->
-<!-- 		<property name="password"> -->
-<!-- 		<value>W#PC_com</value> -->
-<!-- 		</property> -->
 		<property name="url">
+		<value>jdbc:mysql://s1.yuananjia.com:3306/cr2</value>
+		</property>
+		<property name="username">
+		<value>cr2</value>
+		</property>
+		<property name="password">
+		<value>W#PC_com</value>
+		</property>
+		<!-- <property name="url">
 			<value>jdbc:mysql://localhost:3306/cr2</value>
 
 		</property>
@@ -90,7 +90,7 @@
 		</property>
 		<property name="password">
 			<value>goddie</value>
-		</property>
+		</property> -->
 	</bean>
 
 	<!-- HIBERNATE配置 -->
@@ -167,7 +167,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 设置上传文件的最大尺寸为10MB -->
 		<property name="maxUploadSize">
-			<value>10485760</value>
+			<value>104857600</value>
 		</property>
 	</bean>
 

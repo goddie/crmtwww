@@ -206,7 +206,7 @@
 
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">投稿的时间</label>
+											<label class="col-lg-2 control-label">投稿的时间</label>
 											<div class="col-lg-10">
 												<input type="text" name="endDateStr"
 													class="form-control datepicker" id="date01"
@@ -218,14 +218,14 @@
 
 										<legend>发布结算</legend>
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">您发布的任务</label>
+											<label class="col-lg-2 control-label">您发布的任务</label>
 											<div class="col-lg-10">
 
 												<p id="taskTitle" class="help-block">范例：XXX珠宝公司LOGO设计</p>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">您设定的悬赏模式</label>
+											<label class="col-lg-2 control-label">您设定的悬赏模式</label>
 											<div class="col-lg-10">
 
 												<p id="pType" class="help-block">单人悬赏</p>
@@ -233,7 +233,7 @@
 										</div>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">您设定的悬赏金额</label>
+											<label class="col-lg-2 control-label">您设定的悬赏金额</label>
 											<div class="col-lg-10">
 
 												<p id="pPrice" class="help-block">0元</p>
@@ -241,16 +241,16 @@
 										</div>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">您设定的截稿时间</label>
+											<label class="col-lg-2 control-label">您设定的截稿时间</label>
 											<div class="col-lg-10">
 
-												<p class="help-block">2015-1-1</p>
+												<p class="help-block" id="endate">2015-1-1</p>
 												<p class="help-block">在投稿截止后，您有48小时的时间进行选稿</p>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">结算清单</label>
+											<label class="col-lg-2 control-label">结算清单</label>
 											<div class="col-lg-10">
 
 												<p class="help-block">托管赏金：<span id="pboundy" style="color:#f00"></span>元</p>
@@ -258,12 +258,28 @@
 										</div>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="date01">应付总额</label>
+											<label class="col-lg-2 control-label">应付总额</label>
 											<div class="col-lg-10">
 
 												<p class="help-block"><span id="payTotal"></span>元</p>
 											</div>
 										</div>
+										
+										<div class="form-group">
+											<label class="col-lg-2 control-label">支付方式</label>
+											<div class="col-lg-10">
+
+												线下支付(请前往潮人码头项目管理办公室支付)
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label"></label>
+											<div class="col-lg-10">
+
+												<input name="accept" checked="checked" type="checkbox" />同意《潮人码头任务发布协议》
+											</div>
+										</div>
+										
 										<button type="submit" class="btn btn-primary">提交</button>
 										<button type="reset" class="btn btn-default">取消</button>
 
@@ -401,6 +417,8 @@ ${js }
 			$('#pboundy').text($('#bountyPrice').val()*$('#bountyCount').val());
 			$('#payTotal').text($('#bountyPrice').val()*$('#bountyCount').val());
 		}
+		
+		$('#endate').html($('#date01').val());
 	}
 	
 	function upfile2(jsonstr) {

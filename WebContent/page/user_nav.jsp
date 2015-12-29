@@ -33,6 +33,8 @@
 							href="${pageContext.request.contextPath}/user/usersite">我的主页</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/product/v/list?p=1">创意商城</a></li>
+							<li><a
+							href="http://apps.yxhltech.com/ezwork/" target="_blank">我的工作室</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->

@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -99,6 +100,8 @@ public class ProductController {
 
 		DetachedCriteria criteria = productService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("status", ProductStatus.REVIEW));
+		criteria.add(Restrictions.eq("isOnSale", 1));
 
 		if(!StringUtils.isEmpty(request.getParameter("ptype")))
 		{
@@ -124,7 +127,7 @@ public class ProductController {
 
 	@RequestMapping(value = "/action/del")
 	public ModelAndView actionDel(@RequestParam("id") UUID pid) {
-		ModelAndView mv = new ModelAndView("redirect:/v/list?p=1");
+		ModelAndView mv = new ModelAndView("redirect:/product/v/list?p=1");
 		Product entity = productService.get(pid);
 		entity.setIsDelete(1);
 		productService.saveOrUpdate(entity);
@@ -466,6 +469,12 @@ public class ProductController {
 		
 		Product product = productService.get(productId);
 		
+		if(product.getStatus()!=ProductStatus.REVIEW||product.getIsOnSale()!=1)
+		{
+			attr.addFlashAttribute("js", "<script>alert('购买失败：商品已下架。');</script>");
+			return new ModelAndView("redirect:/product/detail?pid="+product.getId());
+		}
+		
 		
 		Order order =new Order();
 		order.setPrice(product.getPrice());
@@ -771,12 +780,17 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value = "/action/onsale")
-	public ModelAndView actionOnSale(@RequestParam("id") UUID uuid,@RequestParam("rs") int rs) {
+	public ModelAndView actionOnSale(@RequestParam("id") UUID uuid,@RequestParam("rs") int rs,
+			HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("redirect:/product/admin/list?p=1");
 		Product entity = productService.get(uuid);
 		entity.setIsOnSale(rs);
 		productService.saveOrUpdate(entity);
+		//String url = HttpUtil.getReferView(request);
 		
+		
+		String referer = request.getHeader("Referer");
+	    mv.setViewName("redirect:"+referer);
 		return mv;
 	}
 	

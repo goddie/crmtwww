@@ -25,12 +25,23 @@
 				<div class="m_l20">
 					<div class="c-search bluebg m_b19">
 						<div class="c-s-select">
-							帖子<a href="#" class="iconXx"></a>
+							搜索帖子
 						</div>
-						<input name="" type="text" placeholder="请输入关键词">
+						<form action="${pageContext.request.contextPath}/forum/search" method="get" name="form1">
+						<input name="key" type="text" placeholder="请输入关键词">
+						</form>
 						<div class="c-s-search">
-							<span class="iconSearch"></span>
+							<span onclick="form1.submit();" class="iconSearch"></span>
 						</div>
+						
+						
+						
+						
+						
+						 
+						
+						
+						
 					</div>
 					<c:import url="/forum/forumroll" />
 

@@ -43,9 +43,9 @@
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<a href="${pageContext.request.contextPath}/task/v/add?type=1"
-							class="grayBtn2 m_l20" target="_blank">发任务</a><a
-							href="${pageContext.request.contextPath}/task/v/add?type=3"
-							class="grayBtn2 m_l10" target="_blank">项目招标</a><a target="_blank"
+							class="grayBtn2 m_l20" target="_blank">发任务</a><a style="display:none"
+							href="${pageContext.request.contextPath}/task/v/add?type=3" 
+							class="grayBtn2 m_l10" target="_blank">项目招标</a><a  style="display:none"target="_blank"
 							href="${pageContext.request.contextPath}/task/v/add?type=5"
 							class="grayBtn2 m_l10">直接雇佣</a>
 					</div>

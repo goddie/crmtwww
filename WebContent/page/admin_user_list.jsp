@@ -59,7 +59,7 @@
 
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
-													<td class=""><a href="${pageContext.request.contextPath}/user/detail?id=${m.id}" target="_blank">${m.username}</a></td>
+													<td class=""><a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.id}" target="_blank">${m.username}</a></td>
 													<td class="">${m.nickname}</td>
 													<td class="">${m.createdDate}</td>
 													<td class="">${m.createdDate}</td>

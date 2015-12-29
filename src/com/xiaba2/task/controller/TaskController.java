@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import com.xiaba2.cms.domain.Article;
 import com.xiaba2.cms.domain.ArticleType;
 import com.xiaba2.cms.service.ArticleService;
@@ -111,7 +110,7 @@ public class TaskController {
 		
 		if(rs==1)
 		{
-			entity.setStatus(TaskStatus.REVIEW);
+			entity.setStatus(TaskStatus.SUBMIT);
 		}
 		
 		taskService.saveOrUpdate(entity);
@@ -582,9 +581,12 @@ public class TaskController {
 		ModelAndView mv = new ModelAndView("task_block");
 
 		DetachedCriteria criteria = taskService.createDetachedCriteria();
-
+		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW_FAIL)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.END)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.PUBLISH)));
 		criteria.add(Restrictions.eq("parentType.id", UUID.fromString(type)));
-
+		
 		Page<Task> p = new Page<Task>();
 		p.setPageSize(count);
 		p.setPageNo(1);
@@ -617,10 +619,13 @@ public class TaskController {
 
 		mv.addObject("entity", t);
 		
+		
+		
+		
 		//是否可以承接任务
 		int canSubmit = 1;
 		
-		if(t.getStatus()!=TaskStatus.EVALUATION && 
+		if(
 				t.getStatus()!=TaskStatus.REVIEW &&
 				t.getStatus()!=TaskStatus.SUBMIT)
 		{
@@ -632,6 +637,19 @@ public class TaskController {
 		
 		long a = d.getTime();
 		long b = t.getEndDate().getTime();
+		
+		long delta = (a - b)/(60*60*1000);
+ 
+		//开始选稿
+		if(delta>48 && t.getStatus() == TaskStatus.SUBMIT)
+		{
+			t.setStatus(TaskStatus.EVALUATION);
+			taskService.saveOrUpdate(t);
+			canSubmit = 0;
+		}
+		
+		
+		
 		
 		if(a > b)
 		{

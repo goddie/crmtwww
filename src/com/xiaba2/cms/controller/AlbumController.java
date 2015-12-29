@@ -125,7 +125,7 @@ public class AlbumController {
 
 		Logger.getLogger(AlbumController.class.toString()).log(Level.INFO, path);
 
-		String extPath = request.getContextPath() + "/upload/" + pdate + "/";
+		String extPath = request.getContextPath() + "/upfile/" + pdate + "/";
 
 		Upfile uf = new Upfile();
 
