@@ -20,6 +20,7 @@ import com.xiaba2.core.Page;
 import com.xiaba2.task.domain.Company;
 import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.User;
+import com.xiaba2.task.gen.EnumSet.CheckStatus;
 import com.xiaba2.task.service.CompanyService;
 import com.xiaba2.task.service.UserService;
 import com.xiaba2.util.SessionUtil;
@@ -50,9 +51,12 @@ public class CompanyController {
 
 		mv.addObject("user", user);
 		
-		if(user.getIsCheckCompany()>0)
+		if(user.getIsCheckCompany()==CheckStatus.SUCCESS || user.getIsCheckCompany()==CheckStatus.WAIT)
 		{
-			return new ModelAndView("ucenter_checkcompany_done");
+			
+			ModelAndView mv2 = new  ModelAndView("ucenter_checkcompany_done");
+			mv2.addObject("status", user.getIsCheckCompany());
+			return mv2;
 		}
 		
 		
@@ -66,6 +70,7 @@ public class CompanyController {
 		String thumb = request.getParameter("thumb");
 
 		if (StringUtils.isEmpty(thumb)) {
+			attr.addFlashAttribute("msg", "请上传证明图片");
 			return mv;
 		}
 
@@ -80,10 +85,10 @@ public class CompanyController {
 		entity.setCreatedDate(new Date());
 		companyService.save(entity);
 
-		user.setIsCheckCompany(1);
+		user.setIsCheckCompany(CheckStatus.WAIT);
 		userService.saveOrUpdate(user);
 
-		attr.addFlashAttribute("msg", "提交成功!");
+		attr.addFlashAttribute("js", "<script>alert('提交成功,等待审核!')</script>");
 
 		return mv;
 	}
@@ -101,7 +106,7 @@ public class CompanyController {
 
 		DetachedCriteria criteria = userService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
-		criteria.add(Restrictions.eq("isCheckCompany", 1));
+		criteria.add(Restrictions.eq("isCheckCompany", CheckStatus.SUCCESS));
 		criteria.add(Restrictions.isNotNull("head"));
 
 		Page<User> p = new Page<User>();

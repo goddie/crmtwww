@@ -30,6 +30,7 @@ public class ForumService extends BaseService<Forum, UUID> {
 	public List<Forum> getTop(ForumType type, ForumType subType, int count, Boolean hasCover) {
 		DetachedCriteria criteria = createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("isCheck", 1));
 		if (type != null) {
 			criteria.add(Restrictions.eq("type", type));
 		}

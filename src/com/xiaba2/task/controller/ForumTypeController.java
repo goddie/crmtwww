@@ -142,7 +142,7 @@ public class ForumTypeController {
 	public ModelAndView actionAdd(ForumType entity,
 			@RequestParam("pid") String pid) {
 
-		ModelAndView mv = new ModelAndView("redirect:/forumtype/add");
+		ModelAndView mv = new ModelAndView("redirect:/forumtype/admin/add");
 
 		if (!pid.equals("0")) {
 			ForumType parent = forumTypeService.get(UUID.fromString(pid));

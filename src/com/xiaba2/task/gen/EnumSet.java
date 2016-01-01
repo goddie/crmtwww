@@ -97,4 +97,33 @@ public class EnumSet {
 	}
 	
 	
+	/**
+	 * 审核状态
+	 * @author goddie
+	 *
+	 */
+	public static class CheckStatus
+	{
+		/**
+		 * 等待
+		 */
+		public static int WAIT = -1;
+		
+		/**
+		 * 无效
+		 */
+		public static int INVALID = 0;
+		
+		
+		/**
+		 * 成功
+		 */
+		public static int SUCCESS = 1;
+		
+		
+		/**
+		 * 失败
+		 */
+		public static int FAIL = 10;
+	}
 }

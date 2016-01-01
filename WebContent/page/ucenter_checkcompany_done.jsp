@@ -46,7 +46,9 @@
 											<label class="col-lg-2 control-label" for="typeahead"></label>
 											<div class="col-lg-10">
 
-												您已通过企业认证
+												<c:if test="${status==1 }">您已通过实名认证。</c:if>
+												
+												<c:if test="${status==-1 }">正在实名认证中。</c:if>
 											</div>
 										</div>
 										 
@@ -66,6 +68,7 @@
 
 </body>
 </html>
+${js }
 <jsp:include page="/resource/inc/admin_script.jsp"></jsp:include>
 <script type="text/javascript"
 		src="${pageContext.request.contextPath}/resource/js/PCASClass.js"></script>

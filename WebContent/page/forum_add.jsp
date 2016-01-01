@@ -104,6 +104,7 @@
 </body>
 </html>
 ${msg }
+${js }
 
 <jsp:include page="/resource/inc/admin_script.jsp"></jsp:include>
 

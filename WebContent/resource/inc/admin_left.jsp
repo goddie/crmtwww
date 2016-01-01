@@ -25,22 +25,28 @@
 					class="glyphicon glyphicon-chevron-right"></i>注册用户</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/user/admin/list?type=1&p=1"><i
-					class="glyphicon glyphicon-chevron-right"></i>个人认证用户</a></li>
+					class="glyphicon glyphicon-chevron-right"></i>个人用户</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/user/admin/list?type=2&p=1"><i
-					class="glyphicon glyphicon-chevron-right"></i>企业认证用户</a></li>
+					class="glyphicon glyphicon-chevron-right"></i>企业用户</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/user/admin/review?type=1&p=1"><i
+					class="glyphicon glyphicon-chevron-right"></i>个人认证审核</a></li>
 
+			<li><a
+				href="${pageContext.request.contextPath}/user/admin/review?type=2&p=1"><i
+					class="glyphicon glyphicon-chevron-right"></i>企业认证审核</a></li>
 		</ul></li>
-	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>商品管理</a>
+	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>创意商城-商品管理</a>
 		<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
 			<li><a
 				href="${pageContext.request.contextPath}/product/admin/list?p=1"><i
 					class="glyphicon glyphicon-chevron-right"></i>商品列表</a></li>
- 
+
 
 
 		</ul></li>
-	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>任务管理</a>
+	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>任务大厅-任务管理</a>
 		<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
 			<li><a
 				href="${pageContext.request.contextPath}/task/admin/list?p=1"><i
@@ -54,7 +60,7 @@
 
 
 		</ul></li>
-	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>社区管理</a>
+	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>创意社区-社区管理</a>
 		<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
 			<li><a
 				href="${pageContext.request.contextPath}/forum/admin/list?p=1"><i

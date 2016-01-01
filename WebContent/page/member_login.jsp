@@ -25,14 +25,14 @@
 							<input name="redirect" value="${redirect}" type="hidden" />
 							<div class="form-table">
 
-								<label>用户名</label> <input name="username" type="text"
+								<label>用户名</label> <input id="username" name="username" type="text"
 									class="form-control">
 							</div>
 							<div class="form-table">
-								<label>密码</label> <input name="password" type="password"
+								<label>密码</label> <input id="password" name="password" type="password"
 									class="form-control">
 							</div>
-							<a href="javascript:void(0)" onclick="form1.submit()"
+							<a href="javascript:void(0)" onclick="checkSubmit()"
 								class="redBtn5">登录</a>
 						</form>
 
@@ -118,3 +118,19 @@
 </body>
 </html>
 ${msg}
+
+<script type="text/javascript">
+function checkSubmit()
+{
+	if($('#username').val()==''||$('#password').val()=='')
+	{
+		alert('请输入用户名密码.');
+		return;
+	}
+	
+	
+	form1.submit();
+	
+}
+
+</script>

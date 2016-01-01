@@ -70,6 +70,7 @@ public class ForumController {
 		DetachedCriteria criteria2 = forumService.createDetachedCriteria();
 		criteria2.add(Restrictions.eq("isDelete", 0));
 		criteria2.add(Restrictions.eq("isCheck", 1));
+		
 		// List<Article> list = articleService.findByCriteria(criteria);
 
 		page2 = forumService.findPageByCriteria(criteria2, page2);
@@ -201,6 +202,9 @@ public class ForumController {
 
 		forumService.save(entity);
 
+		
+		attr.addFlashAttribute("js","<script>alert('发布成功')</script>");
+		
 		return mv;
 	}
 

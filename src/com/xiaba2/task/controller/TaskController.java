@@ -36,6 +36,7 @@ import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.TaskType;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.gen.EnumSet;
+import com.xiaba2.task.gen.EnumSet.CheckStatus;
 import com.xiaba2.task.gen.EnumSet.TaskStatus;
 import com.xiaba2.task.service.OrderService;
 import com.xiaba2.task.service.PayRecordService;
@@ -215,7 +216,7 @@ public class TaskController {
 				user = userService.get(user.getId());
 			}
 
-			if (user.getIsCheckCompany() <= 0) {
+			if (user.getIsCheckCompany() != CheckStatus.SUCCESS) {
 
 				ModelAndView mv2 = new ModelAndView("redirect:/task/v/list?p=1");
 				mv2.addObject("msg", "<script>alert('需要企业验证才能发布招标任务')</script>");
@@ -609,7 +610,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value = "/detail")
-	public ModelAndView getTaskDetail(@RequestParam("tid") String tid, HttpServletRequest request) {
+	public ModelAndView getTaskDetail(@RequestParam("tid") String tid, HttpServletRequest request, RedirectAttributes attr) {
 		ModelAndView mv = new ModelAndView("task_detail");
 
 		Task t = taskService.get(UUID.fromString(tid));
@@ -619,6 +620,12 @@ public class TaskController {
 
 		mv.addObject("entity", t);
 		
+		if(t.getStatus()==TaskStatus.REVIEW_FAIL)
+		{
+			mv.setViewName(HttpUtil.getHeaderRef(request));
+			attr.addFlashAttribute("js", "<script>alert('审核未通过')</script>");
+			return mv;
+		}
 		
 		
 		

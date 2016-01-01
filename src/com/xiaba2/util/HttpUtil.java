@@ -519,5 +519,19 @@ public class HttpUtil {
 		return fullURL;
 		//request.getRequestDispatcher(fullURL).forward(request,response);
 	}
+	
+	
+	/**
+	 * 引用页面
+	 * @param request
+	 * @return
+	 */
+	public static String getHeaderRef(HttpServletRequest request)
+	{
+		String referer = request.getHeader("Referer");
+		referer = "redirect:" + referer;
+
+	    return referer;
+	}
 
 }

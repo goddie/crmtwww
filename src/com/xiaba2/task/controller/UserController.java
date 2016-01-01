@@ -33,6 +33,7 @@ import com.xiaba2.core.Page;
 import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.domain.Work;
+import com.xiaba2.task.gen.EnumSet.CheckStatus;
 import com.xiaba2.task.service.UserService;
 import com.xiaba2.task.service.WorkService;
 import com.xiaba2.util.HttpUtil;
@@ -281,9 +282,11 @@ public class UserController {
 		mv.addObject("user", user);
 		
 		
-		if(user.getIsCheckPerson()>0)
+		if(user.getIsCheckPerson()==CheckStatus.SUCCESS || user.getIsCheckPerson()==CheckStatus.WAIT)
 		{
-			return new  ModelAndView("ucenter_checkperson_done");
+			ModelAndView mv2 = new  ModelAndView("ucenter_checkperson_done");
+			mv2.addObject("status", user.getIsCheckPerson());
+			return mv2;
 		}
 		
 		return mv;
@@ -372,6 +375,7 @@ public class UserController {
 		}
 
 		if (StringUtils.isEmpty(thumb)) {
+			attr.addFlashAttribute("msg", "请上传证明图片");
 			return mv;
 		}
 
@@ -386,13 +390,65 @@ public class UserController {
 		user.setRealname(realname);
 		user.setLicence(licence);
 		user.setLicenceImage(thumb);
-		user.setIsCheckPerson(1);
+		user.setIsCheckPerson(CheckStatus.WAIT);
 
 		userService.saveOrUpdate(user);
 
-		attr.addFlashAttribute("msg", "提交成功!");
+		attr.addFlashAttribute("js", "<script>alert('提交成功，等待审核!')</script>");
 		return mv;
 	}
+	
+	
+	/**
+	 * 实名认证
+	 * 
+	 * @param attr
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/action/review")
+	public ModelAndView actionReview(@RequestParam("id") UUID id, RedirectAttributes attr, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("redirect:/user/admin/review?type=1&p=1");
+
+		User user = userService.get(id);
+		
+		String rs = request.getParameter("rs");
+		String type = request.getParameter("type");
+		
+		if(type.equals("1"))
+		{
+			if(rs.equals("1"))
+			{
+				user.setIsCheckPerson(CheckStatus.SUCCESS);
+			}
+			
+			if(rs.equals("10"))
+			{
+				user.setIsCheckPerson(CheckStatus.FAIL);
+			}
+		}
+		
+		if(type.equals("2"))
+		{
+			if(rs.equals("1"))
+			{
+				user.setIsCheckCompany(CheckStatus.SUCCESS);
+			}
+			
+			if(rs.equals("10"))
+			{
+				user.setIsCheckCompany(CheckStatus.FAIL);
+			}
+		}
+		
+		
+
+		userService.saveOrUpdate(user);
+
+		
+		return mv;
+	}
+	
 
 	/**
 	 * 修改头像
@@ -516,7 +572,7 @@ public class UserController {
 			//mv.setViewName("redirect:/user/v/index");
 		} else {
 			attr.addFlashAttribute("msg", "<script>alert('账号密码不正确!')</script>");
-			mv.setViewName("redirect:/user/login");
+			mv.setViewName("redirect:/webpage/login");
 			
 			
 		}
@@ -629,12 +685,12 @@ public class UserController {
 			type = Integer.parseInt(request.getParameter("type"));
 			if(type==1)
 			{
-				criteria.add(Restrictions.eq("isCheckPerson", 1));
+				criteria.add(Restrictions.eq("isCheckPerson", CheckStatus.SUCCESS));
 			}
 			
 			if(type==2)
 			{
-				criteria.add(Restrictions.eq("isCheckCompany", 1));
+				criteria.add(Restrictions.eq("isCheckCompany", CheckStatus.SUCCESS));
 			}
 			
 		}
@@ -649,4 +705,52 @@ public class UserController {
 		return mv;
 	}
 
+	
+	
+	/**
+	 * 
+	 * 审核实名认证
+	 * @param p
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/review")
+	public ModelAndView reviewList(@RequestParam("p") int p,
+			HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_user_review");
+
+		Page<User> page = new Page<User>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+
+		DetachedCriteria criteria = userService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+
+		
+		int type = 0;
+		if(!StringUtils.isEmpty(request.getParameter("type")))
+		{
+			type = Integer.parseInt(request.getParameter("type"));
+			if(type==1)
+			{
+				criteria.add(Restrictions.eq("isCheckPerson", CheckStatus.WAIT));
+			}
+			
+			if(type==2)
+			{
+				criteria.add(Restrictions.eq("isCheckCompany", CheckStatus.WAIT));
+			}
+			
+		}
+		
+		// List<Article> list = articleService.findByCriteria(criteria);
+
+		page = userService.findPageByCriteria(criteria, page);
+
+		mv.addObject("list", page.getResult());
+
+		mv.addObject("pageHtml", page.genPageHtml(request));
+		return mv;
+	}
 }

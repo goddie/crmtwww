@@ -75,7 +75,7 @@
 													<td class="sorting_1">${status.index+1}</td>
 
 
-													<td class="">${m.title }</td>
+													<td class=""><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank">${m.title }</a></td>
 											
 													<td class=""><span title="${m.parentType.id }">${m.parentType.name }</span>/<span
 														title="${m.subType.id }">${m.subType.name }</span></td>

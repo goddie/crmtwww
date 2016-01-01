@@ -9,6 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>潮人码头 - 文化产业电子商务平台 - 登录</title>
 <jsp:include page="/resource/inc/web_style.jsp"></jsp:include>
+
+
+
 </head>
 <body>
 	<c:import url="/webpage/webnav" />
@@ -21,18 +24,22 @@
 
 						<form name="form1" action="${pageContext.request.contextPath}/user/action/reg" method="POST">
 							<div class="form-table">
-								<label>用户名</label> <input name="username" type="text"
+								<label>用户名</label> <input name="username" id="username" type="text"
 									class="form-control">
 							</div>
 							<div class="form-table">
-								<label>密码</label> <input name="password" type="password"
+								<label>密码</label> <input name="password" id="password" type="password"
 									class="form-control">
 							</div>
 							<div class="form-table">
-								<label>确认密码</label> <input name="password2" type="password"
+								<label>确认密码</label> <input name="password2" id="password" type="password"
 									class="form-control">
 							</div>
-							<a href="javascript:void(0)" onclick="form1.submit()" class="redBtn5">登录</a>
+							<div class="form-table">
+								<label>邮箱</label> <input name="email" id="email" type="text"
+									class="form-control">
+							</div>
+							<a href="javascript:void(0)" onclick="return checkSubmit()" class="redBtn5">注册</a>
 
 						</form>
 					</div>
@@ -88,11 +95,11 @@
 								<dt>联系客服：</dt>
 								<dd class="p_t10">
 									<img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-qq-boy.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-qq-boy.png"
 										width="60" height="60"><img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-qq-girl.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-qq-girl.png"
 										width="60" height="60"><img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-weixin.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-weixin.png"
 										width="60" height="60">
 								</dd>
 								<dd class="p_t25">
@@ -109,3 +116,27 @@
 </body>
 </html>
 ${msg}
+
+<script type="text/javascript">
+function checkSubmit()
+{
+	var re;
+	var ss=document.getElementById("email").value;
+	re= /\w@\w*\.\w/
+	if($('#username').val()==''||$('#password').val()=='')
+	{
+		alert('请输入用户名.');
+		return;
+	}
+	
+	if(!re.test(ss))
+	{
+		alert('请输入正确邮箱.');
+		return;
+	}
+	
+	form1.submit();
+	
+}
+
+</script>

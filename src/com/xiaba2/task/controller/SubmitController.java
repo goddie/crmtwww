@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.zip.Checksum;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ import com.xiaba2.task.domain.Submit;
 import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.TaskType;
 import com.xiaba2.task.domain.User;
+import com.xiaba2.task.gen.EnumSet.CheckStatus;
 import com.xiaba2.task.gen.EnumSet.TaskStatus;
 import com.xiaba2.task.service.SubmitService;
 import com.xiaba2.task.service.TaskService;
@@ -66,7 +68,7 @@ public class SubmitController {
 
 		if (user != null) {
 
-			if (user.getIsCheckCompany() == 0 && user.getIsCheckPerson() == 0) {
+			if (user.getIsCheckCompany() != CheckStatus.SUCCESS && user.getIsCheckPerson() != CheckStatus.SUCCESS) {
 				attr.addFlashAttribute("msg", "<script>alert('请先通过实名认证，再进行投标!');</script>");
 				return mv;
 			}
@@ -308,7 +310,7 @@ public class SubmitController {
 
 		Task task = entity.getTask();
 		task.setWin(entity);
-		task.setStatus(10);
+		task.setStatus(TaskStatus.END);
 
 		taskService.saveOrUpdate(task);
 
