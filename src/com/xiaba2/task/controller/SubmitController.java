@@ -85,6 +85,7 @@ public class SubmitController {
 		criteria.add(Restrictions.eq("isDelete", 0));
 		criteria.add(Restrictions.eq("user.id", user.getId()));
 		criteria.add(Restrictions.eq("task.id", taskId));
+		criteria.add(Restrictions.eq("status", CheckStatus.INVALID));
 
 
 		List<Submit> list = submitService.findByCriteria(criteria);
@@ -266,23 +267,29 @@ public class SubmitController {
 		}
 
 
-		entity.setCreatedDate(new Date());
-		entity.setStatus(0);
+		submit.setCreatedDate(new Date());
+		submit.setStatus(CheckStatus.SUCCESS);
+		submit.setContent(entity.getContent());
+		submit.setQQ(entity.getQQ());
+		submit.setPhone(entity.getPhone());
+		submit.setName(entity.getName());
+		submit.setSex(entity.getSex());
+		submit.setEmail(entity.getEmail());
+		submit.setTel(entity.getTel());
 		
 		
 		
 		
 		
-		
-		BeanUtils.copyProperties(entity, submit, "id","task","user");
+		//BeanUtils.copyProperties(entity, submit, "task","user");
 		
 
 		submitService.saveOrUpdate(submit);
 		attr.addFlashAttribute("msg", "<script>alert('恭喜您，投稿成功!');</script>");
 		
-		Task t = submit.getTask();
-		t.setSubmitCount(t.getSubmitCount() + 1);
-		taskService.saveOrUpdate(t);
+//		Task t = submit.getTask();
+//		t.setSubmitCount(t.getSubmitCount() + 1);
+//		taskService.saveOrUpdate(t);
 
 		// attr.addFlashAttribute("msg", "投稿成功!");
 		return mv;
@@ -371,7 +378,7 @@ public class SubmitController {
 
 		entity.setTask(task);
 		entity.setCreatedDate(new Date());
-		entity.setStatus(0);
+		entity.setStatus(CheckStatus.INVALID);
 
 		submitService.save(entity);
 

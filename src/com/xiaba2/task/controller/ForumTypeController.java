@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.xiaba2.cms.domain.ArticleType;
 import com.xiaba2.core.JsonResult;
@@ -140,7 +141,7 @@ public class ForumTypeController {
 	 */
 	@RequestMapping(value = "/action/add")
 	public ModelAndView actionAdd(ForumType entity,
-			@RequestParam("pid") String pid) {
+			@RequestParam("pid") String pid, RedirectAttributes attr) {
 
 		ModelAndView mv = new ModelAndView("redirect:/forumtype/admin/add");
 
@@ -150,6 +151,8 @@ public class ForumTypeController {
 		}
 		entity.setCreatedDate(new Date());
 		forumTypeService.save(entity);
+		
+		attr.addFlashAttribute("js", "<script>alert('新增成功！')</script>");
 		return mv;
 	}
 	

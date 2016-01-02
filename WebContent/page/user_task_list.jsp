@@ -85,13 +85,14 @@
 														class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
 															删除 </a> 
-															<c:if test="${m.status!=0&&m.status!=10 }">
+															<c:if test="${m.status==3 }">
 															<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/review?taskId=${m.id}">
-															选稿</a> <a class="btn btn-xs btn-primary"
+															选稿</a> 
+															</c:if>
+															<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/task/detail?tid=${m.id}" target="_blank">
 															查看</a>
-															</c:if>
 															</td>
 												</tr>
 											</c:forEach>

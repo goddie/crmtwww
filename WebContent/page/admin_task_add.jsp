@@ -316,6 +316,7 @@ ${js }
 	var editor;
 
 	$(function() {
+		$('#date01').val(getToday());
 
 		$('.datepicker').datepicker({
 			format : 'yyyy-mm-dd',
@@ -427,6 +428,19 @@ ${js }
 				.insertHtml('<a target="_blank" href="' + obj.path
 				+ obj.name + '">下载附件<a/>');
 
+	}
+	
+	function getToday()
+	{
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth() + 1; // 记得当前月是要+1的
+		month = month < 10 ? ("0" + month) : month;
+		var dt = d.getDate();
+		dt = dt < 10 ? ("0" + dt) : dt;
+		var today = year + "-" + month + "-" + dt;
+		
+		return today;
 	}
 	
 	setInterval(countForm, 1000);

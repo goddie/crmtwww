@@ -62,7 +62,8 @@
 												<th role="columnheader" style="">类型</th>
 												<th role="columnheader">赏金</th>
 												<th role="columnheader">投稿数</th>
-												<th role="columnheader">中标人</th>
+												<th role="columnheader">中标</th>
+												<th role="columnheader">买家</th>
 												<th role="columnheader">状态</th>
 												<th role="columnheader">发布时间</th>
 												<th role="columnheader" style="width: 140px;">操作</th>
@@ -82,15 +83,20 @@
 													<td class="">${m.bountyPrice }</td>
 													<td class="center ">${m.submitCount}</td>
 													<td class="center ">${m.win.user.username }</td>
+													<td class="center ">${m.user.username }</td>
 													<td class="center ">${eutil.getTaskStatusName(m.status) }</td>
 													<td class="center ">${m.createdDate }</td>
 													<td class="action"><a style="display: none;">编辑 </a> <a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
-															删除 </a> <a
+															删除 </a> 
+															
+															<a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认通过?')"
 														href="${pageContext.request.contextPath}/task/action/review?id=${m.id}&rs=1">
-															通过 </a> <a
+															通过 </a> 
+															
+															<a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认拒绝?')"
 														href="${pageContext.request.contextPath}/task/action/review?id=${m.id}&rs=0">
 															拒绝 </a></td>

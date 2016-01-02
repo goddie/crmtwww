@@ -144,6 +144,7 @@
 			if (obj.code != 1) {
 				alert(obj.msg);
 			} else {
+				alert("承接任务成功，请按时交稿。");
 				window.location.reload();
 			}
 
