@@ -81,6 +81,7 @@
 													<td class="action"><a style="display: none;"
 														href="${pageContext.request.contextPath}/message/edit/${m.id}">
 															编辑 </a> <a
+														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/message/action/del?id=${m.id}">
 															删除 </a></td>
 												</tr>

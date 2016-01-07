@@ -229,6 +229,7 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView("redirect:/product/v/add");
 
 		if (StringUtils.isEmpty(entity.getName())) {
+			attr.addFlashAttribute("js", "<script>alert('请输入商品名称.')</script>");
 			return mv;
 		}
 

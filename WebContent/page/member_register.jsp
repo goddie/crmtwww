@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -22,30 +22,40 @@
 					<h2 class="l-title">会员注册</h2>
 					<div class="col-sm-12 col-md-6">
 
-						<form name="form1" action="${pageContext.request.contextPath}/user/action/reg" method="POST">
+						<form name="form1"
+							action="${pageContext.request.contextPath}/user/action/reg"
+							method="POST">
 							<div class="form-table">
-								<label>用户名</label> <input name="username" id="username" type="text"
-									class="form-control">
+								<label>用户名</label> <input name="username" id="username"
+									type="text" class="form-control">
 							</div>
 							<div class="form-table">
-								<label>密码</label> <input name="password" id="password" type="password"
-									class="form-control">
+								<label>密码</label> <input name="password" id="password"
+									type="password" class="form-control">
 							</div>
 							<div class="form-table">
-								<label>确认密码</label> <input name="password2" id="password" type="password"
-									class="form-control">
+								<label>确认密码</label> <input name="password2" id="password"
+									type="password" class="form-control">
 							</div>
 							<div class="form-table">
 								<label>邮箱</label> <input name="email" id="email" type="text"
 									class="form-control">
 							</div>
-							<a href="javascript:void(0)" onclick="return checkSubmit()" class="redBtn5">注册</a>
+							<div class="form-table">
+								<label><input type="checkbox" checked="checked" />同意<a
+									href="${pageContext.request.contextPath}/article/detail?id=acb20fee-1ce1-4173-83a2-fbdab33607c7"
+									target="_blank">《“潮人码头”在线创作平台服务协议》</a></label>
+							</div>
+
+
+							<a href="javascript:void(0)" onclick="return checkSubmit()"
+								class="redBtn5">注册</a>
 
 						</form>
 					</div>
 
 
-					<div class="col-sm-12 col-md-6" style="display:none">
+					<div class="col-sm-12 col-md-6" style="display: none">
 						<div class="shouquan">
 							<p>
 								<a href="#"><img
@@ -118,25 +128,21 @@
 ${msg}
 
 <script type="text/javascript">
-function checkSubmit()
-{
-	var re;
-	var ss=document.getElementById("email").value;
-	re= /\w@\w*\.\w/
-	if($('#username').val()==''||$('#password').val()=='')
-	{
-		alert('请输入用户名.');
-		return;
-	}
-	
-	if(!re.test(ss))
-	{
-		alert('请输入正确邮箱.');
-		return;
-	}
-	
-	form1.submit();
-	
-}
+	function checkSubmit() {
+		var re;
+		var ss = document.getElementById("email").value;
+		re = /\w@\w*\.\w/
+		if ($('#username').val() == '' || $('#password').val() == '') {
+			alert('请输入用户名.');
+			return;
+		}
 
+		if (!re.test(ss)) {
+			alert('请输入正确邮箱.');
+			return;
+		}
+
+		form1.submit();
+
+	}
 </script>

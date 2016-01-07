@@ -83,14 +83,26 @@
 															<a class="btn btn-xs btn-primary"
 																href="${pageContext.request.contextPath}/product/v/edit?id=${m.id}">
 																编辑</a>
-															<a class="btn btn-xs btn-primary"
-																onclick="return confirm('确认上架?')"
-																href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=1">
-																上架 </a>
-															<a class="btn btn-xs btn-primary"
-																onclick="return confirm('确认下架?')"
-																href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=0">
-																下架 </a>
+
+
+
+															<c:if test="${m.isOnSale==0 }">
+																<a class="btn btn-xs btn-primary"
+																	onclick="return confirm('确认上架?')"
+																	href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=1">
+																	上架</a>
+															</c:if>
+															<c:if test="${m.isOnSale==1}">
+																<a class="btn btn-xs btn-primary"
+																	onclick="return confirm('确认下架?')"
+																	href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=0">
+																	下架 </a>
+															</c:if>
+
+
+
+
+
 														</c:if></td>
 												</tr>
 											</c:forEach>

@@ -85,11 +85,12 @@ public class TaskController {
 	}
 
 	@RequestMapping(value = "/action/del")
-	public ModelAndView actionDel(@RequestParam("id") UUID uuid) {
+	public ModelAndView actionDel(@RequestParam("id") UUID uuid,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("redirect:/task/admin/list?p=1");
 		Task entity = taskService.get(uuid);
 		entity.setIsDelete(1);
 		taskService.saveOrUpdate(entity);
+		mv.setViewName(HttpUtil.getHeaderRef(request));
 		return mv;
 	}
 	
@@ -632,9 +633,7 @@ public class TaskController {
 		//是否可以承接任务
 		int canSubmit = 1;
 		
-		if(
-				t.getStatus()!=TaskStatus.REVIEW &&
-				t.getStatus()!=TaskStatus.SUBMIT)
+		if(t.getStatus()==TaskStatus.REVIEW_FAIL || t.getStatus()==TaskStatus.END || t.getStatus() == TaskStatus.EVALUATION)
 		{
 			canSubmit = 0;
 		}
@@ -654,15 +653,6 @@ public class TaskController {
 			taskService.saveOrUpdate(t);
 			canSubmit = 0;
 		}
-		
-		
-		
-		
-		if(a > b)
-		{
-			canSubmit = 0;
-		}
-		
 		
 		
 		mv.addObject("canSubmit",canSubmit);

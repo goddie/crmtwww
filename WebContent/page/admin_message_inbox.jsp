@@ -79,9 +79,10 @@
 													<td class="center ">${m.content}</td>
 													<td class="center ">${m.createdDate}</td>
 													<td class="action"><a style="display: none;"
-														href="${pageContext.request.contextPath}/message/edit/${m.id}">
+														href="${pageContext.request.contextPath}/message/edit?id=${m.id}">
 															编辑 </a> <a
-														href="${pageContext.request.contextPath}/message/action/del/${m.id}">
+														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
+														href="${pageContext.request.contextPath}/message/action/del?id=${m.id}">
 															删除 </a></td>
 												</tr>
 											</c:forEach>

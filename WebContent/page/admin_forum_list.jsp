@@ -63,15 +63,20 @@
 													<td class="">${m.type.name}-${m.subType.name}</td>
 													<td class="">${m.user.nickname}</td>
 													<td class="">${m.createdDate}</td>
-													<td class=""><c:if test="${m.isCheck==1 }">通过</c:if><c:if test="${m.isCheck==0 }">待审核</c:if></td>
+													<td class=""><c:if test="${m.isCheck==1 }">通过</c:if> <c:if
+															test="${m.isCheck==0 }">待审核</c:if></td>
 													<td class="action"><a class="btn btn-xs btn-primary"
 														onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/forum/action/del?id=${m.id}">
-															删除</a> <a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=1">
-															通过</a> <a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=0">
-															失败</a></td>
+															删除</a> <c:if test="${m.isCheck==0 }">
+															<a class="btn btn-xs btn-primary"
+																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=1">
+																通过</a>
+														</c:if> <c:if test="${m.isCheck==1 }">
+															<a class="btn btn-xs btn-primary"
+																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=0">
+																失败</a>
+														</c:if></td>
 												</tr>
 											</c:forEach>
 										</tbody>

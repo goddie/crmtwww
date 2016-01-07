@@ -64,9 +64,9 @@
 													<td class="">${m.createdDate}</td>
 													<td class="">${m.createdDate}</td>
 													<td class="action"><a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=1">
+														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=1&type=${type}">
 															通过</a> <a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=10">
+														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=10&type=${type}">
 															失败</a></td>
 												</tr>
 											</c:forEach>

@@ -1,2 +1,5 @@
 select concat('alter table ',table_schema,'.',table_name,' DROP FOREIGN KEY ',constraint_name,';') from information_schema.table_constraints
 where constraint_type='FOREIGN KEY';
+
+
+

@@ -51,14 +51,14 @@
 			<li><a
 				href="${pageContext.request.contextPath}/payrecord/v/list?p=1"><i
 					class="glyphicon glyphicon-chevron-right"></i>交易记录</a></li>
-			<li><a href="${pageContext.request.contextPath}/recharge/v/add"><i
+			<li style="display: none"><a href="${pageContext.request.contextPath}/recharge/v/add"><i
 					class="glyphicon glyphicon-chevron-right"></i>充值</a></li>
-			<li><a
+			<li style="display: none"><a
 				href="${pageContext.request.contextPath}/recharge/v/list?p=1"><i
 					class="glyphicon glyphicon-chevron-right"></i>充值记录</a></li>
-			<li><a href="${pageContext.request.contextPath}/cash/v/add"><i
+			<li style="display: none"><a href="${pageContext.request.contextPath}/cash/v/add"><i
 					class="glyphicon glyphicon-chevron-right"></i>提现</a></li>
-			<li><a href="${pageContext.request.contextPath}/cash/v/list?p=1"><i
+			<li style="display: none"><a href="${pageContext.request.contextPath}/cash/v/list?p=1"><i
 					class="glyphicon glyphicon-chevron-right"></i>提现记录</a></li>
 			<li style="display: none"><a
 				href="${pageContext.request.contextPath}"><i

@@ -91,6 +91,7 @@
 														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
 															删除 </a> 
 															
+															<c:if test="${m.status==0 }">
 															<a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认通过?')"
 														href="${pageContext.request.contextPath}/task/action/review?id=${m.id}&rs=1">
@@ -100,6 +101,7 @@
 														class="btn btn-xs btn-primary" onclick="return confirm('确认拒绝?')"
 														href="${pageContext.request.contextPath}/task/action/review?id=${m.id}&rs=0">
 															拒绝 </a></td>
+															</c:if>
 												</tr>
 											</c:forEach>
 										</tbody>

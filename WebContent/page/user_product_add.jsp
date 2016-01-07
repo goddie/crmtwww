@@ -96,8 +96,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">商品售价</label>
 											<div class="col-lg-10">
 												<input name="price" type="text"
-													class="form-control col-md-6" id="price" autocomplete="off"
-													data-provide="typeahead" data-items="4" data-source="">
+													class="form-control col-md-6" id="price" value="0">
 											</div>
 										</div>
 
@@ -129,7 +128,8 @@
 													marginheight="0" marginwidth="0" scrolling="no"></iframe>
 											</div>
 										</div>
-										<input name="attachment" id="attachment" value="" type="hidden" />
+										<input name="attachment" id="attachment" value=""
+											type="hidden" />
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="fileInput">上传商品</label>
 											<div class="col-lg-10">
@@ -139,27 +139,29 @@
 													marginheight="0" marginwidth="0" scrolling="no"></iframe>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">手机号码</label>
 											<div class="col-lg-10">
 												<input name="phone" type="text"
-													class="form-control col-md-6" id="phone" >
+													class="form-control col-md-6" id="phone">
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">QQ号码</label>
 											<div class="col-lg-10">
-												<input name="QQ" id="QQ" type="text" class="form-control col-md-6"  >
+												<input name="QQ" id="QQ" type="text"
+													class="form-control col-md-6">
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">原创证明</label>
 											<div class="col-lg-10">
-												<img id="imgproof" name="imgproof" src="" alt="" width="120" height="90" />
-												<input name="hidproof" id="hidproof" value="" type="hidden" />
+												<img id="imgproof" name="imgproof" src="" alt="" width="120"
+													height="90" /> <input name="hidproof" id="hidproof"
+													value="" type="hidden" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -171,33 +173,50 @@
 													marginheight="0" marginwidth="0" scrolling="no"></iframe>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">收款帐号</label>
 											<div class="col-lg-10">
-												<input name="bankNo" id="bankNo" type="text" class="form-control col-md-6"  >
+												<input name="bankNo" id="bankNo" type="text"
+													class="form-control col-md-6">
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">再一遍收款帐号</label>
 											<div class="col-lg-10">
-												<input name="bankNo2" id="bankNo2" type="text" class="form-control col-md-6"  >
+												<input name="bankNo2" id="bankNo2" type="text"
+													class="form-control col-md-6">
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">收款户名</label>
 											<div class="col-lg-10">
-												<input name="bankAccount" id="bankAccount" type="text" class="form-control col-md-6"  >
+												<input name="bankAccount" id="bankAccount" type="text"
+													class="form-control col-md-6">
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">收款银行</label>
 											<div class="col-lg-10">
-												<input name="bankName" id="bankName" type="text" class="form-control col-md-6"  >
+												<input name="bankName" id="bankName" type="text"
+													class="form-control col-md-6">
 											</div>
+										</div>
+
+										<div class="form-group">
+
+											<label class="col-lg-2 control-label" for="typeahead"></label>
+											<div class="col-lg-10">
+												<input type="checkbox" checked="checked" />同意<a
+													href="${pageContext.request.contextPath}/article/detail?id=6fe81e11-e67c-4639-9ed3-5d454dc73508"
+													target="_blank">《潮人码头自媒体内容在线协同工作平台版权声明》</a>
+											</div>
+
+
+
 										</div>
 
 										<button type="submit" class="btn btn-primary">提交</button>
@@ -300,29 +319,27 @@
 					+ "_" + w + "x" + h + ext;
 			return newfile;
 		}
-		
-		
+
 		function upfile2(jsonstr) {
 			var obj = jQuery.parseJSON(jsonstr);
-			
+
 			editor
 					.insertHtml('<div class="attachment"><a target="_blank" href="' + obj.path
 					+ obj.name + '">商品文件<a/></div>');
 
 		}
-		
-		
-		function uploadImage2(jsonstr)
-		{
+
+		function uploadImage2(jsonstr) {
 			var obj = jQuery.parseJSON(jsonstr);
 
-			$('#img'+obj.field).attr('src',
+			$('#img' + obj.field).attr('src',
 					obj.path + getThumb(obj.name, 240, 180));
-			$('#hid'+obj.field).val(obj.path + getThumb(obj.name, 240, 180));
+			$('#hid' + obj.field).val(obj.path + getThumb(obj.name, 240, 180));
 		}
-		
 	</script>
 
 </body>
 
 </html>
+
+${js}

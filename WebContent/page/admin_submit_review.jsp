@@ -63,7 +63,7 @@
 													<td class="action"><a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/action/win?sid=${m.id}">
 															选为中标</a> <a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/submit/detail?sid=${m.id}">
+														href="${pageContext.request.contextPath}/submit/v/view?submitId=${m.id}">
 															查看</a></td>
 												</tr>
 											</c:forEach>

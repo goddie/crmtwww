@@ -26,7 +26,7 @@
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="col-xs-12 col-sm-9">
 					<div class="grayborder1 clearfix">
-						<h2 class="o-title">热门工具</h2>
+						<h2 class="o-title">热门工具<span style=" font-size: 14px; color:#f00;">(使用工具需要开通权限，如需使用，请联系潮人码头项目管理员给予开通。)</span></h2>
 						<div class="col-xs-12 grayborder2">
 							<c:import
 								url="/webpage/onlineblock?tid=9c443fd0-2263-4dfe-b9c1-ed44821c9e0e" />

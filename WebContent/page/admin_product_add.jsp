@@ -199,7 +199,7 @@
 												<input name="bankName" id="bankName" type="text" class="form-control col-md-6"  >
 											</div>
 										</div>
-
+										
 										<button type="submit" class="btn btn-primary">提交</button>
 										<button type="reset" class="btn btn-default">取消</button>
 

@@ -104,7 +104,7 @@
 													marginheight="0" marginwidth="0" scrolling="no"></iframe>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="fileInput">上传附件</label>
 											<div class="col-lg-10">
@@ -253,7 +253,9 @@
 											<label class="col-lg-2 control-label">结算清单</label>
 											<div class="col-lg-10">
 
-												<p class="help-block">托管赏金：<span id="pboundy" style="color:#f00"></span>元</p>
+												<p class="help-block">
+													托管赏金：<span id="pboundy" style="color: #f00"></span>元
+												</p>
 											</div>
 										</div>
 
@@ -261,25 +263,28 @@
 											<label class="col-lg-2 control-label">应付总额</label>
 											<div class="col-lg-10">
 
-												<p class="help-block"><span id="payTotal"></span>元</p>
+												<p class="help-block">
+													<span id="payTotal"></span>元
+												</p>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label">支付方式</label>
-											<div class="col-lg-10">
-
-												线下支付(请前往潮人码头项目管理办公室支付)
-											</div>
+											<div class="col-lg-10">线下支付(请前往潮人码头项目管理办公室支付)</div>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label"></label>
 											<div class="col-lg-10">
+												<label><input type="checkbox" checked="checked" />
+													同意<a
+													href="${pageContext.request.contextPath}/article/detail?id=1474a964-7bc7-4af3-b2cb-b95fea077575"
+													target="_blank">《“潮人码头”平台任务发布协议》</a></label>
 
-												<input name="accept" checked="checked" type="checkbox" />同意《潮人码头任务发布协议》
+
 											</div>
 										</div>
-										
+
 										<button type="submit" class="btn btn-primary">提交</button>
 										<button type="reset" class="btn btn-default">取消</button>
 
@@ -378,15 +383,12 @@ ${js }
 
 	function upfile(jsonstr) {
 		var obj = jQuery.parseJSON(jsonstr);
-		
 
 		if (obj.cover == 1) {
 			$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
 			$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180));
-			
 
-		}else
-		{
+		} else {
 			editor.insertHtml('<img src="' + obj.path
 					+ getThumb(obj.name, 1000, 1000) + '"/>');
 		}
@@ -399,29 +401,29 @@ ${js }
 				+ w + "x" + h + ext;
 		return newfile;
 	}
-	
-	
-	function countForm()
-	{
+
+	function countForm() {
 		$('#taskTitle').text($('#title').val());
-		if($('#bountyMode').val()=="1")
-		{
+		if ($('#bountyMode').val() == "1") {
 			$('#pType').text('单人悬赏');
 			$('#pboundy').text($('#bountyPrice').val());
 			$('#pPrice').text($('#bountyPrice').val());
 			$('#payTotal').text($('#bountyPrice').val());
 		}
-		if($('#bountyMode').val()=="2")
-		{
+		if ($('#bountyMode').val() == "2") {
 			$('#pType').text('计件悬赏');
-			$('#pPrice').text('单价:'+$('#bountyPrice').val()+'元, 稿件:'+$('#bountyCount').val()+'件');
-			$('#pboundy').text($('#bountyPrice').val()*$('#bountyCount').val());
-			$('#payTotal').text($('#bountyPrice').val()*$('#bountyCount').val());
+			$('#pPrice').text(
+					'单价:' + $('#bountyPrice').val() + '元, 稿件:'
+							+ $('#bountyCount').val() + '件');
+			$('#pboundy').text(
+					$('#bountyPrice').val() * $('#bountyCount').val());
+			$('#payTotal').text(
+					$('#bountyPrice').val() * $('#bountyCount').val());
 		}
-		
+
 		$('#endate').html($('#date01').val());
 	}
-	
+
 	function upfile2(jsonstr) {
 		var obj = jQuery.parseJSON(jsonstr);
 		editor
@@ -429,9 +431,8 @@ ${js }
 				+ obj.name + '">下载附件<a/>');
 
 	}
-	
-	function getToday()
-	{
+
+	function getToday() {
 		var d = new Date();
 		var year = d.getFullYear();
 		var month = d.getMonth() + 1; // 记得当前月是要+1的
@@ -439,10 +440,10 @@ ${js }
 		var dt = d.getDate();
 		dt = dt < 10 ? ("0" + dt) : dt;
 		var today = year + "-" + month + "-" + dt;
-		
+
 		return today;
 	}
-	
+
 	setInterval(countForm, 1000);
 </script>
 

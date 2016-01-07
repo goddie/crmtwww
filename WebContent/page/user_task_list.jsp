@@ -82,14 +82,14 @@
 													<td class="center ">${eutil.getTaskStatusName(m.status) }</td>
 													<td class="center ">${m.createdDate }</td>
 													<td class="action"><a style="display: none;">编辑 </a> <a
-														class="btn btn-xs btn-primary"
+														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
-															删除 </a> 
-															<c:if test="${m.status==3 }">
+															删除 </a>
+															 
 															<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/review?taskId=${m.id}">
 															选稿</a> 
-															</c:if>
+															 
 															<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/task/detail?tid=${m.id}" target="_blank">
 															查看</a>

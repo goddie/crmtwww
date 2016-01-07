@@ -68,7 +68,9 @@
 													<td class="">${eutil.getProductTopType(m.topType) }</td>
 													<td class="center ">${m.parentType.name}-${m.subType.name}</td>
 													<td class="center ">${m.price }</td>
-													<td class="center "><a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.user.id}" target="_blank">${m.user.nickname }</a>(${m.user.username })</td>
+													<td class="center "><a
+														href="${pageContext.request.contextPath}/user/usersite?uuid=${m.user.id}"
+														target="_blank">${m.user.nickname }</a>(${m.user.username })</td>
 													<td class="center ">${eutil.getProductStatus(m.status) }</td>
 													<td class="center "><c:if test="${m.isOnSale==1}">上架</c:if>
 														<c:if test="${m.isOnSale==0}">下架</c:if></td>
@@ -84,14 +86,18 @@
 																href="${pageContext.request.contextPath}/product/action/review?id=${m.id}&rs=0">
 																拒绝 </a>
 														</c:if> <c:if test="${m.status==1 }">
-															<a class="btn btn-xs btn-primary"
-																onclick="return confirm('确认上架?')"
-																href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=1">
-																上架</a>
-															<a class="btn btn-xs btn-primary"
-																onclick="return confirm('确认下架?')"
-																href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=0">
-																下架 </a>
+															<c:if test="${m.isOnSale==0 }">
+																<a class="btn btn-xs btn-primary"
+																	onclick="return confirm('确认上架?')"
+																	href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=1">
+																	上架</a>
+															</c:if>
+															<c:if test="${m.isOnSale==1}">
+																<a class="btn btn-xs btn-primary"
+																	onclick="return confirm('确认下架?')"
+																	href="${pageContext.request.contextPath}/product/action/onsale?id=${m.id}&rs=0">
+																	下架 </a>
+															</c:if>
 														</c:if></td>
 												</tr>
 											</c:forEach>

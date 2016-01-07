@@ -25,7 +25,7 @@
 					href="${pageContext.request.contextPath}/webpage/online"
 					target="_self">在线创作</a></li>
 				<li><a
-					href="http://oa.go2ark.com/index.php?m=login&a=check_login&emp_no=21232f297a57a5a743894a0e4a801fc3&password=e10adc3949ba59abbe56e057f20f883e"
+					href="http://oa.yxhltech.com"
 					target="_self">在线办公</a></li>
 				<li><a href="${pageContext.request.contextPath}/product/index"
 					target="_self">创意商城</a></li>
@@ -47,7 +47,7 @@
 						target="_self" class="login home">用户中心</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/user/action/logout"
-						target="_self" class="login">退出</a></li>
+						target="_self" class="login home">退出 ${user.username }</a></li>
 				</c:if>
 			</ul>
 		</div>

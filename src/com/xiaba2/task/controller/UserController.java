@@ -593,7 +593,7 @@ public class UserController {
 		if (StringUtils.isEmpty(entity.getUsername()) || StringUtils.isEmpty(entity.getPassword())) {
 			// throw new RuntimeException("用户名或密码为空。");
 			attr.addFlashAttribute("msg", "<script>alert('用户名或密码为空。')</script>");
-			mv.setViewName("redirect:/user/reg");
+			mv.setViewName("redirect:/webpage/reg");
 			return mv;
 		}
 
@@ -603,7 +603,7 @@ public class UserController {
 		List<User> list = userService.findByCriteria(criteria);
 
 		if (!list.isEmpty()) {
-			mv.setViewName("redirect:/user/reg");
+			mv.setViewName("redirect:/webpage/reg");
 			attr.addFlashAttribute("msg", "<script>alert('用户名已被注册。')</script>");
 			// throw new RuntimeException("用户名已被注册。");
 			return mv;
@@ -732,6 +732,9 @@ public class UserController {
 		if(!StringUtils.isEmpty(request.getParameter("type")))
 		{
 			type = Integer.parseInt(request.getParameter("type"));
+			
+			mv.addObject("type", type);
+			
 			if(type==1)
 			{
 				criteria.add(Restrictions.eq("isCheckPerson", CheckStatus.WAIT));
@@ -751,6 +754,8 @@ public class UserController {
 		mv.addObject("list", page.getResult());
 
 		mv.addObject("pageHtml", page.genPageHtml(request));
+		
+		
 		return mv;
 	}
 }

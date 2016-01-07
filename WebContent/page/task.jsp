@@ -22,7 +22,7 @@
 				<div class="redbg">
 					<ul class="t-list01">
 						<c:import url="/tasktype/menu" />
-						<li><a href="#">更多</a></li>
+						 
 					</ul>
 				</div>
 			</div>

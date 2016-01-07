@@ -54,6 +54,14 @@ public class SubmitController {
 		ModelAndView mv = new ModelAndView("redirect:/task/detail?tid=" + taskId.toString());
 
 		Task task = taskService.get(taskId);
+		
+		if(task.getStatus() == TaskStatus.END 
+				||	task.getStatus() == TaskStatus.EVALUATION 
+				||	task.getStatus() == TaskStatus.REVIEW_FAIL)
+		{
+			attr.addFlashAttribute("msg", "<script>alert('无法再投稿!');</script>");
+			return mv;
+		}
 
 		User user = SessionUtil.getInstance().getSessionUser();
 		
@@ -85,7 +93,7 @@ public class SubmitController {
 		criteria.add(Restrictions.eq("isDelete", 0));
 		criteria.add(Restrictions.eq("user.id", user.getId()));
 		criteria.add(Restrictions.eq("task.id", taskId));
-		criteria.add(Restrictions.eq("status", CheckStatus.INVALID));
+		//criteria.add(Restrictions.eq("status", CheckStatus.INVALID));
 
 
 		List<Submit> list = submitService.findByCriteria(criteria);
@@ -101,8 +109,31 @@ public class SubmitController {
 		mv.addObject("topType", task.getTopType());
 		mv.addObject("topName", getTopName(task.getTopType()));
 		mv.addObject("submitId", list.get(0).getId());
-
+		mv.addObject("submit", list.get(0));
 		mv.setViewName("admin_submit_add");
+		
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping(value = "/v/view")
+	public ModelAndView view(@RequestParam("submitId") UUID submitId, HttpServletRequest request, RedirectAttributes attr) {
+		ModelAndView mv = new ModelAndView("admin_submit_view");
+
+		Submit submit = submitService.get(submitId);
+
+		User user = SessionUtil.getInstance().getSessionUser();
+		
+		user = userService.get(user.getId());
+		
+
+		mv.addObject("user", user);
+		mv.addObject("task", submit.getTask());
+		mv.addObject("topType", submit.getTopType());
+		mv.addObject("topName", getTopName(submit.getTask().getTopType()));
+		mv.addObject("submitId", submit.getId());
+		mv.addObject("submit", submit);
 		
 		return mv;
 	}
@@ -276,8 +307,7 @@ public class SubmitController {
 		submit.setSex(entity.getSex());
 		submit.setEmail(entity.getEmail());
 		submit.setTel(entity.getTel());
-		
-		
+		submit.setTopType(entity.getTopType());
 		
 		
 		
@@ -359,6 +389,11 @@ public class SubmitController {
 		if (user != null) {
 			user = userService.get(user.getId());
 			entity.setUser(user);
+		}else
+		{
+			rs.setCode(JsonResult.FAIL);
+			rs.setMsg("投稿失败,请先登录.");
+			return rs;
 		}
 
 		Task task = taskService.get(taskId);

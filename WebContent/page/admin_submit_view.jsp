@@ -32,7 +32,7 @@
 						</c:if>
 						<div class="panel panel-default bootstrap-admin-no-table-panel">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">任务投稿</div>
+								<div class="text-muted bootstrap-admin-box-title">任务查看</div>
 							</div>
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
@@ -66,24 +66,7 @@
 											</div>
 										</div>
 
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="fileInput">上传图片</label>
-											<div class="col-lg-10">
-												<iframe
-													src="${pageContext.request.contextPath}/album/page/upload"
-													style="height: 34px; width: 100%;" frameborder="0"
-													marginheight="0" marginwidth="0" scrolling="no"></iframe>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="fileInput">上传附件</label>
-											<div class="col-lg-10">
-												<iframe
-													src="${pageContext.request.contextPath}/album/page/upfile"
-													style="height: 34px; width: 100%;" frameborder="0"
-													marginheight="0" marginwidth="0" scrolling="no"></iframe>
-											</div>
-										</div>
+										
 
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">Q
@@ -137,8 +120,7 @@
 											</div>
 										</div>
 
-										<button type="submit" class="btn btn-primary">提交</button>
-										<button type="reset" class="btn btn-default">取消</button>
+										
 
 									</fieldset>
 

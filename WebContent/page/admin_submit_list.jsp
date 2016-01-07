@@ -31,7 +31,7 @@
 							<div class="bootstrap-admin-panel-content">
 								<div id="example_wrapper" class="dataTables_wrapper form-inline"
 									role="grid">
-									<div class="row">
+									<div class="row" style="display: none">
 
 										<div class="col-md-6">
 											<div class="dataTables_filter" id="example_filter">
@@ -76,9 +76,9 @@
 													<td class="center ">${eutil.getSubmitStatus(m.status) }</td>
 													<td class="center ">${eutil.getTaskStatusName(m.task.status) }</td>
 												
-													<td class="action"><a style="display: none;"
-														href="${pageContext.request.contextPath}/submit/action/edit?uuid=${m.id}">
-															编辑 </a> <a class="btn btn-xs btn-primary"
+													<td class="action"><a class="btn btn-xs btn-primary"
+														href="${pageContext.request.contextPath}/submit/v/useradd?taskId=${m.task.id}">
+															编辑查看</a> <a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/action/del?uuid=${m.id}">
 															删除 </a></td>
 												</tr>

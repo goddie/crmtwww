@@ -50,7 +50,7 @@
 												<th role="columnheader">类别</th>
 														
 												<th role="columnheader">价格</th>
-												<th role="columnheader">支付</th>
+												<th role="columnheader">状态</th>
 												<th role="columnheader">购买时间</th>
 												<th role="columnheader">卖家</th>
 												<th role="columnheader" style="width: 140px;">操作</th>

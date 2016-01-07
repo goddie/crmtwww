@@ -170,6 +170,7 @@ public class MessageController {
 		User sendtoUser = userService.getByUsername(sendto);
 		if(sendtoUser==null)
 		{
+			attr.addFlashAttribute("js", "<script>alert('收件人不存在!')</script>");
 			return mv;
 		}
 		
@@ -179,6 +180,7 @@ public class MessageController {
 
 		if (from == null) {
 
+			attr.addFlashAttribute("js", "<script>alert('请先登录!')</script>");
 			return mv;
 		}else
 		{
@@ -192,13 +194,13 @@ public class MessageController {
 
 		messageService.save(entity);
 
-		attr.addFlashAttribute("msg", "发送成功!");
+		attr.addFlashAttribute("js", "<script>alert('发送成功!')</script>");
 		return mv;
 
 	}
 
 	@RequestMapping(value = "/action/del")
-	public ModelAndView actionDel(@RequestParam("id") UUID id) {
+	public ModelAndView actionDel(@RequestParam("id") UUID id,HttpServletRequest request) {
 
 		Message entity = messageService.get(id);
 		entity.setIsDelete(1);
@@ -206,7 +208,8 @@ public class MessageController {
 		messageService.saveOrUpdate(entity);
 		//messageService.delete(entity);
 
-		ModelAndView mv = new ModelAndView("redirect:/message/v/inbox?p=1");
+		ModelAndView mv = new ModelAndView(HttpUtil.getHeaderRef(request));
+		
 		return mv;
 
 	}
