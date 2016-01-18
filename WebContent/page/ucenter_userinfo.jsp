@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<jsp:include page="/resource/inc/leftmenu_userconfig.jsp"></jsp:include>
+				<c:import url="/user/userleft" />
 			</div>
 			<div class="col-md-10">
 
@@ -181,7 +181,13 @@
 <script type="text/javascript">
 	$(function() {
 		getParentType();
-		new PCAS("province", "city", "district", "", "", "");
+		
+		var p = '${user.province}';
+		var c = '${user.city}';
+		var d = '${user.district}';
+		
+		
+		new PCAS("province", "city", "district", p, c, d);
 
 		$('.datepicker').datepicker({
 			format : 'yyyy-mm-dd',
@@ -190,7 +196,7 @@
 			todayBtn : 'linked'
 		});
 		
-		init();
+		//init();
 	})
 
 	function getParentType() {
@@ -221,16 +227,19 @@
 		
 		if(p!='')
 		{
+			//$("#province option[value='"+p+"']").attr("selected", "selected");
 			selectIns('#province',p,p);
 		}
 		
 		if(c!='')
 		{
+			//$("#city option[value='"+c+"']").attr("selected", "selected");
 			selectIns('#city',c,c);
 		}
 		
 		if(d!='')
 		{
+			//$("#district option[value='"+d+"']").attr("selected", "selected");
 			selectIns('#district',d,d);
 		}
 	}

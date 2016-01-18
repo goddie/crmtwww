@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="util" class="com.xiaba2.util.HttpUtil" scope="page" />
-
+<div class="col-xs-12">
 <div class="c-focuspic">
 	<div id="playBox" style="height: 514px;">
 		<div class="pre"></div>
@@ -21,4 +21,5 @@
 			</c:forEach>
 		</ul>
 	</div>
+</div>
 </div>

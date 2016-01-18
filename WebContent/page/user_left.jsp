@@ -82,7 +82,7 @@
 		</ul></li>
 	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>我的主页</a>
 		<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
-			<li><a href="${pageContext.request.contextPath}/user/usersite"
+			<li><a href="${pageContext.request.contextPath}/user/usersite?uuid=${user.id}"
 				target="_blank"><i class="glyphicon glyphicon-chevron-right"></i>主页资料设置</a></li>
 			<li><a href="${pageContext.request.contextPath}/work/v/list?p=1"><i
 					class="glyphicon glyphicon-chevron-right"></i>我的作品</a></li>

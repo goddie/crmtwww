@@ -14,6 +14,7 @@ import com.xiaba2.task.domain.Order;
 import com.xiaba2.task.domain.Product;
 import com.xiaba2.task.gen.EnumSet.OrderStatus;
 import com.xiaba2.task.service.OrderService;
+import com.xiaba2.task.service.ProductService;
 import com.xiaba2.util.HttpUtil;
 
 @Controller
@@ -21,6 +22,9 @@ import com.xiaba2.util.HttpUtil;
 public class OrderController {
 	@Resource
 	private OrderService orderService;
+	
+	@Resource
+	private ProductService productService;
 
 	/**
 	 * 已付款
@@ -40,14 +44,20 @@ public class OrderController {
 		if(rs == OrderStatus.HAS_PAY)
 		{
 			entity.setIsPay(1);
+			
+			
+			
+			
 		}
 		
 		orderService.saveOrUpdate(entity);
 
 		
-		String referer = request.getHeader("Referer");
+		//String referer = request.getHeader("Referer");
 	    
-		mv.setViewName("redirect:"+ referer);
+		
+		
+		mv.setViewName(HttpUtil.getHeaderRef(request));
 
 		return mv;
 	}
@@ -72,6 +82,14 @@ public class OrderController {
 		if(rs == OrderStatus.HAS_PAY)
 		{
 			entity.setIsPay(1);
+			
+			Product p = entity.getProduct();
+			if(p!=null)
+			{
+				p.setTradeCount(p.getTradeCount()+1);
+				productService.saveOrUpdate(p);
+			}
+			
 		}
 		
 		orderService.saveOrUpdate(entity);
@@ -104,9 +122,9 @@ public class OrderController {
 		orderService.saveOrUpdate(entity);
 
 //		mv.setViewName("redirect:" + HttpUtil.getReferView(request));
-		String referer = request.getHeader("Referer");
+		//String referer = request.getHeader("Referer");
 	    
-		mv.setViewName("redirect:"+ referer);
+		mv.setViewName(HttpUtil.getHeaderRef(request));
 		
 		return mv;
 	}

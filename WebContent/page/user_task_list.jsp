@@ -32,7 +32,7 @@
 							<div class="bootstrap-admin-panel-content">
 								<div id="example_wrapper" class="dataTables_wrapper form-inline"
 									role="grid">
-									<div class="row">
+									<div class="row" style="display: none">
 										<div class="col-md-6">
 											<div id="example_length" class="dataTables_length">
 												<label><select size="1" name="example_length"
@@ -75,34 +75,37 @@
 													<td class="sorting_1">${status.index+1}</td>
 													<td class=""><span title="${m.parentType.id }">${m.parentType.name }</span>/<span
 														title="${m.subType.id }">${m.subType.name }</span></td>
-													<td class=""><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id}">${m.title }</a></td>
+													<td class=""><a
+														href="${pageContext.request.contextPath}/task/detail?tid=${m.id}">${m.title }</a></td>
 													<td class="">${m.bountyPrice }</td>
 													<td class="center ">${m.submitCount}</td>
 													<td class="center ">${m.win.user.username }</td>
 													<td class="center ">${eutil.getTaskStatusName(m.status) }</td>
 													<td class="center ">${m.createdDate }</td>
-													<td class="action"><a style="display: none;">编辑 </a> <a
-														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
-														href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
-															删除 </a>
-															 
+													<td class="action"><c:if test="${m.status!=4 }">
+															<a style="display: none;">编辑 </a>
 															<a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/submit/review?taskId=${m.id}">
-															选稿</a> 
-															 
-															<a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/task/detail?tid=${m.id}" target="_blank">
-															查看</a>
-															</td>
+																onclick="return confirm('确认删除?')"
+																href="${pageContext.request.contextPath}/task/action/del?id=${m.id}">
+																删除 </a>
+															<c:if test="${m.status==2 || m.status==3 }">
+																<a class="btn btn-xs btn-primary"
+																	href="${pageContext.request.contextPath}/submit/v/review?taskId=${m.id}">
+																	选稿</a>
+
+															</c:if>
+
+
+														</c:if> <a class="btn btn-xs btn-primary"
+														href="${pageContext.request.contextPath}/task/detail?tid=${m.id}"
+														target="_blank"> 查看</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 									<div class="row">
- 
-										<div class="col-md-12">
-											 ${p }
-										</div>
+
+										<div class="col-md-12">${p }</div>
 									</div>
 								</div>
 							</div>

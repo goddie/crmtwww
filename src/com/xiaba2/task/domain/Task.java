@@ -133,6 +133,12 @@ public class Task extends BaseUUIDEntity {
 	 */
 	@Column
 	private int submitCount;
+	
+	/**
+	 * 中标统计
+	 */
+	@Column
+	private int winCount;
 
 	/**
 	 * 访问人数
@@ -170,6 +176,14 @@ public class Task extends BaseUUIDEntity {
 	
 	
 	 
+
+	public int getWinCount() {
+		return winCount;
+	}
+
+	public void setWinCount(int winCount) {
+		this.winCount = winCount;
+	}
 
 	public int getIsCheck() {
 		return isCheck;

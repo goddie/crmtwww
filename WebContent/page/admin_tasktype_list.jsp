@@ -8,8 +8,8 @@
 <title></title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body>
-
+<body  class="bootstrap-admin-with-small-navbar">
+<c:import url="/member/adminnav" />
 
 	<div class="container">
 		<div class="row">

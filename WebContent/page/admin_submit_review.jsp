@@ -23,7 +23,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="text-muted bootstrap-admin-box-title">${task.title }
-									投标列表</div>
+									投标列表 中标:${task.winCount}/${task.bountyCount}</div>
 							</div>
 
 							<div class="bootstrap-admin-panel-content">
@@ -39,12 +39,9 @@
 													aria-label="Rendering engine: activate to sort column descending"
 													style="widht: 5%">序号</th>
 												<th role="columnheader" style="">服务商</th>
-												<th role="columnheader" style=""></th>
-												<th role="columnheader"></th>
-												<th role="columnheader"></th>
-												<th role="columnheader"></th>
-												<th role="columnheader"></th>
+							 
 												<th role="columnheader">投标时间</th>
+												<th role="columnheader">中标结果</th>
 												<th role="columnheader" style="width: 140px;">操作</th>
 											</tr>
 										</thead>
@@ -54,15 +51,20 @@
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
 													<td class="">${m.user.username }</td>
-													<td class=""></td>
-													<td class=""></td>
-													<td class="center "></td>
-													<td class="center "></td>
-													<td class="center "></td>
+								 
 													<td class="center ">${m.createdDate }</td>
-													<td class="action"><a class="btn btn-xs btn-primary"
+													<td class="center "><c:if test="${m.isWin==1 }">
+													中标
+													</c:if><c:if test="${m.isWin!=1 }">
+													未中标
+													</c:if></td>
+													<td class="action">
+													<c:if test="${m.isWin!=1 }">
+													<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/action/win?sid=${m.id}">
-															选为中标</a> <a class="btn btn-xs btn-primary"
+															选为中标</a>
+													</c:if>
+													 <a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/v/view?submitId=${m.id}">
 															查看</a></td>
 												</tr>

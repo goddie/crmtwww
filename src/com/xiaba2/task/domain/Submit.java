@@ -87,7 +87,23 @@ public class Submit extends BaseUUIDEntity {
 	@Column
 	private int status;
 	
+	/**
+	 * 是否中标
+	 */
+	@Column
+	private int isWin;
 	
+	
+	
+	
+
+	public int getIsWin() {
+		return isWin;
+	}
+
+	public void setIsWin(int isWin) {
+		this.isWin = isWin;
+	}
 
 	public int getStatus() {
 		return status;

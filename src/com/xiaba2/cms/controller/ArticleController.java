@@ -85,7 +85,7 @@ public class ArticleController {
 
 		aticleBodyService.save(body);
 		
-		attr.addFlashAttribute("msg", "<script>alert('发布成功')</script>");
+		attr.addFlashAttribute("msg", "发布成功");
 		
 		
 

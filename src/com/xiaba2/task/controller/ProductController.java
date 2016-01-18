@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -189,6 +190,9 @@ public class ProductController {
 
 		DetachedCriteria criteria = productService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.not(Restrictions.eq("status", ProductStatus.PUBLISH)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", ProductStatus.REVIEW_FAIL)));
+		 
 		criteria.add(Restrictions.like("name", key , MatchMode.ANYWHERE));
 
 
@@ -216,6 +220,24 @@ public class ProductController {
 	public ModelAndView add(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("user_product_add");
 
+		return mv;
+	}
+	
+	
+	/**
+	 * 添加页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/v/edit")
+	public ModelAndView edit(@RequestParam("id") UUID id, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("user_product_edit");
+		
+		Product product = productService.get(id);
+		
+		mv.addObject("entity", product);
+		
 		return mv;
 	}
 
@@ -256,6 +278,59 @@ public class ProductController {
 
 		productService.save(entity);
 		attr.addFlashAttribute("msg", "发布成功!");
+		return mv;
+	}
+	
+	
+	
+	/**
+	 * 编辑商品
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/action/edit")
+	public ModelAndView edit(Product entity, HttpServletRequest request, RedirectAttributes attr) {
+		ModelAndView mv = new ModelAndView("redirect:/product/v/add");
+
+		Product old = productService.get(UUID.fromString(request.getParameter("id")));
+		
+		
+		
+		
+		
+		if (StringUtils.isEmpty(entity.getName())) {
+			attr.addFlashAttribute("js", "<script>alert('请输入商品名称.')</script>");
+			return mv;
+		}
+
+		User user = SessionUtil.getInstance().getSessionUser();
+
+		if (user != null) {
+			user = userService.get(user.getId());
+			entity.setUser(user);
+		}
+
+		String pid = request.getParameter("parentTypeId");
+		TaskType ptype = taskTypeService.get(UUID.fromString(pid));
+
+		String sid = request.getParameter("subTypeId");
+		TaskType stype = taskTypeService.get(UUID.fromString(sid));
+
+		entity.setParentType(ptype);
+		entity.setSubType(stype);
+		entity.setStatus(ProductStatus.PUBLISH);
+		entity.setIsOnSale(0);
+		
+		entity.setCreatedDate(new Date());
+		
+
+		productService.saveOrUpdate(entity);
+		attr.addFlashAttribute("msg", "修改成功!");
+		
+		BeanUtils.copyProperties(entity,old);
+		
+		productService.saveOrUpdate(old);
+		
 		return mv;
 	}
 
@@ -320,9 +395,11 @@ public class ProductController {
 		User user = (User) SessionUtil.getInstance().getSessionUser();
 		if (user != null) {
 			user = userService.get(user.getId());
+			criteria.add(Restrictions.eq("user", user));
 			
 		}
-		criteria.add(Restrictions.eq("user", user));
+		//criteria.add(Restrictions.eq("status", OrderStatus.HAS_PAY));
+		criteria.add(Restrictions.eq("isPay", 1));
 		
 		Page<Order> page = new Page<Order>();
 		page.setPageSize(HttpUtil.PAGE_SIZE);
@@ -331,10 +408,6 @@ public class ProductController {
 		
 		page = orderService.findPageByCriteria(criteria, page);
 
-
-
-		criteria.add(Restrictions.eq("user", user));
-		criteria.add(Restrictions.eq("status", 1));
 
 		List<Order> olist = page.getResult();
 
@@ -366,6 +439,73 @@ public class ProductController {
 
 		return mv;
 	}
+	
+	
+	/**
+	 * 待支付
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/v/notpay")
+	public ModelAndView notpay(@RequestParam("p") int p,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("user_product_notpay");
+		
+
+
+
+		DetachedCriteria criteria = orderService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		
+		User user = (User) SessionUtil.getInstance().getSessionUser();
+		if (user != null) {
+			user = userService.get(user.getId());
+			criteria.add(Restrictions.eq("user", user));
+		}
+		
+		criteria.add(Restrictions.eq("status", OrderStatus.NOT_PAY));
+		
+		criteria.add(Restrictions.eq("isPay", 0));
+		
+		Page<Order> page = new Page<Order>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+		
+		page = orderService.findPageByCriteria(criteria, page);
+
+
+
+		List<Order> olist = page.getResult();
+
+		List<Product> plist = new ArrayList<Product>();
+		
+ 
+		for (Order pt : olist) {
+			
+			plist.add(pt.getProduct());
+			
+			
+		}
+		
+		
+		List<DataClass> data = ListUtil.combineList(plist,olist);
+ 
+
+		// DetachedCriteria criteria2 = productService.createDetachedCriteria();
+ 
+ 
+		
+		mv.addObject("data",data);
+
+		//mv.addObject("orderlist", list);
+
+		mv.addObject("topName", "待支付的");
+		
+		mv.addObject("page", HttpUtil.genPageHtml(page, request));
+
+		return mv;
+	}
 
 	/**
 	 * 我销售的
@@ -387,7 +527,8 @@ public class ProductController {
 		
 		//criteria.add(Restrictions.eq("user", user));
 		criteria.add(Restrictions.eq("toUser", user));
-		
+		//criteria.add(Restrictions.eq("status", OrderStatus.HAS_PAY));
+		//criteria.add(Restrictions.eq("isPay", OrderStatus.HAS_PAY));
 		
 		Page<Order> page = new Page<Order>();
 		page.setPageSize(HttpUtil.PAGE_SIZE);
@@ -658,7 +799,7 @@ public class ProductController {
 
 		DetachedCriteria criteria = productService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
-
+		criteria.add(Restrictions.isNotNull("thumb"));
 
 		page = productService.findPageByCriteria(criteria, page);
 		

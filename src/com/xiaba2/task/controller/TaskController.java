@@ -37,6 +37,7 @@ import com.xiaba2.task.domain.TaskType;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.gen.EnumSet;
 import com.xiaba2.task.gen.EnumSet.CheckStatus;
+import com.xiaba2.task.gen.EnumSet.ProductStatus;
 import com.xiaba2.task.gen.EnumSet.TaskStatus;
 import com.xiaba2.task.service.OrderService;
 import com.xiaba2.task.service.PayRecordService;
@@ -172,18 +173,19 @@ public class TaskController {
 	public ModelAndView getAdminList(@RequestParam("p") int p, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("admin_task_list");
 
-		int topType = 1;
-
-		if (!StringUtils.isEmpty(request.getParameter("type"))) {
-			topType = Integer.parseInt(request.getParameter("type"));
-		}
-
-		String name = getTopName(topType);
+//		int topType = -1;
+//
+//		if (!StringUtils.isEmpty(request.getParameter("type"))) {
+//			topType = Integer.parseInt(request.getParameter("type"));
+//		}
+//
+//		String name = getTopName(topType);
 
 		DetachedCriteria criteria = taskService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
 
-		criteria.add(Restrictions.eq("topType", topType));
+		
+//		criteria.add(Restrictions.eq("topType", topType));
 
 		Page<Task> page = new Page<Task>();
 		page.setPageNo(p);
@@ -195,8 +197,8 @@ public class TaskController {
 		List<Task> list = page.getResult();
 
 		mv.addObject("list", list);
-		mv.addObject("topType", topType);
-		mv.addObject("topName", name);
+//		mv.addObject("topType", topType);
+//		mv.addObject("topName", name);
 		mv.addObject("p", page.genPageHtml(request));
 		return mv;
 	}
@@ -321,10 +323,14 @@ public class TaskController {
 	@RequestMapping(value = "/action/add")
 	public ModelAndView actionAdd(Task entity, RedirectAttributes attr, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		// if(StringUtils.isEmpty(entity.getTitle()))
-		// {
-		// return mv;
-		// }
+		 if(StringUtils.isEmpty(entity.getTitle()))
+		 {
+			 mv.setViewName(HttpUtil.getHeaderRef(request));
+			 attr.addFlashAttribute("js","<script>alert('请输入标题')</script>");
+			 return mv;
+		 }
+		
+		
 
 		User user = (User) SessionUtil.getInstance().getSessionUser();
 		if (user != null) {
@@ -480,7 +486,10 @@ public class TaskController {
 
 		DetachedCriteria criteria = taskService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
-
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.PUBLISH)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW_FAIL)));
+		
 		String tname="";
 		
 		if (!StringUtils.isEmpty(request.getParameter("ptype"))) {
@@ -543,6 +552,9 @@ public class TaskController {
 
 		DetachedCriteria criteria = taskService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.PUBLISH)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW_FAIL)));
 		criteria.add(Restrictions.like("title", key , MatchMode.ANYWHERE));
 
 
@@ -760,6 +772,44 @@ public class TaskController {
 		return mv;
 	}
 	
- 
+	@RequestMapping(value = "/searchright")
+	public ModelAndView searchRight() {
+		ModelAndView mv = new ModelAndView("task_search_right");
+
+		
+		DetachedCriteria criteria = taskService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.REVIEW_FAIL)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.END)));
+		criteria.add(Restrictions.not(Restrictions.eq("status", TaskStatus.PUBLISH)));
+		
+	
+		Page<Task> p = new Page<Task>();
+		p.setPageSize(4);
+		p.setPageNo(1);
+		
+		//p.setOrders(new ArrayList<String[]>());
+		p.addOrder("createdDate", "desc");
+		p = taskService.findPageByCriteria(criteria, p);
+		mv.addObject("list1", p.getResult());
+		
+		p = new Page<Task>();
+		p.setPageSize(4);
+		p.setPageNo(1);
+		//p.setOrders(new ArrayList<String[]>());
+		p.addOrder("visit", "desc");
+		p = taskService.findPageByCriteria(criteria, p);
+		mv.addObject("list2", p.getResult());
+
+		p = new Page<Task>();
+		p.setPageSize(4);
+		p.setPageNo(1);
+		//p.setOrders(new ArrayList<String[]>());
+		p.addOrder("bounty", "desc");
+		p = taskService.findPageByCriteria(criteria, p);
+		mv.addObject("list3", p.getResult());
+		
+		return mv;
+	}
 
 }

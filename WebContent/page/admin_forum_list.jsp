@@ -8,7 +8,8 @@
 <title></title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body>
+<body  class="bootstrap-admin-with-small-navbar">
+<c:import url="/member/adminnav" />
 
 
 	<div class="container">
@@ -29,7 +30,7 @@
 							<div class="bootstrap-admin-panel-content">
 								<div id="example_wrapper" class="dataTables_wrapper form-inline"
 									role="grid">
-									<div class="row">
+									<div class="row" style="display:none;">
 
 										<div class="col-md-6">
 											<div class="dataTables_filter" id="example_filter">
@@ -64,19 +65,24 @@
 													<td class="">${m.user.nickname}</td>
 													<td class="">${m.createdDate}</td>
 													<td class=""><c:if test="${m.isCheck==1 }">通过</c:if> <c:if
-															test="${m.isCheck==0 }">待审核</c:if></td>
+															test="${m.isCheck==0 }">待审核</c:if><c:if
+															test="${m.isCheck==2 }">拒绝</c:if></td>
 													<td class="action"><a class="btn btn-xs btn-primary"
 														onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/forum/action/del?id=${m.id}">
-															删除</a> <c:if test="${m.isCheck==0 }">
+															删除</a>  
+															
+															<c:if test="${m.isCheck==0 }">
 															<a class="btn btn-xs btn-primary"
 																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=1">
 																通过</a>
-														</c:if> <c:if test="${m.isCheck==1 }">
+													  
 															<a class="btn btn-xs btn-primary"
-																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=0">
-																失败</a>
-														</c:if></td>
+																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=2">
+																拒绝</a>
+															</c:if>
+															
+														 </td>
 												</tr>
 											</c:forEach>
 										</tbody>

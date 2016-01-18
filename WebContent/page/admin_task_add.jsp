@@ -38,8 +38,8 @@
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
 									action="${pageContext.request.contextPath}/task/action/add"
-									name="form1" method="post" class="form-horizontal">
-									<input name="topType" value="${topType }" type="hidden" />
+									name="form1" method="post" class="form-horizontal" onsubmit="return checkForm()">
+									<input name="topType" id="topType" value="${topType }" type="hidden" />
 									<fieldset>
 										<legend>基本信息</legend>
 										<div class="form-group">
@@ -172,9 +172,9 @@
 											<div class="navbar">
 												<div class="container">
 													<ul class="nav nav-pills">
-														<li onclick="bountyMode.value=1" class="active"><a
+														<li onclick="changeBounty(1)" class="active"><a
 															href="#tab1" data-toggle="tab">单人悬赏 </a></li>
-														<li onclick="bountyMode.value=2" class=""><a
+														<li onclick="changeBounty(2)" class=""><a
 															href="#tab2" data-toggle="tab">计件悬赏 </a></li>
 														<input name="bountyMode" id="bountyMode" type="hidden"
 															value="1">
@@ -276,7 +276,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label"></label>
 											<div class="col-lg-10">
-												<label><input type="checkbox" checked="checked" />
+												<label><input name="ischeck" id="ischeck" type="checkbox" />
 													同意<a
 													href="${pageContext.request.contextPath}/article/detail?id=1474a964-7bc7-4af3-b2cb-b95fea077575"
 													target="_blank">《“潮人码头”平台任务发布协议》</a></label>
@@ -442,6 +442,25 @@ ${js }
 		var today = year + "-" + month + "-" + dt;
 
 		return today;
+	}
+	
+	function checkForm()
+	{
+		
+		
+		var y = $('#ischeck').is(':checked');
+		if(!y)
+		{
+			alert('请同意 《“潮人码头”平台任务发布协议》');
+			return false;
+		}
+		return true;
+	}
+	
+	function changeBounty(v)
+	{
+		$('#bountyMode').val(v);
+		$('#topType').val(v);
 	}
 
 	setInterval(countForm, 1000);

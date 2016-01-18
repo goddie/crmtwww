@@ -73,14 +73,18 @@
 													<td class="center ">${m.task.submitCount }</td>
 													<td class="center ">${m.task.win.nickname}</td>
 													<td class="center ">${m.task.bounty}</td>
-													<td class="center ">${eutil.getSubmitStatus(m.status) }</td>
+													<td class="center "><c:if test="${m.isWin==1 }">中标</c:if><c:if test="${m.isWin!=1 }">未中标</c:if></td>
 													<td class="center ">${eutil.getTaskStatusName(m.task.status) }</td>
 												
-													<td class="action"><a class="btn btn-xs btn-primary"
+													<td class="action">
+													<c:if test="${m.isWin!=1 }">
+													<a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/v/useradd?taskId=${m.task.id}">
 															编辑查看</a> <a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/submit/action/del?uuid=${m.id}">
-															删除 </a></td>
+															删除 </a>
+													</c:if>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>

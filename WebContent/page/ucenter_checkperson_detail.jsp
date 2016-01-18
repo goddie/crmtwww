@@ -6,17 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
-<title>支付</title>
+<title>账户设置</title>
 </head>
 <body class="bootstrap-admin-with-small-navbar">
 
-	<c:import url="/user/usernav" />
+	<c:import url="/member/adminnav" />
 
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<c:import url="/user/userleft" />
+				<jsp:include page="/resource/inc/admin_left.jsp"></jsp:include>
 			</div>
 			<div class="col-md-10">
 
@@ -34,42 +34,46 @@
 						</c:if>
 						<div class="panel panel-default bootstrap-admin-no-table-panel">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">任务支付</div>
+								<div class="text-muted bootstrap-admin-box-title">实名认证</div>
 							</div>
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
-									action="${pageContext.request.contextPath}/task/action/paytask?orderId=${orderId}"
+									action="${pageContext.request.contextPath}/user/action/checkperson"
 									name="form1" method="post" class="form-horizontal">
-									
 									<fieldset>
-									<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">支付任务</label>
-											<label class="col-lg-2 control-label">${task.title }</label>
-										</div>
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">账户余额</label>
-											<label class="col-lg-2 control-label">${user.money }</label>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">支付金额</label>
-											<label class="col-lg-2 control-label">${toPay }</label>
-											<input name="money" id="money" value="${toPay} }" type="hidden" />
+											<label class="col-lg-2 control-label" for="typeahead">真实姓名</label>
 
-										</div>
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="fileInput">支付方式</label>
 											<div class="col-lg-10">
-												 <select id="payType" name="payType" class="chzn-select" style="width: 150px">
-                                                        <option>余额支付</option>
-                                                        <option>支付宝</option>
-                                                        <option>微信支付</option>
-                                                    </select>
+												<p class="form-control-static">${user.realname }</p>
 											</div>
 										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label" for="typeahead">身份证</label>
+											<div class="col-lg-10">
+												<p class="form-control-static">${user.licence }</p>
+											</div>
 
-										<button type="submit" class="btn btn-primary">提交</button>
-										<button type="reset" class="btn btn-default">取消</button>
+
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label" for="typeahead">身份证正反面</label>
+
+											<div class="col-lg-10">
+												<p class="form-control-static">
+													<img id="upimage" src="${user.licenceImage }" alt=""
+														width="240" height="180" />
+												</p>
+											</div>
+
+
+
+										</div>
+
+
+										<a href="${ref} "  class="btn btn-primary">返回</a>
+										 
 
 									</fieldset>
 
@@ -92,7 +96,7 @@
 		var obj = jQuery.parseJSON(jsonstr);
 
 		var file = getThumb(obj.name, 200, 200);
-		
+
 		$('#upimage').attr('src', obj.path + file)
 
 		$('#thumb').val(obj.path + file);

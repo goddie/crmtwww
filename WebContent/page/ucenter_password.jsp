@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<jsp:include page="/resource/inc/leftmenu_userconfig.jsp"></jsp:include>
+				<c:import url="/user/userleft" />
 			</div>
 			<div class="col-md-10">
 
@@ -45,14 +45,22 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">旧密码</label>
 											<div class="col-lg-10">
-												<input name="oldpassword" type="text"
+												<input name="oldpassword" type="password"
 													class="form-control col-md-6" id="oldpassword">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">新密码</label>
 											<div class="col-lg-10">
-												<input name="newpassword" type="text"
+												<input name="newpassword" type="password"
+													class="form-control col-md-6" id="newpassword">
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-lg-2 control-label" for="typeahead">重复新密码</label>
+											<div class="col-lg-10">
+												<input name="newpassword2" type="password"
 													class="form-control col-md-6" id="newpassword">
 											</div>
 										</div>

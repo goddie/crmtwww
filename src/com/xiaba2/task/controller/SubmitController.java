@@ -34,6 +34,7 @@ import com.xiaba2.task.gen.EnumSet.TaskStatus;
 import com.xiaba2.task.service.SubmitService;
 import com.xiaba2.task.service.TaskService;
 import com.xiaba2.task.service.UserService;
+import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.ListUtil;
 import com.xiaba2.util.SessionUtil;
 
@@ -179,7 +180,7 @@ public class SubmitController {
 	 * @param attr
 	 * @return
 	 */
-	@RequestMapping(value = "/review")
+	@RequestMapping(value = "/v/review")
 	public ModelAndView review(@RequestParam("taskId") UUID taskId, HttpServletRequest request,
 			RedirectAttributes attr) {
 		ModelAndView mv = new ModelAndView("admin_submit_review");
@@ -299,7 +300,7 @@ public class SubmitController {
 
 
 		submit.setCreatedDate(new Date());
-		submit.setStatus(CheckStatus.SUCCESS);
+		
 		submit.setContent(entity.getContent());
 		submit.setQQ(entity.getQQ());
 		submit.setPhone(entity.getPhone());
@@ -310,6 +311,13 @@ public class SubmitController {
 		submit.setTopType(entity.getTopType());
 		
 		
+		if(submit.getStatus()!=CheckStatus.SUCCESS)
+		{
+			submit.setStatus(CheckStatus.SUCCESS);
+			Task t = submit.getTask();
+			t.setSubmitCount(t.getSubmitCount() + 1);
+			taskService.saveOrUpdate(t);
+		}
 		
 		//BeanUtils.copyProperties(entity, submit, "task","user");
 		
@@ -317,9 +325,7 @@ public class SubmitController {
 		submitService.saveOrUpdate(submit);
 		attr.addFlashAttribute("msg", "<script>alert('恭喜您，投稿成功!');</script>");
 		
-//		Task t = submit.getTask();
-//		t.setSubmitCount(t.getSubmitCount() + 1);
-//		taskService.saveOrUpdate(t);
+		
 
 		// attr.addFlashAttribute("msg", "投稿成功!");
 		return mv;
@@ -343,15 +349,37 @@ public class SubmitController {
 
 		entity.setResult(1);
 		entity.setLastModifiedDate(new Date());
+		entity.setIsWin(1);
 		submitService.saveOrUpdate(entity);
 
 		Task task = entity.getTask();
-		task.setWin(entity);
-		task.setStatus(TaskStatus.END);
+		
+		
+		if(task.getTopType()==1)
+		{
+			task.setWin(entity);
+			task.setStatus(TaskStatus.END);
+		}
+		
+		
+		if(task.getTopType()==2)
+		{
+			task.setWinCount(task.getWinCount()+1);
+			
+			if(task.getWinCount()==task.getBountyCount())
+			{
+				task.setStatus(TaskStatus.END);
+			}
+			
+		}
+
 
 		taskService.saveOrUpdate(task);
 
-		mv.setViewName("redirect:/submit/review?taskId=" + task.getId());
+		
+		String taskList = "task/v/list?type="+task.getTopType()+"&p=1";
+			mv.setViewName("redirect:/"+taskList);	
+		//mv.setViewName("redirect:/submit/review?taskId=" + task.getId());
 		attr.addFlashAttribute("msg", "<script>alert('操作成功!');</script>");
 
 		return mv;
@@ -364,11 +392,13 @@ public class SubmitController {
 	 * @return
 	 */
 	@RequestMapping(value = "/action/del")
-	public ModelAndView actionDel(@RequestParam("uuid") UUID uuid, @RequestParam("topType") int topType) {
-		ModelAndView mv = new ModelAndView("redirect:/tasktype/list?type=" + topType);
+	public ModelAndView actionDel(@RequestParam("uuid") UUID uuid,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
 		Submit entity = submitService.get(uuid);
 		entity.setIsDelete(1);
 		submitService.saveOrUpdate(entity);
+		
+		mv.setViewName(HttpUtil.getHeaderRef(request));
 		return mv;
 	}
 	
@@ -418,7 +448,7 @@ public class SubmitController {
 		submitService.save(entity);
 
 
-		task.setSubmitCount(task.getSubmitCount() + 1);
+		//task.setSubmitCount(task.getSubmitCount() + 1);
 		taskService.saveOrUpdate(task);
 
 		// attr.addFlashAttribute("msg", "投稿成功!");

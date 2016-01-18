@@ -19,15 +19,25 @@
 			<ul class="detaillist">
 
 				<c:forEach var="m" varStatus="status" items="${list1}">
-					<li><span class="img-t"><img src=" ${m.thumb}"
-							width="181" height="114"> </span>
+					<li><span class="img-t"><a
+									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">
+									<c:if test="${m.thumb!=null && m.thumb!=''}">
+									<img src=" ${m.thumb}"
+							width="181" height="114"/>
+									</c:if>
+									
+									<c:if test="${m.thumb==null || m.thumb=='' }">
+									<img src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png"
+							width="181" height="114"/>
+									</c:if>
+									</a> </span>
 						<dl class="info">
 							<dt>
 								<span class="f_c_0a538e f20"><a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">${m.title }</a></span>
 							</dt>
 							<dd>
-								<span class="f_c_6cbef5">${m.user.nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
+								<span class="f_c_6cbef5"><a href="${pageContext.request.contextPath}/user/usersite?uuid=${entity.user.id}" target="_blank">${m.user.nickname }</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
 							</dd>
 							<dd class="p_t20b25">${ util.getSubContent(m.content,200) }
 							<dd>

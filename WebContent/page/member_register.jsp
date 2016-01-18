@@ -42,7 +42,7 @@
 									class="form-control">
 							</div>
 							<div class="form-table">
-								<label><input type="checkbox" checked="checked" />同意<a
+								<label><input type="checkbox" id="ischeck" name="ischeck" />同意<a
 									href="${pageContext.request.contextPath}/article/detail?id=acb20fee-1ce1-4173-83a2-fbdab33607c7"
 									target="_blank">《“潮人码头”在线创作平台服务协议》</a></label>
 							</div>
@@ -142,7 +142,20 @@ ${msg}
 			return;
 		}
 
+		
+		var y = $('#ischeck').is(':checked');
+		if(!y)
+		{
+			alert('请同意 《“潮人码头”在线创作平台服务协议》');
+			return false;
+		}
+		
+		
 		form1.submit();
 
 	}
+	
+	
+	
+ 
 </script>

@@ -49,7 +49,7 @@ public class MessageController {
 	 */
 	@RequestMapping(value = "/v/add")
 	public ModelAndView add(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("admin_message_add");
+		ModelAndView mv = new ModelAndView("user_message_add");
 
 		User user = (User) SessionUtil.getInstance().getSessionUser();
 		if (user != null) {
@@ -77,7 +77,7 @@ public class MessageController {
 
 		p = Math.max(p, 1);
 
-		ModelAndView mv = new ModelAndView("admin_message_inbox");
+		ModelAndView mv = new ModelAndView("user_message_inbox");
 
 		User sendTo = SessionUtil.getInstance().getSessionUser();
 		if (sendTo == null) {
@@ -127,7 +127,7 @@ public class MessageController {
 
 		p = Math.max(p, 1);
 		
-		ModelAndView mv = new ModelAndView("admin_message_outbox");
+		ModelAndView mv = new ModelAndView("user_message_outbox");
 
 		User from = SessionUtil.getInstance().getSessionUser();
 		from = userService.get(from.getId());

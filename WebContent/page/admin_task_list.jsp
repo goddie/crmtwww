@@ -9,8 +9,8 @@
 <title>任务列表</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body class="bootstrap-admin-with-small-navbar">
-
+<body  class="bootstrap-admin-with-small-navbar">
+<c:import url="/member/adminnav" />
 
 	<div class="container">
 		<div class="row">
@@ -23,7 +23,7 @@
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title"></div>
+								<div class="text-muted bootstrap-admin-box-title">任务列表</div>
 							</div>
 
 							<div class="bootstrap-admin-panel-content">

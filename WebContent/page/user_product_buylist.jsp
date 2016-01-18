@@ -53,6 +53,7 @@
 												<th role="columnheader">状态</th>
 												<th role="columnheader">购买时间</th>
 												<th role="columnheader">卖家</th>
+												<th role="columnheader">下载文档</th>
 												<th role="columnheader" style="width: 140px;">操作</th>
 											</tr>
 										</thead>
@@ -69,6 +70,13 @@
 													<td class="center ">${eutil.getOrderStatus(m.obj2.status) }</td>
 													<td class="center ">${m.obj2.createdDate }</td>
 													<td class="center ">${m.obj2.toUser.nickname }(${m.obj2.toUser.username })</td>
+													<td class="center ">
+													<c:if test="${m.obj1.attachment!='' }">
+													<a class="btn btn-xs btn-primary"
+																href="${m.obj1.attachment }">
+																下载</a>
+													</c:if>
+													</td>
 													<td class="action" id="${m.obj2.id }"><c:if
 															test="${m.obj2.isPay==0 }">
 															<a class="btn btn-xs btn-primary"

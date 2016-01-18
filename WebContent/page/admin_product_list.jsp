@@ -9,8 +9,8 @@
 <title>商品列表</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body class="bootstrap-admin-with-small-navbar">
-	<c:import url="/user/usernav" />
+<body  class="bootstrap-admin-with-small-navbar">
+<c:import url="/member/adminnav" />
 
 	<div class="container">
 		<div class="row">
@@ -23,7 +23,7 @@
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">${topName }</div>
+								<div class="text-muted bootstrap-admin-box-title">商品列表</div>
 								&nbsp;
 
 							</div>

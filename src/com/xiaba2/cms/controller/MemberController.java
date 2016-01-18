@@ -82,7 +82,15 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+	@RequestMapping(value = "/adminnav")
+	public ModelAndView adminNav(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_nav");
+		User user = SessionUtil.getInstance().getSessionUser();
+		if (user != null) {
+			mv.addObject("user", user);
+		}
+		return mv;
+	}
 	
 	/**
 	 * 注册
@@ -185,6 +193,18 @@ public class MemberController {
 		memberService.save(entity);
 		attr.addFlashAttribute("msg", "帐号重复存在!");
 		mv.setViewName("redirect:/member/login");
+		return mv;
+	}
+	
+	
+
+	@RequestMapping(value = "/action/logout")
+	public ModelAndView getActionLogout(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("redirect:/webpage/admin");
+		WebUtils.setSessionAttribute(request, "user", null);
+		WebUtils.setSessionAttribute(request, "member", null);
+		SessionUtil.getInstance().saveUserCookie(null);
+		SessionUtil.getInstance().saveMemberCookie(null);
 		return mv;
 	}
 

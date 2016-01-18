@@ -8,7 +8,8 @@
 <title></title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body>
+<body  class="bootstrap-admin-with-small-navbar">
+<c:import url="/member/adminnav" />
 
 
 	<div class="container">
@@ -67,7 +68,18 @@
 														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=1&type=${type}">
 															通过</a> <a class="btn btn-xs btn-primary"
 														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=10&type=${type}">
-															失败</a></td>
+															失败</a> 
+															<c:if test="${type==1}">
+															<a class="btn btn-xs btn-primary"
+														href="${pageContext.request.contextPath}/user/admin/persondetail?id=${m.id}">
+															查看</a>
+															</c:if>
+															<c:if test="${type==2 }">
+															<a class="btn btn-xs btn-primary"
+														href="${pageContext.request.contextPath}/company/admin/companydetail?id=${m.id}">
+															查看</a>
+															</c:if>
+															</td>
 												</tr>
 											</c:forEach>
 										</tbody>

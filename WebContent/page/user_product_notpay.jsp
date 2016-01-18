@@ -47,12 +47,12 @@
 												<th role="columnheader" style="width: 5%;">序号</th>
 												<th role="columnheader" style="">名称</th>
 												<th role="columnheader">类别</th>
-
+												<th role="columnheader">类型</th>
 												<th role="columnheader">价格</th>
 												<th role="columnheader">支付</th>
+												<th role="columnheader">状态</th>
 												<th role="columnheader">购买时间</th>
-												<th role="columnheader">买家</th>
-												<th role="columnheader" style="width: 140px;">操作</th>
+												<th role="columnheader" style="width: 140px;"></th>
 											</tr>
 										</thead>
 
@@ -60,19 +60,22 @@
 											<c:forEach var="m" varStatus="status" items="${data}">
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
-													<td class=""><a target="_blank" href="${pageContext.request.contextPath}/product/detail?pid=${m.obj1.id }">${m.obj1.name }</a></td>
+													<td class="">${m.obj1.name }</td>
 													<td class="">${eutil.getProductTopType(m.obj1.topType) }</td>
-
+													<td class="center ">${m.obj1.parentType.name}-${m.obj1.subType.name}</td>
 													<td class="center ">${m.obj1.price }</td>
-													<td class="center ">${eutil.getOrderStatus(m.obj2.status) }</td>
+													<td class="center ">${eutil.getOrderPay(m.obj2.isPay) }</td>
+													<td class="center ">${eutil.getProductStatus(m.obj1.status) }</td>
 													<td class="center ">${m.obj2.createdDate }</td>
-													<td class="center ">${m.obj2.user.nickname }(${m.obj2.user.username })</td>
-													<td class="action" id="${m.obj2.id }"><c:if
-															test="${m.obj2.isPay==1 && m.obj2.status==2 }">
+													<td class="action" title="${m.obj1.id }">
+													<c:if
+															test="${m.obj2.isPay==0 }">
 															<a class="btn btn-xs btn-primary"
-																href="${pageContext.request.contextPath}/order/action/ispay?id=${m.obj2.id}&rs=3">
-																确认收款</a>
-				
+																href="${pageContext.request.contextPath}/order/action/changestatus?id=${m.obj2.id}&rs=2">
+																已付款</a>
+															<a class="btn btn-xs btn-primary"
+																href="${pageContext.request.contextPath}/order/action/iscancel?id=${m.obj2.id}&rs=1">
+																取消订单</a>
 														</c:if>
 														<c:if
 															test="${m.obj2.status==4 }">
@@ -80,7 +83,15 @@
 																href="${pageContext.request.contextPath}/order/action/del?id=${m.obj2.id}">
 																删除订单</a> 
 														</c:if>
-														</td>
+														 
+														<c:if
+															test="${m.obj2.status==3 }">
+															<a class="btn btn-xs btn-primary" onclick="return confirm('确认操作?')"
+																href="${pageContext.request.contextPath}/order/action/changestatus?id=${m.obj2.id}&rs=4">
+																确认已服务</a> 
+														</c:if>
+													
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>

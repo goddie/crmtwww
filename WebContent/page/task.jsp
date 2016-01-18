@@ -28,8 +28,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-10">
 				<div class="m_l20">
-					<div class="col-xs-12 col-sm-8 m_b19">
-						<div class="c-search graybg3">
+					<div class="col-xs-12 col-sm-10 m_b19">
+						<div class="c-search graybg3" style=" width:100%;">
 
 							<div class="c-s-select">搜索任务</div>
 							<form action="${pageContext.request.contextPath}/task/search" method="get" name="form1">
@@ -41,7 +41,7 @@
 						</div>
 
 					</div>
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-sm-2">
 						<a href="${pageContext.request.contextPath}/task/v/add?type=1"
 							class="grayBtn2 m_l20" target="_blank">发任务</a><a style="display:none"
 							href="${pageContext.request.contextPath}/task/v/add?type=3" 

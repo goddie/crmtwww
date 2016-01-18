@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>发布商品</title>
+<title>编辑商品</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
 <body class="bootstrap-admin-with-small-navbar">
@@ -37,15 +37,15 @@
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
-									action="${pageContext.request.contextPath}/product/action/add"
-									name="form1" method="post" class="form-horizontal" onsubmit="return checkForm()">
+									action="${pageContext.request.contextPath}/product/action/edit"
+									name="form1" method="post" class="form-horizontal">
+									<input type="hidden" name="id" value="${entity.id }"/>
 									<fieldset>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">商品名称</label>
 											<div class="col-lg-10">
 												<input name="name" type="text" class="form-control col-md-6"
-													id="name" autocomplete="off" data-provide="typeahead"
-													data-items="4" data-source="">
+													id="name" value="${entity.name }">
 
 											</div>
 										</div>
@@ -53,8 +53,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">商品标签</label>
 											<div class="col-lg-10">
 												<input name="tag" type="text" class="form-control col-md-6"
-													id="title" autocomplete="off" data-provide="typeahead"
-													data-items="4" data-source="">
+													id="tag" value="${entity.tag }">
 												<p class="help-block"></p>
 											</div>
 										</div>
@@ -96,7 +95,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">商品售价</label>
 											<div class="col-lg-10">
 												<input name="price" type="text"
-													class="form-control col-md-6" id="price" value="0">
+													class="form-control col-md-6" id="price" value="${entity.price }">
 											</div>
 										</div>
 
@@ -106,7 +105,7 @@
 											<div class="col-lg-10">
 
 												<textarea id="ckeditor_full" name="info"
-													class="form-control textarea-wysihtml5"></textarea>
+													class="form-control textarea-wysihtml5">${entity.info }</textarea>
 
 											</div>
 										</div>
@@ -114,8 +113,8 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">封面图</label>
 											<div class="col-lg-10">
-												<img id="upimage" src="" alt="" width="120" height="90" />
-												<input name="thumb" id="thumb" value="" type="hidden" />
+												<img id="upimage" src="${entity.thumb }" alt="" width="120" height="90" />
+												<input name="thumb" id="thumb" value="${entity.thumb }" type="hidden" />
 											</div>
 										</div>
 
@@ -130,14 +129,8 @@
 										</div>
 										<input name="attachment" id="attachment" value=""
 											type="hidden" />
-											<div class="form-group">
-											<label class="col-lg-2 control-label" for="fileInput">文档名</label>
-											<div class="col-lg-10">
-												<span id="filename"></span>
-											</div>
-										</div>
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="fileInput">上传文档</label>
+											<label class="col-lg-2 control-label" for="fileInput">上传商品</label>
 											<div class="col-lg-10">
 												<iframe
 													src="${pageContext.request.contextPath}/album/page/upfile"
@@ -150,7 +143,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">手机号码</label>
 											<div class="col-lg-10">
 												<input name="phone" type="text"
-													class="form-control col-md-6" id="phone">
+													class="form-control col-md-6" id="phone" value="${entity.phone }">
 											</div>
 										</div>
 
@@ -158,16 +151,16 @@
 											<label class="col-lg-2 control-label" for="typeahead">QQ号码</label>
 											<div class="col-lg-10">
 												<input name="QQ" id="QQ" type="text"
-													class="form-control col-md-6">
+													class="form-control col-md-6" value="${entity.QQ }">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">原创证明</label>
 											<div class="col-lg-10">
-												<img id="imgproof" name="imgproof" src="" alt="" width="120"
-													height="90" /> <input name="proof" id="proof"
-													value="" type="hidden" />
+												<img id="imgproof" name="imgproof" src="${entity.proof }" alt="" width="120"
+													height="90" /> <input name="hidproof" id="hidproof"
+													value="${entity.proof }" type="hidden" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -184,7 +177,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">收款帐号</label>
 											<div class="col-lg-10">
 												<input name="bankNo" id="bankNo" type="text"
-													class="form-control col-md-6">
+													class="form-control col-md-6" value="${entity.bankNo }">
 											</div>
 										</div>
 
@@ -192,7 +185,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">再一遍收款帐号</label>
 											<div class="col-lg-10">
 												<input name="bankNo2" id="bankNo2" type="text"
-													class="form-control col-md-6">
+													class="form-control col-md-6" value="${entity.bankNo }">
 											</div>
 										</div>
 
@@ -200,7 +193,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">收款户名</label>
 											<div class="col-lg-10">
 												<input name="bankAccount" id="bankAccount" type="text"
-													class="form-control col-md-6">
+													class="form-control col-md-6" value="${entity.bankAccount }"/>
 											</div>
 										</div>
 
@@ -208,7 +201,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">收款银行</label>
 											<div class="col-lg-10">
 												<input name="bankName" id="bankName" type="text"
-													class="form-control col-md-6">
+													class="form-control col-md-6" value="${entity.bankName }" />
 											</div>
 										</div>
 
@@ -216,7 +209,7 @@
 
 											<label class="col-lg-2 control-label" for="typeahead"></label>
 											<div class="col-lg-10">
-												<input type="checkbox" name="ischeck" id="ischeck"/>同意<a
+												<input type="checkbox" checked="checked" />同意<a
 													href="${pageContext.request.contextPath}/article/detail?id=6fe81e11-e67c-4639-9ed3-5d454dc73508"
 													target="_blank">《潮人码头自媒体内容在线协同工作平台版权声明》</a>
 											</div>
@@ -241,16 +234,7 @@
 		</div>
 	</div>
 
-	
-
-</body>
-
-</html>
-
-${js}
-
-
-<jsp:include page="/resource/inc/admin_script.jsp"></jsp:include>
+	<jsp:include page="/resource/inc/admin_script.jsp"></jsp:include>
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resource/bsadmin/vendors/ckeditor/ckeditor.js"></script>
@@ -338,10 +322,10 @@ ${js}
 		function upfile2(jsonstr) {
 			var obj = jQuery.parseJSON(jsonstr);
 
-			//editor.insertHtml('<div class="attachment"><a target="_blank" href="' + obj.path + obj.name + '">商品文件<a/></div>');
-			
-			$('#filename').text(obj.name);
-			$('#attachment').val(obj.path + obj.name);
+			editor
+					.insertHtml('<div class="attachment"><a target="_blank" href="' + obj.path
+					+ obj.name + '">商品文件<a/></div>');
+
 		}
 
 		function uploadImage2(jsonstr) {
@@ -351,17 +335,10 @@ ${js}
 					obj.path + getThumb(obj.name, 240, 180));
 			$('#' + obj.field).val(obj.path + getThumb(obj.name, 240, 180));
 		}
-		
-		function checkForm()
-		{
-			
-			
-			var y = $('#ischeck').is(':checked');
-			if(!y)
-			{
-				alert('请同意《潮人码头自媒体内容在线协同工作平台版权声明》');
-				return false;
-			}
-			return true;
-		}
 	</script>
+
+</body>
+
+</html>
+
+${js}

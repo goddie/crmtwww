@@ -17,29 +17,15 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand"
-						href="${pageContext.request.contextPath}/user/v/index">个人中心(${member.username}
-						${user.username })</a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/user/v/index">个人中心(${member.username} ${user.username })</a>
 				</div>
 				<div class="collapse navbar-collapse main-navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a
 							href="${pageContext.request.contextPath}/webpage/index">潮人码头</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/v/index">账户设置</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/task/v/list?p=1">任务大厅</a></li>
-						<li style="display: none"><a
-							href="${pageContext.request.contextPath}/user/user/online">在线创作</a></li>
-
-						<li><a
-							href="${pageContext.request.contextPath}/product/v/list?p=1">创意商城</a></li>
-
-						<li><a
-							href="${pageContext.request.contextPath}/user/usersite?uuid=${user.id}"
-							target="_blank">我的主页</a></li>
-
-						<li><a href="http://apps.yxhltech.com/ezwork/"
-							target="_blank">我的工作室</a></li>
+						href="${pageContext.request.contextPath}/member/action/logout"
+						target="_self" class="login home">退出 ${member.username }</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->

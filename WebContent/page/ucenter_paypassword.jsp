@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<jsp:include page="/resource/inc/leftmenu_userconfig.jsp"></jsp:include>
+				<c:import url="/user/userleft" />
 			</div>
 			<div class="col-md-10">
 

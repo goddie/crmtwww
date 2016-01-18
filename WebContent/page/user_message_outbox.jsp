@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>收件箱</title>
+<title>发件箱</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
 <body class="bootstrap-admin-with-small-navbar">
@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<jsp:include page="/resource/inc/leftmenu_userconfig.jsp"></jsp:include>
+				<c:import url="/user/userleft" />
 			</div>
 			<div class="col-md-10">
 
@@ -22,7 +22,7 @@
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">收件箱</div>
+								<div class="text-muted bootstrap-admin-box-title">发件箱</div>
 								<a href="${pageContext.request.contextPath}/message/v/add"
 									class="btn btn-xs btn-primary">写消息</a>
 							</div>

@@ -138,7 +138,7 @@ a.blueBtn1:hover{ background:#d9effe; text-decoration:none;}
 .c-list01 li dl{ padding:20px 15px; margin:0px;}
 .c-list01 li dt{ color:#2489bd; font-size:20px; padding-bottom:6px;}
 .c-list01 li dd a{ color:#010101; display:inline-block; margin-right:10px; font-size:14px;}
-.c-search{ height:52px; display:table; line-height:52px; color:#fff; width:100%;}
+.c-search{ height:52px; display:table; line-height:52px; color:#fff;}
 .c-search .c-s-select{ width:96px; display:table-cell; text-align:center;}
 .c-search .c-s-select a.iconXx{ background:url(../images/xiangxia.png) no-repeat center; width:14px; height:9px; display:inline-block; margin-left:5px;}
 .c-s-i{ width:70%; height:44px; line-height:44px; display:table-cell; margin:0; padding:0;}

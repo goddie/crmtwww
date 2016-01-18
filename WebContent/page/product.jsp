@@ -90,7 +90,7 @@
 						class="whiteBtn">￥${m.price }</a>
 					<dl class="s-dllist1">
 						<dt>
-							<a href="#"><img src="${m.user.head }"
+							<a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.user.id}" target="_blank"><img src="${m.user.head }"
 								style="box-sizing: content-box; -moz-box-sizing: content-box; -ms-box-sizing: content-box; width: 40px; height: 40px; border-radius: 40px;"></a>
 						</dt>
 						<dd class="f16 p_t5">${m.user.nickname }</dd>

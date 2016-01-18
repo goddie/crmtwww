@@ -47,7 +47,7 @@
 						target="_self" class="login home">用户中心</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/user/action/logout"
-						target="_self" class="login home">退出 ${user.username }</a></li>
+						target="_self" class="login home" title="${user.username }">退出</a></li>
 				</c:if>
 			</ul>
 		</div>

@@ -62,6 +62,38 @@ public class CompanyController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 企业认证
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/v/companydetail")
+	public ModelAndView companyDetail(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("ucenter_checkcompany_detail");
+
+		User user = (User) SessionUtil.getInstance().getSessionUser();
+		if (user != null) {
+			user = userService.get(user.getId());
+		}
+
+		mv.addObject("user", user);
+		
+		if(user.getIsCheckCompany()==CheckStatus.SUCCESS || user.getIsCheckCompany()==CheckStatus.WAIT)
+		{
+			
+			ModelAndView mv2 = new  ModelAndView("ucenter_checkcompany_done");
+			mv2.addObject("status", user.getIsCheckCompany());
+			return mv2;
+		}
+		
+		mv.addObject("ref", request.getHeader("Referer"));
+		
+		return mv;
+	}
+	
+	
 
 	@RequestMapping(value = "/action/add")
 	public ModelAndView actionAdd(Company entity, RedirectAttributes attr, HttpServletRequest request) {

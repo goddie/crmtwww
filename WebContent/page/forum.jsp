@@ -18,34 +18,39 @@
 
 	<div class="container">
 		<div class="row row-offcanvas row-offcanvas-right">
-			<div class="col-xs-6 col-sm-3">
+			<div class="col-xs-12 col-sm-3">
 				<c:import url="/forumtype/menu" />
 			</div>
 			<div class="col-xs-12 col-sm-9">
 				<div class="m_l20">
-					<div class="c-search bluebg m_b19">
-						<div class="c-s-select">
-							搜索帖子
+
+					<div class="col-xs-12 col-sm-10">
+						<div class="c-search bluebg m_b19" style="width: 100%">
+							<div class="c-s-select">搜索帖子</div>
+							<form action="${pageContext.request.contextPath}/forum/search"
+								method="get" name="form1">
+								<input name="key" type="text" placeholder="请输入关键词">
+							</form>
+							<div class="c-s-search">
+								<span onclick="form1.submit();" class="iconSearch"></span>
+							</div>
 						</div>
-						<form action="${pageContext.request.contextPath}/forum/search" method="get" name="form1">
-						<input name="key" type="text" placeholder="请输入关键词">
-						</form>
-						<div class="c-s-search">
-							<span onclick="form1.submit();" class="iconSearch"></span>
-						</div>
-						
-						
-						
-						
-						
-						 
-						
-						
-						
+
 					</div>
+					<div class="col-sm-2">
+						<a href="${pageContext.request.contextPath}/forum/user/add"
+							class="grayBtn2 m_l20" target="_blank">发帖子</a>
+					</div>
+
 					<c:import url="/forum/forumroll" />
 
 				</div>
+
+
+
+
+
+
 			</div>
 			<!--/.sidebar-offcanvas-->
 		</div>
@@ -58,7 +63,7 @@
 				<c:import url="/forum/forumtab" />
 
 				<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-					<div id="jpzt" style="display:none">
+					<div id="jpzt" style="display: none">
 						<h2 class="c-title">精品专题</h2>
 						<a href="#"><img
 							src="${pageContext.request.contextPath}/resource/web/images/pic16.jpg"
@@ -76,8 +81,9 @@
 					<div id="rywt">
 						<h2 class="c-title">热议问题</h2>
 						<ul class="c-list02">
-						<c:forEach var="m" varStatus="status" items="${list2}">
-								<li><a href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">${m.title }</a></li>
+							<c:forEach var="m" varStatus="status" items="${list2}">
+								<li><a
+									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">${m.title }</a></li>
 							</c:forEach>
 						</ul>
 					</div>

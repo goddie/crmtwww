@@ -34,6 +34,7 @@ import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.domain.Work;
 import com.xiaba2.task.gen.EnumSet.CheckStatus;
+import com.xiaba2.task.service.FollowService;
 import com.xiaba2.task.service.UserService;
 import com.xiaba2.task.service.WorkService;
 import com.xiaba2.util.HttpUtil;
@@ -47,6 +48,9 @@ public class UserController {
 
 	@Resource
 	private WorkService workService;
+	
+	@Resource
+	private FollowService followService;
 
 
 	@RequestMapping(value = "/usernav")
@@ -58,6 +62,17 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/userleft")
+	public ModelAndView userLeft(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("user_left");
+		User user = SessionUtil.getInstance().getSessionUser();
+		if (user != null) {
+			mv.addObject("user", user);
+		}
+		return mv;
+	}
+	
 
 	/**
 	 * 个人页面
@@ -66,37 +81,46 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/usersite")
-	public ModelAndView getUserSite(@RequestParam(value = "uuid", required = false) String uuid,
+	public ModelAndView getUserSite(@RequestParam("uuid") UUID uuid,
 			HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("user_site");
 
-		UUID uid = null;
 
-		if (!StringUtils.isEmpty(uuid)) {
-			uid = UUID.fromString(uuid);
-		} else {
-
-			User user = (User) SessionUtil.getInstance().getSessionUser();
-			if (user != null) {
-				uid = user.getId();
-			}
-		}
-
-		if (uid == null) {
+		User siteUser = userService.get(uuid);
+		
+		if (siteUser==null) {
 			return new ModelAndView("redirect:/site/home");
 		}
 
-		User siteUser = userService.get(uid);
+		
+		
 		siteUser.setVisits(siteUser.getVisits() + 1);
 		userService.saveOrUpdate(siteUser);
 
 		mv.addObject("user", siteUser);
 		
 		
+		User loginUser = (User) SessionUtil.getInstance().getSessionUser();
+		if (loginUser != null) {
+			loginUser = userService.get(loginUser.getId());
+			mv.addObject("loginUser", loginUser);
+			
+			Boolean hasFollow = followService.hasFollow(loginUser,siteUser);
+			mv.addObject("hasFollow", hasFollow);
+		}
+		
+
+		
+
+		
+		
 		
 		
 		List<Work> workList = workService.getUserWork(siteUser);
 		mv.addObject("worklist", workList);
+		
+		
+		
 
 		return mv;
 	}
@@ -151,6 +175,25 @@ public class UserController {
 		
 		return mv;
 	}
+	
+	
+	/**
+	 * 个人资料
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/persondetail")
+	public ModelAndView userinfoDetail(@RequestParam("id") UUID id, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("ucenter_checkperson_detail");
+
+		
+		User user = userService.get(id);
+		mv.addObject("user", user);
+		mv.addObject("ref", request.getHeader("Referer"));
+		
+		return mv;
+	}
+	
 
 	/**
 	 * 头像页面
@@ -314,18 +357,28 @@ public class UserController {
 	
 
 
+	/**
+	 * 修改密码
+	 * @param attr
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/action/password")
 	public ModelAndView actionPassword(RedirectAttributes attr, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("redirect:/user/v/password");
 
 		String oldp = request.getParameter("oldpassword");
 		String newp = request.getParameter("newpassword");
-
-		if (StringUtils.isEmpty(newp)) {
+		String newp2 = request.getParameter("newpassword2");
+		
+		if (StringUtils.isEmpty(newp)||StringUtils.isEmpty(oldp)||StringUtils.isEmpty(newp2)) {
 			return mv;
 		}
 
-		if (StringUtils.isEmpty(oldp)) {
+ 
+		if(!newp.equals(newp2))
+		{
+			attr.addFlashAttribute("msg", "修改失败:两次新密码不一致!");
 			return mv;
 		}
 
@@ -754,6 +807,24 @@ public class UserController {
 		mv.addObject("list", page.getResult());
 
 		mv.addObject("pageHtml", page.genPageHtml(request));
+		
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * 
+	 * 审核实名认证
+	 * @param p
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/reviewdetail")
+	public ModelAndView reviewDetail(@RequestParam("id") UUID id,
+			HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_user_reviewdetail");
+		
 		
 		
 		return mv;

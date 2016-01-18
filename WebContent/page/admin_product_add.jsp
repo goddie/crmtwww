@@ -321,6 +321,19 @@
 			$('#hid'+obj.field).val(obj.path + getThumb(obj.name, 240, 180));
 		}
 		
+		function checkForm()
+		{
+			
+			
+			var y = $('#ischeck').is(':checked');
+			if(!y)
+			{
+				alert('请同意 《“潮人码头”平台任务发布协议》');
+				return false;
+			}
+			return true;
+		}
+		
 	</script>
 
 </body>

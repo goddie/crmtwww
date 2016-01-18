@@ -7,5 +7,5 @@
 			href="${pageContext.request.contextPath}/task/detail?tid=${m.id}">${m.title }</a><b
 			class="iconHot"></b></span><span class="t-number"><img
 			src="${pageContext.request.contextPath}/resource/web/images/icon_touxiang.png"
-			width="14" height="14">${m.bountyCount }</span></li>
+			width="14" height="14">${m.submitCount }</span></li>
 </c:forEach>

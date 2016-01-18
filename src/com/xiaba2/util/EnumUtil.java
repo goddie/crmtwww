@@ -175,7 +175,7 @@ public class EnumUtil {
 		case 3:
 			return "已服务";
 		case 4:
-			return "交易关闭";
+			return "交易完成";
 		case 5:
 			return "订单取消";
 		}

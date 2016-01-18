@@ -38,7 +38,7 @@
 					class="glyphicon glyphicon-chevron-right"></i>直接雇佣</a></li>
 
 		</ul></li>
-	<li><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>信用评价</a>
+	<li style="display: none;"><a href="#"><i class="glyphicon glyphicon-chevron-down"></i>信用评价</a>
 		<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
 			<li><a href="${pageContext.request.contextPath}"><i
 					class="glyphicon glyphicon-chevron-right"></i>信誉成长</a></li>

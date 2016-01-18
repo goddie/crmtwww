@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
-<title>账户设置</title>
+<title>企业资料</title>
 </head>
 <body class="bootstrap-admin-with-small-navbar">
 
@@ -39,7 +39,7 @@
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
-									action="${pageContext.request.contextPath}/company/action/add"
+									action=""
 									name="form1" method="post" class="form-horizontal">
 									<fieldset>
 										<div class="form-group">

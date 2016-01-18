@@ -210,7 +210,7 @@ public class ForumController {
 
 	/**
 	 * 
-	 * 任务首页调用
+	 * 社区首页调用
 	 * 
 	 * @param name
 	 * @return
@@ -244,7 +244,7 @@ public class ForumController {
 		for (int i = 0; i < types.length; i++) {
 
 			ForumType type = forumTypeService.get(UUID.fromString(types[i]));
-			List<Forum> list = forumService.getTop(type, null, 15, true);
+			List<Forum> list = forumService.getTop(type, null, 15, false);
 			mv.addObject("list" + (i + 1), list);
 
 		}

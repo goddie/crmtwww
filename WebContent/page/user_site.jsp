@@ -82,18 +82,35 @@
 						<span class="f_c_f3711a f60">${user.visits }</span>
 						<p class="p_b10 f16">浏览次数</p>
 					</div>
+					
+					
+					
 					<div class="col-xs-12 col-sm-4 p_t10">
+					 
+					<c:if test="${ user.id != loginUser.id }">
 						<span class="f36 p_b10">${user.nickname }</span><span
 							class="f_c_a5c4f2 p_b10">${user.introduce }</span><br /> <span
-							class="u-name"><a href="javascript:void(0)"
-							onclick="addFollow()" class="u-focus">关注我</a><a
+							class="u-name">
+							<c:if test="${hasFollow==false }">
+							<a href="javascript:void(0)"
+							onclick="addFollow()" class="u-focus">关注我</a>
+							</c:if>
+							<c:if test="${hasFollow==true }">
+							<a href="javascript:void(0)" class="u-focus">已关注</a>
+							</c:if>
+							
+							<a
 							href="${pageContext.request.contextPath}/message/v/add?sendTo=${user.username}"
 							class="u-message" target="_blank">私信我</a></span>
+								</c:if>
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<span class="f_c_f3711a f60">${user.followCount }</span>
 						<p class="p_b10 f16">我的粉丝</p>
 					</div>
+					
+				
+					
 				</div>
 			</div>
 		</div>
@@ -106,7 +123,7 @@
 						href="javascript:void(0);">作品集</a></li>
 					<li class="u-title-500"><a id="id01" onclick="showTab_c(1)"
 						class="active" href="javascript:void(0);">用户经历简介</a></li>
-					<li class="u-title-300"><a id="id02" onclick="showTab_c(2)"
+					<li class="u-title-300" style="display:none"><a id="id02" onclick="showTab_c(2)"
 						href="javascript:void(0);">用户交易记录</a></li>
 				</ul>
 			</div>
@@ -233,7 +250,7 @@
 						<dd></dd>
 					</dl>
 				</div>
-				<div class="tab_content" id="tab02">
+				<div class="tab_content" id="tab02" style="display:none">
 					<dl class="uDllist">
 						<dt>交易评价</dt>
 						<dd>
