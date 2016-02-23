@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -93,7 +95,7 @@
 						<c:forEach var="m" varStatus="status" items="${list}">
 							<li>
 								<div class="w1">
-									<span class="img-t"><img src="${m.thumb }"
+									<span class="img-t"><img src="${webutil.getThumb(m.thumb,1) }"
 										width="83" height="83"> </span>
 									<dl class="info">
 										<dt>

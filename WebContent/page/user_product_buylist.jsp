@@ -71,7 +71,7 @@
 													<td class="center ">${m.obj2.createdDate }</td>
 													<td class="center ">${m.obj2.toUser.nickname }(${m.obj2.toUser.username })</td>
 													<td class="center ">
-													<c:if test="${m.obj1.attachment!='' }">
+													<c:if test="${m.obj1.attachment!='' && m.obj2.status==4 }">
 													<a class="btn btn-xs btn-primary"
 																href="${m.obj1.attachment }">
 																下载</a>
@@ -86,12 +86,12 @@
 																href="${pageContext.request.contextPath}/order/action/iscancel?id=${m.obj2.id}&rs=0">
 																取消订单</a>
 														</c:if>
-														<c:if
+														<%-- <c:if
 															test="${m.obj2.status==4 }">
 															<a class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 																href="${pageContext.request.contextPath}/order/action/del?id=${m.obj2.id}">
 																删除订单</a> 
-														</c:if>
+														</c:if> --%>
 														 
 														<c:if
 															test="${m.obj2.status==3 }">

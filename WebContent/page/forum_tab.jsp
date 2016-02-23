@@ -64,9 +64,7 @@
 							<dd>
 								<span class="f_c_6cbef5">${m.user.nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
 							</dd>
-							<dd class="p_t20b25">由于此前票房成绩的最高纪录为2014年4月上映的《名侦探柯南
-								异次元的狙击手》(41.1亿)，因此在本作品尚未下档之前，打破系列最高票房已成定局。考虑到此前2013年上映的《绝海的侦探》以及2014年的《异次元的狙击手》接连刷新票房纪录，这样一种连续3年实现突破的情况实属罕见。</dd>
-							<dd>
+							<dd class="p_t20b25">${ util.getSubContent(m.content,200) }<dd>
 								<a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}"
 									class="f_c_6cbef5">查看全文 》</a>
@@ -88,9 +86,7 @@
 							<dd>
 								<span class="f_c_6cbef5">${m.user.nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
 							</dd>
-							<dd class="p_t20b25">由于此前票房成绩的最高纪录为2014年4月上映的《名侦探柯南
-								异次元的狙击手》(41.1亿)，因此在本作品尚未下档之前，打破系列最高票房已成定局。考虑到此前2013年上映的《绝海的侦探》以及2014年的《异次元的狙击手》接连刷新票房纪录，这样一种连续3年实现突破的情况实属罕见。</dd>
-							<dd>
+							<dd class="p_t20b25">${ util.getSubContent(m.content,200) }<dd>
 								<a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}"
 									class="f_c_6cbef5">查看全文 》</a>
@@ -112,9 +108,7 @@
 							<dd>
 								<span class="f_c_6cbef5">${m.user.nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
 							</dd>
-							<dd class="p_t20b25">由于此前票房成绩的最高纪录为2014年4月上映的《名侦探柯南
-								异次元的狙击手》(41.1亿)，因此在本作品尚未下档之前，打破系列最高票房已成定局。考虑到此前2013年上映的《绝海的侦探》以及2014年的《异次元的狙击手》接连刷新票房纪录，这样一种连续3年实现突破的情况实属罕见。</dd>
-							<dd>
+							<dd class="p_t20b25">${ util.getSubContent(m.content,200) }<dd>
 								<a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}"
 									class="f_c_6cbef5">查看全文 》</a>
@@ -136,9 +130,7 @@
 							<dd>
 								<span class="f_c_6cbef5">${m.user.nickname }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.createdDate }
 							</dd>
-							<dd class="p_t20b25">由于此前票房成绩的最高纪录为2014年4月上映的《名侦探柯南
-								异次元的狙击手》(41.1亿)，因此在本作品尚未下档之前，打破系列最高票房已成定局。考虑到此前2013年上映的《绝海的侦探》以及2014年的《异次元的狙击手》接连刷新票房纪录，这样一种连续3年实现突破的情况实属罕见。</dd>
-							<dd>
+							<dd class="p_t20b25">${ util.getSubContent(m.content,200) }<dd>
 								<a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}"
 									class="f_c_6cbef5">查看全文 》</a>

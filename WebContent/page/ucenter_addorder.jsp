@@ -42,23 +42,23 @@
 									<fieldset>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">订单编号</label>
-											<label class="col-lg-2 control-label">${order.orderNum }</label>
+											<label class="col-lg-10 text-left">${order.orderNum }</label>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">商品名称</label>
-											<label class="col-lg-2 control-label">${product.name }</label>
+											<label class="col-lg-10 text-left">${product.name }</label>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">价格</label>
-											<label class="col-lg-2 control-label">${product.price }</label>
+											<label class="col-lg-10 text-left">${product.price }</label>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">卖家名称</label>
-											<label class="col-lg-2 control-label">${product.user.nickname }</label>
+											<label class="col-lg-10 text-left">${product.user.nickname }</label>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">应付金额</label>
-											<label class="col-lg-2 control-label"><span
+											<label class="col-lg-10 text-left"><span
 												style="color: #f00">${order.total }</span></label>
 										</div>
 									</fieldset>
@@ -82,15 +82,15 @@
 										<fieldset>
 											<div class="form-group">
 												<label class="col-lg-2 control-label" for="typeahead">收款人账号</label>
-												<label class="col-lg-2 control-label">${product.bankNo }</label>
+												<label class="col-lg-10 text-left">${product.bankNo }</label>
 											</div>
 											<div class="form-group">
 												<label class="col-lg-2 control-label" for="typeahead">银行</label>
-												<label class="col-lg-2 control-label">${product.bankName }</label>
+												<label class="col-lg-10 text-left">${product.bankName }</label>
 											</div>
 											<div class="form-group">
 												<label class="col-lg-2 control-label" for="typeahead">收款人姓名</label>
-												<label class="col-lg-2 control-label">${product.bankAccount }</label>
+												<label class="col-lg-10 text-left">${product.bankAccount }</label>
 											</div>
 
 											<button type="submit" class="btn btn-primary">提交</button>

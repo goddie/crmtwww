@@ -3,6 +3,8 @@ package com.xiaba2.task.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -94,12 +96,35 @@ public class CompanyController {
 	}
 	
 	
+	/**
+	 * 企业认证
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/companydetail")
+	public ModelAndView adminCompanyDetail(@RequestParam("id") UUID id, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_review_companydetail");
+
+		Company company = companyService.get(id);
+		if(company==null)
+		{
+			return mv;
+		}
+ 
+		mv.addObject("user",company.getUser());
+		mv.addObject("company",company);
+		mv.addObject("ref", request.getHeader("Referer"));
+		
+		return mv;
+	}
+
 
 	@RequestMapping(value = "/action/add")
 	public ModelAndView actionAdd(Company entity, RedirectAttributes attr, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("redirect:/company/v/checkcompany");
 
-		String thumb = request.getParameter("thumb");
+		String thumb = request.getParameter("licenceImage");
 
 		if (StringUtils.isEmpty(thumb)) {
 			attr.addFlashAttribute("msg", "请上传证明图片");

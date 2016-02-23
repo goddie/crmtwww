@@ -1,10 +1,19 @@
 package com.xiaba2.task.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -20,16 +29,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.csvreader.CsvReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xiaba2.cms.controller.AlbumController;
 import com.xiaba2.cms.domain.Article;
 import com.xiaba2.cms.domain.Member;
 import com.xiaba2.core.JsonResult;
 import com.xiaba2.core.Page;
+import com.xiaba2.task.domain.Company;
 import com.xiaba2.task.domain.Task;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.domain.Work;
@@ -37,6 +51,7 @@ import com.xiaba2.task.gen.EnumSet.CheckStatus;
 import com.xiaba2.task.service.FollowService;
 import com.xiaba2.task.service.UserService;
 import com.xiaba2.task.service.WorkService;
+import com.xiaba2.task.service.CompanyService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
 
@@ -52,6 +67,8 @@ public class UserController {
 	@Resource
 	private FollowService followService;
 
+	@Resource
+	private CompanyService companyService;
 
 	@RequestMapping(value = "/usernav")
 	public ModelAndView getUserNav(HttpServletRequest request) {
@@ -184,7 +201,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/admin/persondetail")
 	public ModelAndView userinfoDetail(@RequestParam("id") UUID id, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("ucenter_checkperson_detail");
+		ModelAndView mv = new ModelAndView("admin_review_persondetail");
 
 		
 		User user = userService.get(id);
@@ -461,7 +478,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/action/review")
 	public ModelAndView actionReview(@RequestParam("id") UUID id, RedirectAttributes attr, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("redirect:/user/admin/review?type=1&p=1");
+		ModelAndView mv = new ModelAndView();
 
 		User user = userService.get(id);
 		
@@ -498,6 +515,7 @@ public class UserController {
 
 		userService.saveOrUpdate(user);
 
+		mv.setViewName(HttpUtil.getHeaderRef(request));
 		
 		return mv;
 	}
@@ -767,10 +785,10 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/review")
-	public ModelAndView reviewList(@RequestParam("p") int p,
+	@RequestMapping(value = "/admin/reviewperson")
+	public ModelAndView reviewListPerson(@RequestParam("p") int p,
 			HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("admin_user_review");
+		ModelAndView mv = new ModelAndView("admin_review_person");
 
 		Page<User> page = new Page<User>();
 		page.setPageSize(HttpUtil.PAGE_SIZE);
@@ -779,26 +797,7 @@ public class UserController {
 
 		DetachedCriteria criteria = userService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
-
-		
-		int type = 0;
-		if(!StringUtils.isEmpty(request.getParameter("type")))
-		{
-			type = Integer.parseInt(request.getParameter("type"));
-			
-			mv.addObject("type", type);
-			
-			if(type==1)
-			{
-				criteria.add(Restrictions.eq("isCheckPerson", CheckStatus.WAIT));
-			}
-			
-			if(type==2)
-			{
-				criteria.add(Restrictions.eq("isCheckCompany", CheckStatus.WAIT));
-			}
-			
-		}
+		criteria.add(Restrictions.eq("isCheckPerson", CheckStatus.WAIT));
 		
 		// List<Article> list = articleService.findByCriteria(criteria);
 
@@ -811,6 +810,52 @@ public class UserController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 
+	 * 审核实名认证
+	 * @param p
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/reviewcompany")
+	public ModelAndView reviewListCompany(@RequestParam("p") int p,
+			HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_review_company");
+
+		Page<User> page = new Page<User>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+
+		DetachedCriteria criteria = userService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+
+		criteria.add(Restrictions.eq("isCheckCompany", CheckStatus.WAIT));
+		
+		// List<Article> list = articleService.findByCriteria(criteria);
+
+		page = userService.findPageByCriteria(criteria, page);
+		
+		
+		List<User> list = page.getResult();
+		List<Company> list2 = new ArrayList<Company>();
+
+		for (User u : list) {
+			
+			Company c = companyService.getByUser(u);
+			
+			list2.add(c);
+		}
+		
+		mv.addObject("list", list2);
+
+		mv.addObject("pageHtml", page.genPageHtml(request));
+		
+		
+		return mv;
+	}
+	
 	
 	
 	/**
@@ -829,4 +874,98 @@ public class UserController {
 		
 		return mv;
 	}
+	
+	
+	
+	
+	@RequestMapping(value = "/importaccount")
+	public ModelAndView importaccount(@RequestParam(value = "file", required = false) MultipartFile file,
+			HttpServletRequest request) {
+		
+		if(StringUtils.isEmpty(file.getOriginalFilename()))
+		{
+			ModelAndView mv1 = new ModelAndView("redirect:/webpage/importaccount");
+			mv1.addObject("msg", "<script>alert('上传失败：请先选择文件!')</script>");
+			return mv1;
+		}
+
+		String path = request.getSession().getServletContext().getRealPath("/") + "upfile";
+
+		// String path = this.getClass().getClassLoader().getResource("/")
+		// .getPath();
+		//
+		// path = path.replace("WEB-INF" + File.separator + "classes"
+		// + File.separator, "upload");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		String pdate = sdf.format(new Date());
+
+		path = path + File.separator + pdate;
+
+		String ext = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+
+		String uuidName = UUID.randomUUID().toString().replace("-", "");
+		String fileName = uuidName + ext;
+
+		// System.out.println(path);
+
+		File targetFile = new File(path, fileName);
+
+		if (!targetFile.exists()) {
+			targetFile.mkdirs();
+		}
+
+		// 保存
+		try {
+			file.transferTo(targetFile);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Logger.getLogger(AlbumController.class.toString()).log(Level.INFO, path);
+		
+		
+		//生成CsvReader对象，以，为分隔符，GBK编码方式
+        CsvReader r;
+		try {
+			r = new CsvReader(targetFile.getPath(), ',',Charset.forName("UTF-8"));
+			  //读取表头
+	        r.readHeaders();
+	        //逐条读取记录，直至读完
+	        while (r.readRecord()) {
+	            //读取一条记录
+	            System.out.println(r.getRawRecord());
+	            //按列名读取这条记录的值
+	            System.out.println(r.get(0));
+	            
+	            User user = new User();
+	            user.setUsername(r.get(0));
+	            user.setNickname(r.get(1));
+	            user.setPassword("123456");
+	            user.setEmail(r.get(2));
+	            user.setPhone(r.get(3));
+	            user.setCreatedDate(new Date());
+	            user.setIntroduce(r.get(5));
+
+	            userService.save(user);
+	            
+	        }
+	        r.close();
+			
+	        
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      
+		 
+
+		ModelAndView mv = new ModelAndView("forward:/album/page/upfile");
+
+		return mv;
+	}
+	
+	
 }

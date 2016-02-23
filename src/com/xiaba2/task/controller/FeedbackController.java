@@ -102,7 +102,7 @@ public class FeedbackController {
 
 		DetachedCriteria criteria = feedbackService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
-		criteria.add(Restrictions.eq("task", task));
+		criteria.add(Restrictions.eq("task.id", task.getId()));
 
 		Page<Feedback> page = new Page<Feedback>();
 

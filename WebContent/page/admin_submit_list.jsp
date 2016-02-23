@@ -62,26 +62,32 @@
 										</thead>
 
 										<tbody role="alert" aria-live="polite" aria-relevant="all">
-											<c:forEach var="m" varStatus="status" items="${list}">
+											<c:forEach var="m" varStatus="status" items="${dblist}">
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
 
-													<td class="">${m.task.title }</td>
-													<td class="">${eutil.getTaskType(m.topType) }</td>
+													<td class="">${m.submit.task.title }</td>
+													<td class="">${eutil.getTaskType(m.submit.topType) }</td>
 													 
-													<td class="">${m.createdDate }</td>
-													<td class="center ">${m.task.submitCount }</td>
-													<td class="center ">${m.task.win.nickname}</td>
-													<td class="center ">${m.task.bounty}</td>
-													<td class="center "><c:if test="${m.isWin==1 }">中标</c:if><c:if test="${m.isWin!=1 }">未中标</c:if></td>
-													<td class="center ">${eutil.getTaskStatusName(m.task.status) }</td>
+													<td class="">${m.submit.createdDate }</td>
+													<td class="center ">${m.submit.task.submitCount }</td>
+													<td class="center ">
+													<c:forEach var="s" varStatus="sindex" items="${m.winList}">
+													<li><a target="_blank" href="${pageContext.request.contextPath}/user/usersite?uuid=${s.user.id}">${s.user.nickname }</a></li>
+													</c:forEach>
+													
+													 
+													</td>
+													<td class="center ">${m.submit.task.bounty}</td>
+													<td class="center "><c:if test="${m.submit.isWin==1 }">中标</c:if><c:if test="${m.submit.isWin!=1 }">未中标</c:if></td>
+													<td class="center ">${eutil.getTaskStatusName(m.submit.task.status) }</td>
 												
 													<td class="action">
-													<c:if test="${m.isWin!=1 }">
+													<c:if test="${m.submit.isWin!=1 }">
 													<a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/submit/v/useradd?taskId=${m.task.id}">
+														href="${pageContext.request.contextPath}/submit/v/useradd?taskId=${m.submit.task.id}">
 															编辑查看</a> <a class="btn btn-xs btn-primary"
-														href="${pageContext.request.contextPath}/submit/action/del?uuid=${m.id}">
+														href="${pageContext.request.contextPath}/submit/action/del?uuid=${m.submit.id}">
 															删除 </a>
 													</c:if>
 													</td>

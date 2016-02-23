@@ -47,6 +47,7 @@ import com.xiaba2.task.service.TaskTypeService;
 import com.xiaba2.task.service.UserService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
+import com.xiaba2.util.WebUtil;
 
 @Controller
 @RequestMapping("/task")
@@ -569,6 +570,7 @@ public class TaskController {
 		mv.addObject("list", page.getResult());
 		mv.addObject("page", HttpUtil.genPageHtml(page, request));
 
+		mv.addObject("webutil", new WebUtil());
 		return mv;
 	}
 
@@ -623,10 +625,14 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value = "/detail")
-	public ModelAndView getTaskDetail(@RequestParam("tid") String tid, HttpServletRequest request, RedirectAttributes attr) {
+	public ModelAndView getTaskDetail( HttpServletRequest request, RedirectAttributes attr) {
 		ModelAndView mv = new ModelAndView("task_detail");
 
-		Task t = taskService.get(UUID.fromString(tid));
+		UUID tid = UUID.fromString(request.getParameter("tid"));
+		
+		User user = (User) SessionUtil.getInstance().getSessionUser();
+		
+		Task t = taskService.get(tid);
 
 		t.setVisit(t.getVisit() + 1);
 		taskService.saveOrUpdate(t);
@@ -635,9 +641,25 @@ public class TaskController {
 		
 		if(t.getStatus()==TaskStatus.REVIEW_FAIL)
 		{
-			mv.setViewName(HttpUtil.getHeaderRef(request));
-			attr.addFlashAttribute("js", "<script>alert('审核未通过')</script>");
-			return mv;
+			if( user!=null)
+			{
+				user = userService.get(user.getId());
+				if(user!=t.getUser())
+				{
+					mv =new ModelAndView("redirect:/task/index");
+					//mv.setViewName("redirect:/task/index");
+					attr.addFlashAttribute("js", "<script>alert('审核未通过')</script>");
+					//return mv;
+					
+				}
+			}else
+			{
+				mv =new ModelAndView("redirect:/task/index");
+				//mv.setViewName("redirect:/task/index");
+				attr.addFlashAttribute("js", "<script>alert('审核未通过')</script>");
+				//return mv;
+			}
+			
 		}
 		
 		
@@ -672,7 +694,7 @@ public class TaskController {
 		
 		//是否已承接
 		int hasSubmit=0;
-		User user = (User) SessionUtil.getInstance().getSessionUser();
+		
 		if (user != null) {
 			user = userService.get(user.getId());
 			Submit submit = submitService.getByTaskUser(user, t);
@@ -809,6 +831,7 @@ public class TaskController {
 		p = taskService.findPageByCriteria(criteria, p);
 		mv.addObject("list3", p.getResult());
 		
+		mv.addObject("webutil",new WebUtil());
 		return mv;
 	}
 

@@ -11,7 +11,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import com.xiaba2.task.dao.ITaskDao;
+import com.xiaba2.task.domain.Submit;
 import com.xiaba2.task.domain.Task;
+import com.xiaba2.util.HttpUtil;
 import com.xiaba2.cms.domain.Article;
 import com.xiaba2.cms.domain.ArticleType;
 import com.xiaba2.core.BaseService;
@@ -56,4 +58,6 @@ public class TaskService extends BaseService<Task, UUID> {
 
 		return page.getResult();
 	}
+	
+
 }

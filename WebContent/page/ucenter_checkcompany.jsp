@@ -61,7 +61,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="selectError">经营范围</label>
 											<div class="col-lg-10">
-												<select name="parentTypeId" id="parentTypeId"
+												<select name="service" id="parentTypeId"
 													class="form-control">
 
 												</select> <span class="help-block"></span>
@@ -102,7 +102,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">营业执照图片</label>
 											<div class="col-lg-10">
 												<img id="upimage" src="${company.licenceImage }" alt=""
-													width="240" height="180" /> <input name="thumb" id="thumb"
+													width="240" height="180" /> <input name="licenceImage" id="licenceImage"
 													value="" type="hidden" />
 											</div>
 										</div>
@@ -180,7 +180,7 @@
 			parentId : ""
 		}, function(data) {
 			$.each(data, function(i, item) {
-				selectAdd("#parentTypeId", item.id, item.name);
+				selectAdd("#parentTypeId", item.name, item.name);
 			});
 		});
 	}
@@ -197,7 +197,7 @@
 
 		$('#upimage').attr('src', obj.path + file)
 
-		$('#thumb').val(obj.path + file);
+		$('#licenceImage').val(obj.path + file);
 	}
 
 	function getThumb(filename, w, h) {

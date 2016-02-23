@@ -23,7 +23,7 @@
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">帖子列表</div>
+								<div class="text-muted bootstrap-admin-box-title">个人实名审核</div>
 
 							</div>
 
@@ -32,13 +32,10 @@
 									role="grid">
 									<div class="row">
 
-										<div class="col-md-12">
+										<div class="col-md-6" style="display:none">
 											<div class="dataTables_filter" id="example_filter">
-											<form action="${pageContext.request.contextPath}/forum/admin/search"
-								method="get" name="form1">
-												<label>搜索标题: <input type="text"
-													aria-controls="example" name="key">&nbsp;<input type="submit" class="btn btn-xs btn-primary" value="提交" /></label>
-									</form>
+												<label>Search: <input type="text"
+													aria-controls="example"></label>
 											</div>
 										</div>
 									</div>
@@ -48,11 +45,11 @@
 											<tr role="row">
 												<th role="columnheader" style="width: 10%;">序号</th>
 
-												<th role="columnheader">标题</th>
-												<th role="columnheader">分类</th>
-												<th role="columnheader">作者</th>
-												<th role="columnheader">时间</th>
-												<th role="columnheader">审核</th>
+												
+												<th role="columnheader">登录名</th>
+												<th role="columnheader">用户昵称</th>
+												<th role="columnheader">注册日期</th>
+												<th role="columnheader">实名认证</th>
 												<th role="columnheader" style="width: 20%;">操作</th>
 											</tr>
 										</thead>
@@ -63,34 +60,27 @@
 
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
-													<td class="" title="${m.id }">${m.title}</td>
-													<td class="">${m.type.name}-${m.subType.name}</td>
-													<td class="">${m.user.nickname}</td>
+													<td class=""><a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.id}" target="_blank">${m.username}</a></td>
+													<td class="">${m.nickname}</td>
 													<td class="">${m.createdDate}</td>
-													<td class=""><c:if test="${m.isCheck==1 }">通过</c:if> <c:if
-															test="${m.isCheck==0 }">待审核</c:if><c:if
-															test="${m.isCheck==2 }">拒绝</c:if></td>
-													<td class="action"><a class="btn btn-xs btn-primary"
-														onclick="return confirm('确认删除?')"
-														href="${pageContext.request.contextPath}/forum/action/del?id=${m.id}">
-															删除</a>  
-															
-															<c:if test="${m.isCheck==0 }">
-															<a class="btn btn-xs btn-primary"
-																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=1">
-																通过</a>
-													  
-															<a class="btn btn-xs btn-primary"
-																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=2">
-																拒绝</a>
-															</c:if>
-															
-														 </td>
+													<td class="">${m.createdDate}</td>
+													<td class="action"><a class="btn btn-xs btn-primary" onclick="return confirm('确认通过?')"
+														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=1&type=1">
+															通过</a> <a class="btn btn-xs btn-primary" onclick="return confirm('确认失败?')"
+														href="${pageContext.request.contextPath}/user/action/review?id=${m.id}&rs=10&type=1">
+															失败</a> 
+															<a class="btn btn-xs btn-primary" 
+														href="${pageContext.request.contextPath}/user/admin/persondetail?id=${m.id}">
+															查看</a>
+															</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="row">${pageHtml }</div>
+									<div class="row">
+
+										${pageHtml }
+									</div>
 								</div>
 							</div>
 						</div>

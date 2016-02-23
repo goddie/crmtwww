@@ -11,7 +11,7 @@
 						<div class="m-headline-l">
 							<h2 class="m-headline-caption">
 								<a target="_blank"
-									href="#">
+									href="${pageContext.request.contextPath}/webpage/newslist">
 									<span>今日头条</span>
 								</a>
 							</h2>
@@ -32,10 +32,10 @@
 							
 						</div>
 						<div class="m-headline-r">
-							<a target="_blank" href="#"
+							<a target="_blank" href="${pageContext.request.contextPath}/webpage/newslist"
 								class="m-more">更多&gt;&gt;</a>
 							<h2 class="m-headline-caption">
-								<a target="_blank" href="#">
+								<a target="_blank" href="${pageContext.request.contextPath}/webpage/newslist">
 									<span>新闻</span>中心
 								</a>
 							</h2>

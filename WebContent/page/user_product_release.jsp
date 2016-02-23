@@ -75,10 +75,10 @@
 															<a class="btn btn-xs btn-primary"
 																href="${pageContext.request.contextPath}/product/v/edit?id=${m.id}">
 																编辑</a>
-															<a class="btn btn-xs btn-primary"
+															<%-- <a class="btn btn-xs btn-primary"
 																onclick="return confirm('确认删除?')"
 																href="${pageContext.request.contextPath}/product/action/del?id=${m.id}&rs=0">
-																删除 </a>
+																删除 </a> --%>
 														</c:if> <c:if test="${m.status==1 }">
 															<a style="display:none" class="btn btn-xs btn-primary"
 																href="${pageContext.request.contextPath}/product/v/edit?id=${m.id}">

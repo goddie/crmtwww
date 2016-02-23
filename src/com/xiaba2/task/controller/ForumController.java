@@ -33,6 +33,7 @@ import com.xiaba2.task.service.ForumService;
 import com.xiaba2.task.service.ForumTypeService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
+import com.xiaba2.util.WebUtil;
 
 @Controller
 @RequestMapping("/forum")
@@ -319,6 +320,56 @@ public class ForumController {
 		DetachedCriteria criteria = forumService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("isDelete", 0));
 		criteria.add(Restrictions.eq("isCheck", 1));
+		
+		criteria.add(Restrictions.like("title", key , MatchMode.ANYWHERE));
+
+
+		Page<Forum> page = new Page<Forum>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+
+		page = forumService.findPageByCriteria(criteria, page);
+
+		mv.addObject("name",key+" 搜索结果:");
+		mv.addObject("list", page.getResult());
+		mv.addObject("page", HttpUtil.genPageHtml(page, request));
+		
+		mv.addObject("webutil",new WebUtil());
+
+		return mv;
+	}
+	
+	/**
+	 * 搜索
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/search")
+	public ModelAndView adminSearch(HttpServletRequest request) {
+		
+		
+		ModelAndView mv = new ModelAndView("admin_forum_list");
+
+		int p = 1;
+		String pstr = request.getParameter("p");
+		if (!StringUtils.isEmpty(pstr)) {
+			p = Integer.parseInt(pstr);
+		}
+
+		
+		
+		String key = request.getParameter("key");
+		
+		if(StringUtils.isEmpty(key))
+		{
+			//mv.setViewName(HttpUtil.getHeaderRef(request));
+			return mv;
+		}
+
+		DetachedCriteria criteria = forumService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+//		criteria.add(Restrictions.eq("isCheck", 1));
 		
 		criteria.add(Restrictions.like("title", key , MatchMode.ANYWHERE));
 

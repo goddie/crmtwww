@@ -2,6 +2,7 @@ package com.xiaba2.task.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.xiaba2.core.JsonResult;
 import com.xiaba2.core.Page;
 import com.xiaba2.task.domain.Submit;
@@ -265,7 +267,7 @@ public class SubmitController {
 
 		Page<Submit> page = new Page<Submit>();
 		page.setPageNo(1);
-		page.setPageSize(999);
+		page.setPageSize(HttpUtil.PAGE_SIZE);
 		page.addOrder("createdDate", "desc");
 
 		page = submitService.findPageByCriteria(criteria, page);
@@ -276,6 +278,22 @@ public class SubmitController {
 		mv.addObject("topType", topType);
 		mv.addObject("topName", name);
 		mv.addObject("p", page.genPageHtml(request));
+		
+		List<SubmitResult> dblist = new ArrayList<SubmitResult>();
+		
+		//List<List<Submit>> winList = new ArrayList<List<Submit>>();
+		for (Submit submit : list) {
+			
+			SubmitResult sr = new SubmitResult();
+			sr.submit = submit;
+			sr.winList = submitService.getWinList(submit.getTask());
+			dblist.add(sr);
+			//List<Submit> win = submitService.getWinList(submit.getTask());
+			//winList.add(win);
+		}
+		mv.addObject("dblist", dblist);
+		
+
 		return mv;
 	}
 
@@ -459,5 +477,24 @@ public class SubmitController {
 
 	}
 	
+	public static class SubmitResult
+	{
+		private Submit submit;
+		private List<Submit> winList;
+		public Submit getSubmit() {
+			return submit;
+		}
+		public void setSubmit(Submit submit) {
+			this.submit = submit;
+		}
+		public List<Submit> getWinList() {
+			return winList;
+		}
+		public void setWinList(List<Submit> winList) {
+			this.winList = winList;
+		}
+		
+		
+	}
 
 }

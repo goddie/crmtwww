@@ -26,7 +26,7 @@ public class Company extends BaseUUIDEntity {
 	 * 省
 	 */
 	@Column
-	private String provice;
+	private String province;
 	/**
 	 * 市
 	 */
@@ -88,12 +88,14 @@ public class Company extends BaseUUIDEntity {
 		this.service = service;
 	}
 
-	public String getProvice() {
-		return provice;
+ 
+
+	public String getProvince() {
+		return province;
 	}
 
-	public void setProvice(String provice) {
-		this.provice = provice;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	public String getCity() {

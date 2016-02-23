@@ -263,13 +263,24 @@ public class ProductController {
 		}
 
 		String pid = request.getParameter("parentTypeId");
-		TaskType ptype = taskTypeService.get(UUID.fromString(pid));
+		
+		if(!StringUtils.isEmpty(pid))
+		{
+			TaskType ptype = taskTypeService.get(UUID.fromString(pid));
+			entity.setParentType(ptype);
+		}
 
 		String sid = request.getParameter("subTypeId");
-		TaskType stype = taskTypeService.get(UUID.fromString(sid));
+		if(!StringUtils.isEmpty(sid))
+		{
+			TaskType stype = taskTypeService.get(UUID.fromString(sid));
+			entity.setSubType(stype);
+		}
+		
+		
 
-		entity.setParentType(ptype);
-		entity.setSubType(stype);
+		
+		
 		entity.setStatus(ProductStatus.PUBLISH);
 		entity.setIsOnSale(0);
 		

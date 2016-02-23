@@ -45,4 +45,20 @@ public class SubmitService extends BaseService<Submit, UUID> {
 		
 		return ListUtil.isEmpty(list)?null:list.get(0);
 	}
+	
+	/**
+	 * 所有中标投稿
+	 * @return
+	 */
+	@Transactional
+	public List<Submit> getWinList(Task task) {
+		DetachedCriteria criteria = createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("isWin", 1));
+		criteria.add(Restrictions.eq("task",task));
+		 
+		List<Submit> list = findByCriteria(criteria);
+
+		return list;
+	}
 }

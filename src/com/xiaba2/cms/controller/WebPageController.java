@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jdt.internal.compiler.ast.ArrayInitializer;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,15 @@ import com.xiaba2.cms.service.ArticleService;
 import com.xiaba2.cms.service.ArticleTypeService;
 import com.xiaba2.core.JsonResult;
 import com.xiaba2.core.Page;
+import com.xiaba2.task.domain.Forum;
+import com.xiaba2.task.domain.ForumType;
 import com.xiaba2.task.domain.Product;
 import com.xiaba2.task.domain.TaskType;
 import com.xiaba2.task.domain.User;
+import com.xiaba2.task.service.ForumService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
+import com.xiaba2.util.WebUtil;
 
 /**
  * 通用网页调用
@@ -42,6 +47,8 @@ public class WebPageController {
 	@Resource
 	ArticleTypeService articleTypeService;
 	
+	@Resource
+	ForumService forumService;
 	
 	/**
 	 * 首页导航
@@ -192,7 +199,7 @@ public class WebPageController {
 		
 		ArticleType subType2 = articleTypeService.get(UUID.fromString("c53aaaf3-3df0-4c52-985b-7aac4e9ff9b7"));
 
-		List<Article> list2 = articleService.getTop(null, subType2, 5, false);
+		List<Article> list2 = articleService.getTop(null, subType2, 3, false);
 		
 		mv.addObject("list2",list2);
 		
@@ -200,6 +207,62 @@ public class WebPageController {
 		return mv;
 	}
 	
+	
+	/**
+	 * 今日头条
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/newslist")
+	public ModelAndView newsList(HttpServletRequest request) {
+	
+		ModelAndView mv = new ModelAndView("news_list");
+		
+		ArticleType subType = articleTypeService.get(UUID.fromString("c53aaaf3-3df0-4c52-985b-7aac4e9ff9b7"));
+
+
+		String pstr = request.getParameter("p");
+		int p = 1;
+		if (!StringUtils.isEmpty(pstr)) {
+			p = Integer.parseInt(pstr);
+		}
+
+
+		Page<Article> page = new Page<Article>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "desc");
+
+		DetachedCriteria criteria = articleService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		criteria.add(Restrictions.eq("subType", subType));
+		// List<Article> list = articleService.findByCriteria(criteria);
+
+		page = articleService.findPageByCriteria(criteria, page);
+
+		mv.addObject("list", page.getResult());
+
+		mv.addObject("pageHtml", HttpUtil.genPageHtml(page, request));
+
+		// 热点
+		Page<Forum> page2 = new Page<Forum>();
+		page2.setPageSize(10);
+		page2.setPageNo(1);
+		page2.addOrder("visits", "desc");
+
+		DetachedCriteria criteria2 = forumService.createDetachedCriteria();
+		criteria2.add(Restrictions.eq("isDelete", 0));
+		// criteria2.add(Restrictions.eq("subType", subType));
+		// List<Article> list = articleService.findByCriteria(criteria);
+
+		page2 = forumService.findPageByCriteria(criteria2, page2);
+
+		mv.addObject("list2", page2.getResult());
+		mv.addObject("webutil", new WebUtil());
+
+		return mv;
+
+	}
 	
 	
 	
@@ -309,6 +372,21 @@ public class WebPageController {
 
 	String getLink(String url) {
 		return null;
+	}
+	
+	
+	/**
+	 * 获得验证串
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/importaccount")
+	public ModelAndView importAccount(HttpServletRequest request)
+	{
+		ModelAndView mv =new ModelAndView("admin_importaccount");
+		
+		
+		return mv;
 	}
 
 }

@@ -17,7 +17,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="${pageContext.request.contextPath}/user/v/index">个人中心(${member.username} ${user.username })</a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/user/v/index">个人中心(${member.username})</a>
 				</div>
 				<div class="collapse navbar-collapse main-navbar-collapse">
 					<ul class="nav navbar-nav">

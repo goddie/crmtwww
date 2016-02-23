@@ -89,14 +89,14 @@
 											<label class="col-lg-2 control-label" for="typeahead">Q
 												Q</label>
 											<div class="col-lg-10">
-												<input type="text" name="QQ" value="${submit.QQ }" class="form-control col-md-6" />
+												<input type="text" name="QQ" value="${user.QQ }" class="form-control col-md-6" />
 
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">手机</label>
 											<div class="col-lg-10">
-												<input name="phone" value="${submit.phone }" type="text"
+												<input name="phone" value="${user.phone }" type="text"
 													class="form-control col-md-6" />
 
 											</div>
@@ -104,7 +104,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">联系人</label>
 											<div class="col-lg-10">
-												<input name="name" value="${submit.name }" type="text" class="form-control col-md-6" />
+												<input name="name" value="${user.realname }" type="text" class="form-control col-md-6" />
 
 											</div>
 										</div>
@@ -113,18 +113,29 @@
 
 
 											<div class="col-lg-10">
-												<label class="uniform"> <input class="uniform_on"
+											<c:if test="${user.sex =='男' }">
+											<label class="uniform"> <input class="uniform_on"
 													type="radio" name="sex" value="先生" checked="checked" />先生
 												</label> <label class="uniform"> <input class="uniform_on"
 													type="radio" name="sex" value="女士" />女士
 
 												</label>
+											</c:if>
+											<c:if test="${user.sex !='男' }">
+											<label class="uniform"> <input class="uniform_on"
+													type="radio" name="sex" value="男" />先生
+												</label> <label class="uniform"> <input class="uniform_on"
+													type="radio" name="sex" checked="checked"  value="女" />女士
+
+												</label>
+											</c:if>
+												
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">邮箱</label>
 											<div class="col-lg-10">
-												<input name="email" value="${submit.email }" type="text"
+												<input name="email" value="${user.email }" type="text"
 													class="form-control col-md-6" />
 
 											</div>

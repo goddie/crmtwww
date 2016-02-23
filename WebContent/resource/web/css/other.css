@@ -80,8 +80,8 @@ a.blueBtn1:hover{ background:#d9effe; text-decoration:none;}
 .progressBar li.pbTxt{ padding-top:12px;}
 .progressBar li p{ float:left; width:13.85%; text-align:center;}
 .detaillist{ padding:0px 0px 40px 0px;}
-.detaillist li{ padding:28px 0; border-bottom:#c8c8c8 1px solid; display:table; }
-.detaillist li span.img-t{ display:table-cell; vertical-align:top; padding-right:20px;}
+.detaillist li{ padding:28px 0; border-bottom:#c8c8c8 1px solid; display:table; width:100% }
+.detaillist li span.img-t{ display:table-cell; vertical-align:top; padding-right:20px; width:180px;}
 .detaillist li dl.info {display:table-cell; }
 .detaillist li dl.info dt{ font-weight:normal; padding-bottom:8px;}
 .detaillist li dl.info dd{ line-height:21px;}

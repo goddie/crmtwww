@@ -33,8 +33,14 @@
 
 										<div class="col-md-6" style="display:none">
 											<div class="dataTables_filter" id="example_filter">
-												<label>Search: <input type="text"
+											
+											<form
+								method="get" name="form1">
+								<label>搜索标题: <input type="text" name="key"
 													aria-controls="example"></label>
+							</form>
+							
+												
 											</div>
 										</div>
 									</div>

@@ -39,7 +39,7 @@
 								<form
 									action="${pageContext.request.contextPath}/task/action/add"
 									name="form1" method="post" class="form-horizontal" onsubmit="return checkForm()">
-									<input name="topType" id="topType" value="${topType }" type="hidden" />
+									<input name="topType" id="topType" value="1" type="hidden" />
 									<fieldset>
 										<legend>基本信息</legend>
 										<div class="form-group">

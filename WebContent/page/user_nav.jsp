@@ -38,7 +38,7 @@
 							href="${pageContext.request.contextPath}/user/usersite?uuid=${user.id}"
 							target="_blank">我的主页</a></li>
 
-						<li><a href="http://apps.yxhltech.com/ezwork/"
+						<li><a href="http://prj.mediamarina.com:8088/"
 							target="_blank">我的工作室</a></li>
 					</ul>
 				</div>

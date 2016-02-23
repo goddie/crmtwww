@@ -77,12 +77,12 @@
 																href="${pageContext.request.contextPath}/order/action/iscancel?id=${m.obj2.id}&rs=1">
 																取消订单</a>
 														</c:if>
-														<c:if
+														<%-- <c:if
 															test="${m.obj2.status==4 }">
 															<a class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 																href="${pageContext.request.contextPath}/order/action/del?id=${m.obj2.id}">
 																删除订单</a> 
-														</c:if>
+														</c:if> --%>
 														 
 														<c:if
 															test="${m.obj2.status==3 }">

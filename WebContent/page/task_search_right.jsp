@@ -7,7 +7,7 @@
 		<c:forEach var="m" varStatus="loop" items="${list1}">
 
 			<li><span class="img-t"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank"><img
-					src="${m.thumb }" width="83" height="83"></a> </span>
+					src="${webutil.getThumb(m.thumb,1) }" width="83" height="83"></a> </span>
 				<dl class="info">
 					<dt class="f_c_fd0100">赏金：${m.bounty }</dt>
 					<dd class="p_b20"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank">${m.title }</a></dd>
@@ -20,7 +20,7 @@
 		<c:forEach var="m" varStatus="loop" items="${list2}">
 
 			<li><span class="img-t"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank"><img
-					src="${m.thumb }" width="83" height="83"></a> </span>
+					src="${webutil.getThumb(m.thumb,1) }" width="83" height="83"></a> </span>
 				<dl class="info">
 					<dt class="f_c_fd0100">赏金：${m.bounty }</dt>
 					<dd class="p_b20"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank">${m.title }</a></dd>
@@ -33,7 +33,7 @@
 		<c:forEach var="m" varStatus="loop" items="${list3}">
 
 			<li><span class="img-t"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank"><img
-					src="${m.thumb }" width="83" height="83"></a> </span>
+					src="${webutil.getThumb(m.thumb,1) }" width="83" height="83"></a> </span>
 				<dl class="info">
 					<dt class="f_c_fd0100">赏金：${m.bounty }</dt>
 					<dd class="p_b20"><a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" target="_blank">${m.title }</a></dd>
