@@ -930,6 +930,9 @@ public class UserController {
 		//生成CsvReader对象，以，为分隔符，GBK编码方式
         CsvReader r;
 		try {
+			
+			int i=1;
+			
 			r = new CsvReader(targetFile.getPath(), ',',Charset.forName("UTF-8"));
 			  //读取表头
 	        r.readHeaders();
@@ -941,7 +944,15 @@ public class UserController {
 	            System.out.println(r.get(0));
 	            
 	            User user = new User();
-	            user.setUsername(r.get(0));
+	            if(r.get(0).indexOf("om3wrt")==0)
+	            {
+	            	user.setUsername("CRMT_"+String.valueOf(i));
+	            	i++;
+	            }else
+	            {
+	            	user.setUsername(r.get(0));
+	            }
+	            
 	            user.setNickname(r.get(1));
 	            user.setPassword("123456");
 	            user.setEmail(r.get(2));
