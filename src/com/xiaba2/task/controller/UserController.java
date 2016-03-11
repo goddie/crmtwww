@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
+import javax.naming.NamingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,7 @@ import com.xiaba2.cms.controller.AlbumController;
 import com.xiaba2.cms.domain.Article;
 import com.xiaba2.cms.domain.Member;
 import com.xiaba2.core.JsonResult;
+import com.xiaba2.core.LDAPAuthenticate;
 import com.xiaba2.core.Page;
 import com.xiaba2.task.domain.Company;
 import com.xiaba2.task.domain.Task;
@@ -54,6 +56,7 @@ import com.xiaba2.task.service.WorkService;
 import com.xiaba2.task.service.CompanyService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
+import com.xiaba2.util.WebUtil;
 
 @RestController
 @RequestMapping("/user")
@@ -621,8 +624,10 @@ public class UserController {
 		DetachedCriteria criteria = userService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("username", entity.getUsername()));
 		criteria.add(Restrictions.eq("password", entity.getPassword()));
+		criteria.add(Restrictions.eq("isDelete", 0));
+		
 		List<User> list = userService.findByCriteria(criteria);
-		if (!list.isEmpty()) {
+		if (list!=null&&list.size()>0) {
 			entity = list.get(0);
 			WebUtils.setSessionAttribute(request, "user", list.get(0));
 
@@ -641,7 +646,40 @@ public class UserController {
 			//attr.addFlashAttribute("msg", "<script>alert('登录成功!')</script>");
 			
 			//mv.setViewName("redirect:/user/v/index");
-		} else {
+		} 
+		else if(WebUtil.LDAP_AUTH)
+		{
+			
+			boolean rs =  LDAPAuthenticate.createInstance().checkUser(entity.getUsername(), entity.getPassword());
+			
+			if(rs)
+			{
+				User user = new User();
+				
+				
+				user.setCreatedDate(new Date());
+				user.setNickname(entity.getUsername());
+				user.setRegIp(HttpUtil.getIpAddr(request));
+				user.setRegTime(new Date());
+				user.setCreatedDate(new Date());
+
+				userService.save(user);
+				
+				
+				WebUtils.setSessionAttribute(request, "user", user);
+				SessionUtil.getInstance().saveUserCookie(user);
+				String s = request.getParameter("redirect");
+				if(!StringUtils.isEmpty(s))
+				{
+					mv.setViewName("redirect:"+s);
+				}else
+				{
+					mv.setViewName("redirect:/user/v/index");
+				}
+			}
+						
+		}
+		else {
 			attr.addFlashAttribute("msg", "<script>alert('账号密码不正确!')</script>");
 			mv.setViewName("redirect:/webpage/login");
 			
@@ -649,6 +687,8 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	
 
 	/**
 	 * 注册
@@ -663,10 +703,24 @@ public class UserController {
 
 		if (StringUtils.isEmpty(entity.getUsername()) || StringUtils.isEmpty(entity.getPassword())) {
 			// throw new RuntimeException("用户名或密码为空。");
-			attr.addFlashAttribute("msg", "<script>alert('用户名或密码为空。')</script>");
+			attr.addFlashAttribute("msg", "<script>alert('注册失败:用户名或密码为空。')</script>");
 			mv.setViewName("redirect:/webpage/reg");
 			return mv;
 		}
+		
+		if(WebUtil.LDAP_AUTH)
+		{
+			boolean rs = LDAPAuthenticate.createInstance().add(entity.getUsername(), entity.getPassword());
+			if(!rs)
+			{
+				mv.setViewName("redirect:/webpage/reg");
+				attr.addFlashAttribute("msg", "<script>alert('注册失败:用户名已被注册。')</script>");
+				// throw new RuntimeException("用户名已被注册。");
+				return mv;
+			}
+		}
+
+		
 
 		DetachedCriteria criteria = userService.createDetachedCriteria();
 		criteria.add(Restrictions.eq("username", entity.getUsername().trim()));
@@ -675,7 +729,7 @@ public class UserController {
 
 		if (!list.isEmpty()) {
 			mv.setViewName("redirect:/webpage/reg");
-			attr.addFlashAttribute("msg", "<script>alert('用户名已被注册。')</script>");
+			attr.addFlashAttribute("msg", "<script>alert('注册失败:用户名已被注册。')</script>");
 			// throw new RuntimeException("用户名已被注册。");
 			return mv;
 		}

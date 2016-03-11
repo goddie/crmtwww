@@ -9,6 +9,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class WebUtil {
 
+	public static final boolean LDAP_AUTH = true;
 	
 	public static String getThumb(String filepath,int size)
 	{
