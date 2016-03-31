@@ -172,12 +172,17 @@ ${js }
 
 	function upfile(jsonstr) {
 		var obj = jQuery.parseJSON(jsonstr);
-		editor.insertHtml('<img src="' + obj.path
-				+ getThumb(obj.name, 1000, 1000) + '"/>');
+
 
 		if (obj.cover == 1) {
 			$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180))
 			$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+		}else
+		{
+			$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180))
+			$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+			editor.insertHtml('<img src="' + obj.path
+					+ getThumb(obj.name, 1000, 1000) + '"/>');
 		}
 
 	}

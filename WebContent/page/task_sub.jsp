@@ -93,8 +93,15 @@
 						<c:forEach var="m" varStatus="status" items="${list}">
 							<li>
 								<div class="w1">
-									<span class="img-t"><img src="${m.thumb }" width="83"
-										height="83"> </span>
+									<span class="img-t">
+									
+									
+									<c:if test="${not empty m.thumb }"><img
+											src="${m.thumb}" width="83" height="83"></c:if>
+											<c:if test="${empty m.thumb}"><img
+											src="${pageContext.request.contextPath}/resource/web/images/nopic_83.png" width="83" height="83"></c:if>
+									
+									</span>
 									<dl class="info">
 										<dt>
 											<a

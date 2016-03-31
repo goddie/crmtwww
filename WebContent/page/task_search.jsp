@@ -95,8 +95,14 @@
 						<c:forEach var="m" varStatus="status" items="${list}">
 							<li>
 								<div class="w1">
-									<span class="img-t"><img src="${webutil.getThumb(m.thumb,1) }"
-										width="83" height="83"> </span>
+									<span class="img-t">
+									
+									<c:if test="${not empty m.thumb }"><img
+											src="${webutil.getThumb(m.thumb,1) }" width="83" height="83"></c:if>
+											<c:if test="${empty m.thumb}"><img
+											src="${pageContext.request.contextPath}/resource/web/images/nopic_83.png" width="83" height="83"></c:if>
+									
+									  </span>
 									<dl class="info">
 										<dt>
 											<a href="${pageContext.request.contextPath}/task/detail?tid=${m.id }" class="f20 f_c_1490c6 fwb">${m.title }</a>

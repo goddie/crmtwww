@@ -63,19 +63,20 @@
 
 												<tr class="gradeA odd">
 													<td class="sorting_1">${status.index+1}</td>
-													<td class="" title="${m.id }">${m.title}</td>
+													<td class="" title="${m.id }"><a 															href="${pageContext.request.contextPath}/forum/detail?id=${m.id}" target="_blank">${m.title}</a></td>
 													<td class="">${m.type.name}-${m.subType.name}</td>
 													<td class="">${m.user.nickname}</td>
 													<td class="">${m.createdDate}</td>
 													<td class=""><c:if test="${m.isCheck==1 }">通过</c:if> <c:if
 															test="${m.isCheck==0 }">待审核</c:if><c:if
 															test="${m.isCheck==2 }">拒绝</c:if></td>
-													<td class="action"><a class="btn btn-xs btn-primary"
-														onclick="return confirm('确认删除?')"
-														href="${pageContext.request.contextPath}/forum/action/del?id=${m.id}">
-															删除</a>  
+													<td class="action">
 															
 															<c:if test="${m.isCheck==0 }">
+															<a class="btn btn-xs btn-primary"
+																href="${pageContext.request.contextPath}/forum/checkdetail?id=${m.id}" target="_blank">
+																查看</a>
+																
 															<a class="btn btn-xs btn-primary"
 																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=1">
 																通过</a>
@@ -84,7 +85,10 @@
 																href="${pageContext.request.contextPath}/forum/action/ischeck?id=${m.id}&rs=2">
 																拒绝</a>
 															</c:if>
-															
+															<a class="btn btn-xs btn-primary"
+														onclick="return confirm('确认删除?')"
+														href="${pageContext.request.contextPath}/forum/action/del?id=${m.id}">
+															删除</a>  
 														 </td>
 												</tr>
 											</c:forEach>

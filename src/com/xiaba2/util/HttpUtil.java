@@ -321,6 +321,7 @@ public class HttpUtil {
 	 */
 	public static String genPageHtml(Page<?> page, HttpServletRequest request) {
 
+		
 		String url = request.getRequestURL().toString();
 
 		StringBuffer sb = new StringBuffer();
@@ -328,6 +329,14 @@ public class HttpUtil {
 		sb.append("<div class=\"col-md-12\">");
 		sb.append("<div class=\"dataTables_paginate paging_bootstrap\">");
 		sb.append("<ul class=\"pagination\">");
+		
+		if(page.getTotalPages()==0)
+		{
+			sb.append("</ul>");
+			sb.append("</div>");
+			sb.append("</div>");
+			return sb.toString();
+		}
 
 		// 判断是否有上一页
 		if (page.isHasPre()) {
@@ -336,30 +345,92 @@ public class HttpUtil {
 					+ updateQueryStringItem(request, "p", String.valueOf(page.getPageNo() - 1))
 					+ "\">&lt;&lt;</a></li>");
 		} else {
-			sb.append("<li class=\"prev disabled\"><a href=\" \">&lt;&lt;</a></li>");
+			sb.append("<li class=\"prev disabled\"><a title='上一页' href=\" \">&lt;&lt;</a></li>");
 		}
-
-		// 中间显示
-		for (int i = 1; i <= page.getTotalPages(); i++) {
-
-			String spanClzz = "<li class=\"\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i))
-					+ "\">" + i + "</a></li>";
-
-			if (page.getPageNo() == i) {
-				spanClzz = "<li class=\"active\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i))
-						+ "\">" + i + "</a></li>";
-			}
-
-			sb.append(spanClzz);
-
-			// 当大于9页数的时候才进行分页显示
-			if (page.getTotalPages() - 2 > 7) {
-				if (i == 5) {
-					i = (int) page.getTotalCount() - 2;
-					sb.append("...");
+		
+		
+		if(page.getTotalPages()<=10)
+		{
+			for (int i = 1; i <= page.getTotalPages(); i++) {
+				String classStr = "";
+				String spanClzz = "";
+				
+				if(page.getPageNo() == i)
+				{
+					classStr = "active";
 				}
+				
+				
+				spanClzz = "<li class=\""+classStr+"\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i)) + "\">" + i + "</a></li>";
+				sb.append(spanClzz);
 			}
+			
+		}else
+		{
+			String classStr = "";
+			String spanClzz = "";
+			
+			if(page.getPageNo()<=5 || page.getPageNo()>=page.getTotalPages()-5)
+			{
+				for (int i = 1; i <= 5; i++) {
+
+					
+					if(page.getPageNo() == i)
+					{
+						classStr = "active";
+					}else
+					{
+						classStr = "";
+					}
+
+					spanClzz = "<li class=\""+classStr+"\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i)) + "\">" + i + "</a></li>";
+					sb.append(spanClzz);
+				}
+				
+				sb.append("<li><a href=\"#\">...</a></li>");
+				
+				for (int i = (int) (page.getTotalPages()-5); i <= page.getTotalPages(); i++) {
+					
+					if(page.getPageNo() == i)
+					{
+						classStr = "active";
+					}else
+					{
+						classStr = "";
+					}
+
+					spanClzz = "<li class=\""+classStr+"\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i)) + "\">" + i + "</a></li>";
+					sb.append(spanClzz);
+				}
+				
+				
+			}else
+			{
+				sb.append("<li><a href=\"" + updateQueryStringItem(request, "p", "1") + "\">" + "1" + "</a></li>");
+				sb.append("<li><a href=\"#\">...</a></li>");
+				for (int i = page.getPageNo()-2; i <= page.getPageNo()+2; i++) {
+					
+					if(page.getPageNo() == i)
+					{
+						classStr = "active";
+					}else
+					{
+						classStr = "";
+					}
+
+					spanClzz = "<li class=\""+classStr+"\"><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(i)) + "\">" + i + "</a></li>";
+					sb.append(spanClzz);
+				}
+				sb.append("<li><a href=\"#\">...</a></li>");
+				sb.append("<li><a href=\"" + updateQueryStringItem(request, "p", String.valueOf(page.getTotalPages())) + "\">" + page.getTotalPages() + "</a></li>");
+			}
+			
+			
+			
+			
 		}
+		
+
 		// 判断是否有下一页
 		if (page.isHasNext()) {
 
@@ -367,7 +438,7 @@ public class HttpUtil {
 					+ updateQueryStringItem(request, "p", String.valueOf(page.getPageNo() + 1))
 					+ "\">&gt;&gt;</a></li>");
 		} else {
-			sb.append("<li class=\"next disabled\"><a href=\"#\">&gt;&gt;</a></li>");
+			sb.append("<li class=\"next disabled\"><a title='下一页' href=\"#\">&gt;&gt;</a></li>");
 		}
 
 		sb.append("</ul>");
@@ -391,8 +462,12 @@ public class HttpUtil {
 		// StringBuffer url_buffer = request.getRequestURL();
 		// return http://localhost:8080/ssm/ser.do
 
-		String newURL = httpRequest.getRequestURL().toString() + "?" + httpRequest.getQueryString();
+		String newURL = httpRequest.getRequestURL().toString();
 
+		if (httpRequest.getQueryString() != null) {
+			 newURL = httpRequest.getRequestURL().toString() + "?" + httpRequest.getQueryString();
+		}
+		
 		// QueryString CONTAINS the Key...
 		if (httpRequest.getParameter(queryStringKey) != null) {
 			String orignalSet = String.format("%s=%s", queryStringKey, httpRequest.getParameter(queryStringKey));
@@ -429,13 +504,11 @@ public class HttpUtil {
 		}
 		// Only add the key/value IF the new value is not blank.
 		else if (!newQueryStringValue.trim().equals("")) {
-			// QueryString DOES NOT CONTAIN the Key... and DOES NOT HAVE other
-			// key/value pairs.
-
-			if (httpRequest.getQueryString() != null && httpRequest.getQueryString().indexOf("?") < 0) {
-				newURL += String.format("?%s=%s", queryStringKey, newQueryStringValue);
-			} else {
+			// QueryString DOES NOT CONTAIN the Key... and DOES NOT HAVE other  key/value pairs.
+			if (httpRequest.getQueryString() != null && httpRequest.getQueryString().indexOf(queryStringKey+"=") < 0) {
 				newURL += String.format("&%s=%s", queryStringKey, newQueryStringValue);
+			} else {
+				newURL += String.format("?%s=%s", queryStringKey, newQueryStringValue);
 			}
 		}
 

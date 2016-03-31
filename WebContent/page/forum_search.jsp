@@ -31,7 +31,7 @@
 								<ul class="detaillist">
 									<li class="col-md-12"><span class="img-t col-md-2"><img
 											src="${webutil.getThumb( m.thumb,1)}" width="109" height="68"> </span>
-										<dl class="info col-md-10">
+										<dl class="info col-md-9">
 											<dt>
 												<span class="f_c_0a538e f20"><a
 													href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">${m.title }</a></span>

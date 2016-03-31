@@ -79,8 +79,14 @@
 			<div class="col-xs-12 col-sm-3">
 				<div class="picinfo m_lr15_b25">
 					<a
-						href="${pageContext.request.contextPath}/product/detail?pid=${m.id}"><img
-						src="${m.thumb }" width="232" height="161"></a>
+						href="${pageContext.request.contextPath}/product/detail?pid=${m.id}">
+						
+						<c:if test="${not empty m.thumb }"><img
+											src="${m.thumb }" width="232" height="161"></c:if>
+											<c:if test="${empty m.thumb}"><img
+											src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png" width="232" height="161"></c:if>
+						
+						</a>
 					<p class="p_tb15">
 						<a
 							href="${pageContext.request.contextPath}/product/detail?pid=${m.id}">${m.name }</a>

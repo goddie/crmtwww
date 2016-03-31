@@ -31,9 +31,13 @@
 						<div class="tab_content" id="tab0">
 							<c:forEach var="m" varStatus="status" items="${list}">
 								<ul class="detaillist">
-									<li class="col-md-12"><span class="img-t col-md-2"><img
-											src="${m.thumb}" width="109" height="68"> </span>
-										<dl class="info col-md-10">
+									<li class="col-md-12"><span class="img-t col-md-2">
+									<c:if test="${not empty m.thumb}"><img
+											src="${m.thumb}" width="109" height="68"></c:if>
+											<c:if test="${empty m.thumb}"><img
+											src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png" width="109" height="68"></c:if>
+									 </span>
+										<dl class="info col-md-9">
 											<dt>
 												<span class="f_c_0a538e f20"><a
 													href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">${m.title }</a></span>

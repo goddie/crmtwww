@@ -167,7 +167,7 @@ public class WebPageController {
 					+ "</p>");
 			sb2.append("<p>" + article.getDescription() + "</p>");
 			sb2.append("<span class=\"new-c-case-bask\"></span> ");
-			sb2.append("<span class=\"new-c-case-year\">2013</span>");
+			sb2.append("<span class=\"new-c-case-year\">"+ (article.getCreatedDate().getYear()+1900) +"</span>");
 			sb2.append("</div>");
 			sb2.append("</a></li>");
 		}
