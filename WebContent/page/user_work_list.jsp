@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,8 +9,9 @@
 <title></title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body>
+<body class="bootstrap-admin-with-small-navbar">
 
+	<c:import url="/user/usernav" />
 
 	<div class="container">
 		<div class="row">
@@ -62,7 +64,7 @@
 													<td class=""><a href="${pageContext.request.contextPath}/work/detail?id=${m.id}" target="_blank">${m.title}</a></td>
 													
 													
-													<td class="">${m.createdDate}</td>
+													<td class=""><fmt:formatDate value="${m.createdDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 													<td class="action"><a
 														href="${pageContext.request.contextPath}/work/action/del?id=${m.id}">
 															删除 </a></td>

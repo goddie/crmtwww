@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:forEach var="m" varStatus="status" items="${list}">
-	<div class="col-xs-12 col-sm-3">
-		<div class="grayborder m_lr15_b25">
+	<div class="col-xs-12 col-sm-3 ">
+		<div class="grayborder m_lr15_b25 personblock">
 			<a
 				href="${pageContext.request.contextPath}/user/usersite?uuid=${m.id}"
 				target="_blank"><img src="${m.head }" width="100%" height="190"></a>

@@ -174,16 +174,16 @@ a.whiteBtn{ width:96px; height:29px; background:#fff; display:block; text-align:
 /*任务大厅*/
 #seriveClassify{ position:relative;}
 h2.t-title1{ background:#1e232a; height:53px; line-height:53px; text-align:center; color:#fff; font-size:24px; font-weight:bold; margin:0px; padding:0px;}
-.t-list01{ margin:0px; padding:20px 0 0 0;}
+.t-list01{ margin:0px; padding:20px 0 0 0; position: relative;}
 .t-list01 li{ line-height:36px; padding-left:60px;}
 .t-list01 li a{ color:#fff;}
 .t-list01 li a:hover{}
 .t-list01 li ul li a{ color:#616773!important;}
-.t-list01 li ul{ position:absolute; width:150px; border:#e33852 1px solid; border-left:none; left:100%; background:#fff; top:0px; z-index:9999;}
-.t-list01 li ul li{ margin:0px; padding:3px 0;}
+.t-list01 li ul{ position:absolute; width:450px; border:#e33852 1px solid;    background:#fff;   z-index:9999; margin-left: 60px; margin-top: -36px;}
+.t-list01 li ul li{ margin:0px 0px 0px 10px; padding:3px 0; width:100px; float:left;}
 .t-list01 li ul{ display:none;}
 .t-list01 li:hover ul{ display: block;}
-
+.personblock { height: 335px;}
 
 
 
@@ -195,7 +195,7 @@ h3.t-title3{ font-size:14px; font-weight:bold; background:#f1f1f1; height:36px; 
 .t-list02 li span{ display:table-cell;}
 .t-list02 li span a{ color:#616773;}
 .t-list02 li span.t-price{ color:#fe0000; width:85px;}
-.t-list02 li span.t-number{ text-align:right;}
+.t-list02 li span.t-number{ text-align:right; width:50px;}
 .iconHot{ background:url(../images/icon_hot.png) no-repeat; width:28px; height:11px; display:inline-block; vertical-align:top;}
 .grayborder{ border:#dddddd 1px solid; padding:4px;}
 .grayborder a img{ margin-bottom:25px;}
@@ -231,7 +231,7 @@ a.blueBtn3{ height:50px; line-height:50px; background:#99ccff; color:#fff; displ
 h2.o-title{ font-size:36px; font-weight:bold; text-indent:18px;}
 .o-dllist{ margin:10px 40px 40px 50px; text-align:center;}
 .o-dllist dt{ margin-bottom:10px;}
-.o-dllist dd{ line-height:22px; padding-bottom:5px;}
+.o-dllist dd{ line-height:22px; height:50px; padding-bottom:5px; overflow: hidden;}
 .iconVideo{ background:url(../images/icon_video.png) no-repeat; width:38px; height:27px; display:inline-block; vertical-align:top; margin-right:10px;}
 .iconHand{ background:url(../images/icon_hand.png) no-repeat; width:18px; height:20px; display:inline-block; vertical-align:top; margin-right:5px;}
 .xnhy{ background:#98abff; margin:20px 0px; padding:20px;}

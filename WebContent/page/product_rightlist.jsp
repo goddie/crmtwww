@@ -11,7 +11,7 @@
 
 			<li><span class="img-t"><a
 					href="${pageContext.request.contextPath}/product/detail?pid=${m.id}"
-					target="_blank"><img src="${m.thumb }" width="110" height="55" /></a>
+					target="_blank"><img src="${util.getCover(m.thumb,2) }" width="110" height="55" /></a>
 			</span>
 				<dl class="info">
 					<dt>

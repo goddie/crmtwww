@@ -40,7 +40,7 @@
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
 									action="${pageContext.request.contextPath}/user/action/update"
-									name="form1" method="post" class="form-horizontal">
+									name="form1" method="post" class="form-horizontal" onsubmit="return checkSubmit()">
 									<fieldset>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">昵称</label>
@@ -70,7 +70,7 @@
 											<div class="col-lg-10">
 												<input type="text" name="birthdayStr"
 													class="form-control datepicker" id="birthdayStr"
-													value="${user.birthday }">
+													value="${birthday }">
 											</div>
 										</div>
 
@@ -116,17 +116,17 @@
 											<label class="col-lg-2 control-label" for="selectError">所属地区</label>
 											<div class="col-lg-3">
 												<select name="province" id="province" class="form-control">
-													 
+
 												</select>
 											</div>
 											<div class="col-lg-3">
 												<select name="city" id="city" class="form-control">
-													 
+
 												</select>
 											</div>
 											<div class="col-lg-3">
 												<select name="district" id="district" class="form-control">
-													 
+
 												</select>
 											</div>
 
@@ -146,8 +146,9 @@
 											<label class="col-lg-2 control-label" for="typeahead">个人介绍</label>
 											<div class="col-lg-10">
 
-												<input name="introduce" type="text" value="${user.introduce }"
-													class="form-control col-md-6" id="address">
+												<input name="introduce" type="text"
+													value="${user.introduce }" class="form-control col-md-6"
+													id="address">
 											</div>
 										</div>
 
@@ -173,7 +174,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resource/js/PCASClass.js"></script>
 
- 
+
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resource/bsadmin/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -181,12 +182,11 @@
 <script type="text/javascript">
 	$(function() {
 		getParentType();
-		
+
 		var p = '${user.province}';
 		var c = '${user.city}';
 		var d = '${user.district}';
-		
-		
+
 		new PCAS("province", "city", "district", p, c, d);
 
 		$('.datepicker').datepicker({
@@ -195,7 +195,7 @@
 			autoclose : true,
 			todayBtn : 'linked'
 		});
-		
+
 		//init();
 	})
 
@@ -213,37 +213,93 @@
 		var selObj = $(name);
 		selObj.append("<option value='"+value+"'>" + text + "</option>");
 	}
-	
+
 	function selectIns(name, value, text) {
 		var selObj = $(name);
-		selObj.prepend("<option value='"+value+"' selected='selected'>" + text + "</option>");
+		selObj.prepend("<option value='"+value+"' selected='selected'>" + text
+				+ "</option>");
 	}
-	
-	function init()
-	{
+
+	function init() {
 		var p = '${user.province}';
 		var c = '${user.city}';
 		var d = '${user.district}';
-		
-		if(p!='')
-		{
+
+		if (p != '') {
 			//$("#province option[value='"+p+"']").attr("selected", "selected");
-			selectIns('#province',p,p);
+			selectIns('#province', p, p);
 		}
-		
-		if(c!='')
-		{
+
+		if (c != '') {
 			//$("#city option[value='"+c+"']").attr("selected", "selected");
-			selectIns('#city',c,c);
+			selectIns('#city', c, c);
 		}
-		
-		if(d!='')
-		{
+
+		if (d != '') {
 			//$("#district option[value='"+d+"']").attr("selected", "selected");
-			selectIns('#district',d,d);
+			selectIns('#district', d, d);
 		}
 	}
 	
 	
-	
+	function checkSubmit()
+	{
+		if(!isPhone())
+		{
+			return false;
+		}
+		
+		if(!isQQ())
+		{
+			return false;
+		}
+		
+		if(!isEmail())
+		{
+			return false;
+		}
+		
+		return true;
+	}
+
+ 
+
+	//验证手机号码
+	function isPhone() {
+		var tel = $('#phone').val();
+		if (tel.search(/^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/) != -1) {
+			return true;
+		} else {
+			alert("手机格式错误");
+			return false;
+		}
+	}
+
+	//验证QQ
+	function isQQ() {
+		var qq = $('#QQ').val();
+		var bValidate = RegExp(/^[1-9][0-9]{4,9}$/).test(qq);  
+        if (bValidate) {  
+            return true;  
+        }  
+        else
+        {
+        	alert("QQ格式错误");
+        	return false;	
+        }
+          
+	}
+
+	function isEmail() {
+		var email = $('#email').val();
+		if (email
+				.search(/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/) != -1) {
+			redflag = 0;
+			return true;
+		} else {
+			alert("邮箱格式错误");
+			redflag = 1;
+			return false;
+		}
+	}
 </script>

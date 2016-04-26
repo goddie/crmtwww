@@ -17,17 +17,17 @@ a:hover {color: #FF6500; text-decoration: none!important;}
 .p_t50b20{ padding:50px 0px 20px 0px!important;}
 
 /*焦点图*/
-.box_skitter { position: relative; background: none; height:600px; }
+.box_skitter { position: relative; background: none; height:600px; text-align: center; background: #f00;  }
 .box_skitter ul { display: none; }
 .box_skitter .container_skitter { overflow: hidden; position: relative; }
-.box_skitter .image { overflow: hidden; }
-.box_skitter .image img { display: none; }
+.box_skitter .image { overflow: hidden; text-align: center; margin: 0 auto;}
+.box_skitter .image img { display: none; margin: 0 auto; }
 .box_skitter .prev_button { position: absolute; top: 50%; left: 5px; z-index: 100; width: 57px; height: 62px; overflow: hidden; text-indent: -9999em; margin-top: -25px; /*background: url(../images/prev.png) no-repeat left top !important; */}
 .box_skitter .next_button { position: absolute; top: 50%; right: 5px; z-index: 100; width: 57px; height: 62px; overflow: hidden; text-indent: -9999em; margin-top: -25px; /*background:url(../images/next.png) no-repeat left top !important;*/ }
-.box_skitter .box_clone { position: absolute; top: 0; left: 0; width: 100px; overflow: hidden; display: none; z-index: 20; }
-.box_skitter .box_clone img { position: absolute; top: 0; left: 0; z-index: 20; }
+.box_skitter .box_clone { position: absolute;    width: 100px; overflow: hidden; display: none; z-index: 20;   }
+.box_skitter .box_clone img { position: absolute;   z-index: 20; }
 .box_skitter .label_skitter { z-index: 150; position: absolute; display: none; }
-#slideshow { width: 100%; width: 100%; }
+#slideshow { width: 100%;   }
 #slideshow ul { display: none; }
 /*任务大厅*/
 .c-t-title{ font-size:48px; font-weight:100; line-height: 1.1;}

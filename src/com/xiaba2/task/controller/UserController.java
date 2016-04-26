@@ -10,7 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -189,6 +191,13 @@ public class UserController {
 		User user = (User) SessionUtil.getInstance().getSessionUser();
 		if (user != null) {
 			user = userService.get(user.getId());
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		if(user.getBirthday()!=null)
+		{
+			mv.addObject("birthday",sdf.format(user.getBirthday()));
 		}
 		
 		mv.addObject("user", user);
@@ -685,6 +694,19 @@ public class UserController {
 			
 			
 		}
+		
+		//同时登录另外2个平台
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("emp_no", entity.getUsername());
+//		params.put("password", entity.getPassword());
+//		String s1 = HttpUtil.post("http://oa.yxhltech.com/login/check_login", params);
+//		
+//		Map<String, String> params2 = new HashMap<String, String>();
+//		params2.put("username", entity.getUsername());
+//		params2.put("password", entity.getPassword());
+//		String s2 = HttpUtil.post("http://prj.mediamarina.com:8088/index.php?s=/Admin/Index/login", params2);
+		
+		
 		return mv;
 	}
 	

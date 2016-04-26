@@ -414,6 +414,50 @@ public class ForumController {
 		mv.addObject("pageHtml", HttpUtil.genPageHtml(page, request));
 		return mv;
 	}
+	
+	
+	/**
+	 * 帖子列表
+	 * 
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/checkdetail")
+	public ModelAndView adminCheck(@RequestParam("id") UUID id, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin_forum_checkdetail");
+
+		String pstr = request.getParameter("p");
+		int p = 1;
+		if (!StringUtils.isEmpty(pstr)) {
+			p = Integer.parseInt(pstr);
+		}
+
+		Forum forum = forumService.get(id);
+		mv.addObject("entity", forum);
+
+		forum.setVisits(forum.getVisits() + 1);
+		forumService.saveOrUpdate(forum);
+
+		Page<ForumReply> page = new Page<ForumReply>();
+		page.setPageSize(HttpUtil.PAGE_SIZE);
+		page.setPageNo(p);
+		page.addOrder("createdDate", "asc");
+
+		DetachedCriteria criteria = forumReplyService.createDetachedCriteria();
+		criteria.add(Restrictions.eq("isDelete", 0));
+		//criteria.add(Restrictions.eq("isCheck", 1));
+		criteria.add(Restrictions.eq("forum", forum));
+		// List<Article> list = articleService.findByCriteria(criteria);
+
+		page = forumReplyService.findPageByCriteria(criteria, page);
+
+		mv.addObject("list", page.getResult());
+
+		mv.addObject("pageHtml", HttpUtil.genPageHtml(page, request));
+
+		return mv;
+
+	}
 
 	@RequestMapping(value = "/user/add")
 	public ModelAndView userAdd() {

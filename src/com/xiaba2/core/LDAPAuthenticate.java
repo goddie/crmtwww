@@ -26,7 +26,6 @@ import javax.naming.ldap.Control;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
-import com.sun.xml.internal.messaging.saaj.util.Base64;
 
 public class LDAPAuthenticate {
 
@@ -224,6 +223,9 @@ public class LDAPAuthenticate {
         System.out.println("Deleted.");
     }
  
+    
+    
+    
 
     public synchronized void connect() throws NamingException {
         System.out.println("connecting...");
@@ -238,7 +240,15 @@ public class LDAPAuthenticate {
             ds = new InitialDirContext(env);
             // ds = (DirContext) initial.lookup("ldap://localhost:389");
         }
-        System.out.println("connected.");
+        
+        if(ds!=null)
+        {
+        	System.out.println("connected.");
+        }
+        else
+        {
+        	System.out.println("connect Fail !");
+        }
     }
  
 

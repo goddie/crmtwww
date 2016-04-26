@@ -74,7 +74,7 @@
 															
 															<c:if test="${m.isCheck==0 }">
 															<a class="btn btn-xs btn-primary"
-																href="${pageContext.request.contextPath}/forum/checkdetail?id=${m.id}" target="_blank">
+																href="${pageContext.request.contextPath}/forum/admin/checkdetail?id=${m.id}" target="_blank">
 																查看</a>
 																
 															<a class="btn btn-xs btn-primary"

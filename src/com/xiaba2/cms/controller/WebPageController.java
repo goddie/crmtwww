@@ -27,6 +27,7 @@ import com.xiaba2.task.domain.Product;
 import com.xiaba2.task.domain.TaskType;
 import com.xiaba2.task.domain.User;
 import com.xiaba2.task.service.ForumService;
+import com.xiaba2.task.service.UserService;
 import com.xiaba2.util.HttpUtil;
 import com.xiaba2.util.SessionUtil;
 import com.xiaba2.util.WebUtil;
@@ -326,7 +327,7 @@ public class WebPageController {
 
 		ArticleType subType = articleTypeService.get(UUID.fromString("abb6a6b1-a93d-4b01-9090-83539bbb968e"));
 
-		List<Article> list1 = articleService.getTop(null, subType, 5, true);
+		List<Article> list1 = articleService.getTop(null, subType, 2, true);
 
 //		for (Article article : list1) {
 //			
@@ -388,5 +389,52 @@ public class WebPageController {
 		
 		return mv;
 	}
+	
+	
+	/**
+	 * 在线办公
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/oa")
+	public ModelAndView oa(HttpServletRequest request)
+	{
+		ModelAndView mv =new ModelAndView("oa");
+		
+		User user =  SessionUtil.getInstance().getSessionUser();
+		
+		if(user == null)
+		{
+			mv.setViewName("redirect:/webpage/login");
+			return mv;
+		}
+		
+		mv.addObject("user", user);
+		
+		return mv;
+	} 
+	
+	
+	/**
+	 * 在线合作
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/prj")
+	public ModelAndView prj(HttpServletRequest request)
+	{
+		ModelAndView mv =new ModelAndView("prj");
+		User user =  SessionUtil.getInstance().getSessionUser();
+		
+		if(user == null)
+		{
+			mv.setViewName("redirect:/webpage/login");
+			return mv;
+		}
+		
+		mv.addObject("user", user);
+		
+		return mv;
+	} 
 
 }

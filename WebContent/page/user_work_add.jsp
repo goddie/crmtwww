@@ -8,8 +8,9 @@
 <title>上传作品</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body>
+<body class="bootstrap-admin-with-small-navbar">
 
+	<c:import url="/user/usernav" />
 
 	<div class="container">
 		<div class="row">
@@ -142,12 +143,12 @@
 
 	function upfile(jsonstr) {
 		var obj = jQuery.parseJSON(jsonstr);
-		editor.insertHtml('<img src="' + obj.path
-				+ getThumb(obj.name, 1000, 1000) + '"/>');
 
-		if (obj.cover == 1) {
-			$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180))
-			$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+		$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180))
+		$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+		
+		if (obj.cover != 1) {
+			editor.insertHtml('<img src="' + obj.path + getThumb(obj.name, 1000, 1000) + '"/>');
 		}
 
 	}

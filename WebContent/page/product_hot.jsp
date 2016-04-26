@@ -8,7 +8,7 @@
 	<dl class="o-dllist">
 		<dt>
 			<a href="${pageContext.request.contextPath}/product/detail?pid=${m.id}" target="_blank"><img
-				src="${m.thumb }" width="134" height="100"></a>
+				src="${util.getCover(m.thumb,2) }" width="134" height="100"></a>
 		</dt>
 		<dd>
 			<a href="${pageContext.request.contextPath}/product/detail?pid=${m.id}" target="_blank">${m.name }</a>

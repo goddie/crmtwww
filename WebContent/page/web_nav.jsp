@@ -25,7 +25,7 @@
 					href="${pageContext.request.contextPath}/webpage/online"
 					target="_self">在线创作</a></li>
 				<li><a
-					href="http://oa.mediamarina.com:8088/"
+					href="${pageContext.request.contextPath}/webpage/oa"
 					target="_self">在线办公</a></li>
 				<li><a href="${pageContext.request.contextPath}/product/index"
 					target="_self">创意商城</a></li>

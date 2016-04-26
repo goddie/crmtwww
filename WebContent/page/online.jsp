@@ -18,7 +18,7 @@
 			width="100%" />
 		<div class="o-o-info">
 			<p class="o-o-txt">项目协同创作工具</p>
-			<a class="blueBtn2"  href="http://prj.mediamarina.com:8088/" target="_self">立即体验</a>
+			<a class="blueBtn2"  href="${pageContext.request.contextPath}/webpage/prj" target="_self">立即体验</a>
 		</div>
 	</div>
 	<div class="m_t30b50">

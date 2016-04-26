@@ -317,13 +317,15 @@ ${js}
 
 		function upfile(jsonstr) {
 			var obj = jQuery.parseJSON(jsonstr);
-			editor.insertHtml('<img src="' + obj.path
-					+ getThumb(obj.name, 1000, 1000) + '"/>');
 
-			if (obj.cover == 1) {
-				$('#upimage').attr('src',
-						obj.path + getThumb(obj.name, 240, 180));
-				$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+			$('#upimage').attr('src',
+					obj.path + getThumb(obj.name, 240, 180));
+			$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
+			
+			if (obj.cover != 1) {
+				editor.insertHtml('<img src="' + obj.path
+						+ getThumb(obj.name, 1000, 1000) + '"/>');
+
 			}
 
 		}
@@ -362,6 +364,70 @@ ${js}
 				alert('请同意《潮人码头自媒体内容在线协同工作平台版权声明》');
 				return false;
 			}
+			
+	          
+	        
+	        if(!isPhone())
+			{
+				return false;
+			}
+			
+			if(!isQQ())
+			{
+				return false;
+			}
+			
+			if(!isNum())
+			{
+				return false;
+			}
+			
+			
+
 			return true;
+		}
+		
+		
+		
+		//验证手机号码
+		function isPhone() {
+			var tel = $('#phone').val();
+			if (tel.search(/^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/) != -1) {
+				return true;
+			} else {
+				alert("手机格式错误");
+				return false;
+			}
+		}
+
+		//验证QQ
+		function isQQ() {
+			var qq = $('#QQ').val();
+			var bValidate = RegExp(/^[1-9][0-9]{4,9}$/).test(qq);  
+	        if (bValidate) {  
+	            return true;  
+	        }  
+	        else
+	        {
+	        	alert("QQ格式错误");
+	        	return false;	
+	        }
+
+		}
+ 
+		
+		//验证单价
+		function isNum() {
+			var qq = $('#price').val();
+			var bValidate = RegExp(/^[0-9]*$/).test(qq);  
+	        if (bValidate) {  
+	            return true;  
+	        }  
+	        else
+	        {
+	        	alert("请填入商品售价");
+	        	return false;	
+	        }
+	          
 		}
 	</script>

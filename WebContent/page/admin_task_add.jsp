@@ -119,14 +119,14 @@
 											<label class="col-lg-2 control-label" for="typeahead">Q
 												Q</label>
 											<div class="col-lg-10">
-												<input type="text" name="QQ" class="form-control col-md-6" />
+												<input type="text" name="QQ" id="QQ" class="form-control col-md-6" />
 
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">手机</label>
 											<div class="col-lg-10">
-												<input name="phone" type="text"
+												<input name="phone" id="phone" type="text"
 													class="form-control col-md-6" />
 
 											</div>
@@ -134,7 +134,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">联系人</label>
 											<div class="col-lg-10">
-												<input name="name" type="text" class="form-control col-md-6" />
+												<input name="name" id="name" type="text" class="form-control col-md-6" />
 
 											</div>
 										</div>
@@ -154,7 +154,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">邮箱</label>
 											<div class="col-lg-10">
-												<input name="email" type="text"
+												<input name="email" id="email" type="text"
 													class="form-control col-md-6" />
 
 											</div>
@@ -162,7 +162,7 @@
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">座机</label>
 											<div class="col-lg-10">
-												<input name="tel" type="text" class="form-control col-md-6" />
+												<input name="tel" id="tel" type="text" class="form-control col-md-6" />
 
 											</div>
 										</div>
@@ -454,6 +454,28 @@ ${js }
 			alert('请同意 《“潮人码头”平台任务发布协议》');
 			return false;
 		}
+		
+		
+		if(!isPhone())
+		{
+			return false;
+		}
+		
+		if(!isQQ())
+		{
+			return false;
+		}
+		
+		if(!isEmail())
+		{
+			return false;
+		}
+		
+		if(!isNum())
+		{
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -464,5 +486,62 @@ ${js }
 	}
 
 	setInterval(countForm, 1000);
+	
+ 
+
+	//验证手机号码
+	function isPhone() {
+		var tel = $('#phone').val();
+		if (tel.search(/^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/) != -1) {
+			return true;
+		} else {
+			alert("手机格式错误");
+			return false;
+		}
+	}
+
+	//验证QQ
+	function isQQ() {
+		var qq = $('#QQ').val();
+		var bValidate = RegExp(/^[1-9][0-9]{4,9}$/).test(qq);  
+        if (bValidate) {  
+            return true;  
+        }  
+        else
+        {
+        	alert("QQ格式错误");
+        	return false;	
+        }
+          
+	}
+
+	function isEmail() {
+		var email = $('#email').val();
+		if (email
+				.search(/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/) != -1) {
+			redflag = 0;
+			return true;
+		} else {
+			alert("邮箱格式错误");
+			redflag = 1;
+			return false;
+		}
+	}
+	
+	
+	//验证单价
+	function isNum() {
+		var qq = $('#bountyPrice').val();
+		var bValidate = RegExp(/^[0-9]*$/).test(qq);  
+        if (bValidate) {  
+            return true;  
+        }  
+        else
+        {
+        	alert("请填入悬赏单价");
+        	return false;	
+        }
+          
+	}
 </script>
 
