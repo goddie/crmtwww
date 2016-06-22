@@ -214,4 +214,13 @@ public class MessageController {
 
 	}
 
+	@RequestMapping(value = "/v/detail")
+	public ModelAndView detail(@RequestParam("id") UUID id,HttpServletRequest request) {
+
+		Message entity = messageService.get(id);
+		ModelAndView mv = new ModelAndView("user_message_detail");
+		mv.addObject("entity", entity);
+		return mv;
+
+	}
 }

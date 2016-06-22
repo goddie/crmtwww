@@ -108,6 +108,7 @@ public class ProductController {
 		{
 			TaskType parentTaskType = taskTypeService.get(UUID.fromString(request.getParameter("ptype")));
 			criteria.add(Restrictions.eq("parentType", parentTaskType));
+			mv.addObject("ptype",parentTaskType.getId());
 		}
 		
 		if(!StringUtils.isEmpty(request.getParameter("stype")))
@@ -303,7 +304,7 @@ public class ProductController {
 	public ModelAndView edit(Product entity, HttpServletRequest request, RedirectAttributes attr) {
 		ModelAndView mv = new ModelAndView("redirect:/product/v/add");
 
-		Product old = productService.get(UUID.fromString(request.getParameter("id")));
+		Product old = productService.get(entity.getId());
 		
 		
 		
@@ -332,15 +333,35 @@ public class ProductController {
 		entity.setStatus(ProductStatus.PUBLISH);
 		entity.setIsOnSale(0);
 		
-		entity.setCreatedDate(new Date());
 		
-
-		productService.saveOrUpdate(entity);
-		attr.addFlashAttribute("msg", "修改成功!");
+		old.setParentType(ptype);
+		old.setSubType(stype);
+		old.setStatus(ProductStatus.PUBLISH);
+		old.setIsOnSale(0);
 		
-		BeanUtils.copyProperties(entity,old);
+		old.setTopType(entity.getTopType());
+		old.setName(entity.getName());
+		old.setTag(entity.getTag());
+		old.setPrice(entity.getPrice());
+		old.setInfo(entity.getInfo());
+		old.setThumb(entity.getThumb());
+		old.setPhone(entity.getPhone());
+		old.setQQ(entity.getQQ());
+		old.setProof(entity.getProof());
+		old.setBankNo(entity.getBankNo());
+		old.setBankName(entity.getBankName());
+		old.setBankAccount(entity.getBankAccount());
+		
+		
 		
 		productService.saveOrUpdate(old);
+
+//		productService.saveOrUpdate(entity);
+		attr.addFlashAttribute("msg", "修改成功!");
+		
+		//BeanUtils.copyProperties(entity,old);
+		
+		
 		
 		return mv;
 	}

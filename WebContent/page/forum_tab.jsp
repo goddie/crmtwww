@@ -22,11 +22,11 @@
 					<li><span class="img-t"><a
 									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">
 									<c:if test="${m.thumb!=null && m.thumb!=''}">
-									<img src=" ${m.thumb}"
+									<img src="${m.thumb}"
 							width="181" height="114"/>
 									</c:if>
 									
-									<c:if test="${m.thumb==null || m.thumb=='' }">
+									<c:if test="${m.thumb==null || m.thumb==''}">
 									<img src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png"
 							width="181" height="114"/>
 									</c:if>
@@ -55,8 +55,18 @@
 		<div class="tab_content" id="tab1">
 			<ul class="detaillist">
 				<c:forEach var="m" varStatus="status" items="${list2}">
-					<li><span class="img-t"><img src=" ${m.thumb}"
-							width="181" height="114"> </span>
+					<li><span class="img-t"><a
+									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">
+									<c:if test="${m.thumb!=null && m.thumb!=''}">
+									<img src="${m.thumb}"
+							width="181" height="114"/>
+									</c:if>
+									
+									<c:if test="${m.thumb==null || m.thumb==''}">
+									<img src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png"
+							width="181" height="114"/>
+									</c:if>
+									</a> </span>
 						<dl class="info">
 							<dt>
 								<span class="f_c_0a538e f20">${m.title }</span>
@@ -77,8 +87,18 @@
 		<div class="tab_content" id="tab2">
 			<ul class="detaillist">
 				<c:forEach var="m" varStatus="status" items="${list3}">
-					<li><span class="img-t"><img src=" ${m.thumb}"
-							width="181" height="114"> </span>
+					<li><span class="img-t"><a
+									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">
+									<c:if test="${m.thumb!=null && m.thumb!=''}">
+									<img src="${m.thumb}"
+							width="181" height="114"/>
+									</c:if>
+									
+									<c:if test="${m.thumb==null || m.thumb==''}">
+									<img src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png"
+							width="181" height="114"/>
+									</c:if>
+									</a> </span>
 						<dl class="info">
 							<dt>
 								<span class="f_c_0a538e f20">${m.title }</span>
@@ -99,8 +119,18 @@
 		<div class="tab_content" id="tab3">
 			<ul class="detaillist">
 				<c:forEach var="m" varStatus="status" items="${list4}">
-					<li><span class="img-t"><img src=" ${m.thumb}"
-							width="181" height="114"> </span>
+					<li><span class="img-t"><a
+									href="${pageContext.request.contextPath}/forum/detail?id=${m.id}">
+									<c:if test="${m.thumb!=null && m.thumb!=''}">
+									<img src="${m.thumb}"
+							width="181" height="114"/>
+									</c:if>
+									
+									<c:if test="${m.thumb==null || m.thumb==''}">
+									<img src="${pageContext.request.contextPath}/resource/web/images/nopic_232.png"
+							width="181" height="114"/>
+									</c:if>
+									</a> </span>
 						<dl class="info">
 							<dt>
 								<span class="f_c_0a538e f20">${m.title }</span>

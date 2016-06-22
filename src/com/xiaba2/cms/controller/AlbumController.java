@@ -60,8 +60,18 @@ public class AlbumController {
 	 * @return
 	 */
 	@RequestMapping(value = "/page/upload")
-	public ModelAndView upimage() {
+	public ModelAndView upimage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("upimage");
+		String s = request.getParameter("ischeck");
+		if(!StringUtils.isEmpty(s) && s.equals("0"))
+		{
+			mv.addObject("ischeck", false);
+		}else
+		{
+			mv.addObject("ischeck", true);
+		}
+		
+		
 		return mv;
 	}
 	

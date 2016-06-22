@@ -19,7 +19,7 @@
 		<h3>潮人码头 > ${sub.parent.name } >${sub.name }</h3>
 		<div class="forum-new">
 			<a
-				href="${pageContext.request.contextPath}/forum/user/add?id=${sub.id}"
+				href="${pageContext.request.contextPath}/forum/v/add?id=${sub.id}"
 				class="btn  btn-danger">发表新帖</a>
 
 		</div>

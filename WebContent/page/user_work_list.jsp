@@ -67,7 +67,9 @@
 													<td class=""><fmt:formatDate value="${m.createdDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 													<td class="action"><a
 														href="${pageContext.request.contextPath}/work/action/del?id=${m.id}">
-															删除 </a></td>
+															删除</a> <a
+														href="${pageContext.request.contextPath}/work/v/edit?id=${m.id}">
+														编辑</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

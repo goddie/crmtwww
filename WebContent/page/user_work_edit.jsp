@@ -5,16 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新建文章</title>
+<title>修改作品</title>
 <jsp:include page="/resource/inc/admin_style.jsp"></jsp:include>
 </head>
-<body  class="bootstrap-admin-with-small-navbar">
-<c:import url="/member/adminnav" />
+<body class="bootstrap-admin-with-small-navbar">
+
+	<c:import url="/user/usernav" />
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bootstrap-admin-col-left">
-				<jsp:include page="/resource/inc/admin_left.jsp"></jsp:include>
+				<c:import url="/user/userleft" />
 			</div>
 			<div class="col-md-10">
 
@@ -29,48 +30,30 @@
 						</c:if>
 						<div class="panel panel-default bootstrap-admin-no-table-panel">
 							<div class="panel-heading">
-								<div class="text-muted bootstrap-admin-box-title">新建文章</div>
+								<div class="text-muted bootstrap-admin-box-title">修改作品</div>
 							</div>
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form
-									action="${pageContext.request.contextPath}/article/action/add"
+									action="${pageContext.request.contextPath}/work/action/update"
 									name="form1" method="post" class="form-horizontal">
-									<input name="topType" value="${topType }" type="hidden" />
+	<input name="id" type="hidden" value="${entity.id }"/>
 									<fieldset>
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="selectError">分类</label>
-											<div class="col-lg-10">
-												<select name="parentTypeId" id="parentTypeId"
-													class="form-control">
-
-												</select> <span class="help-block"></span>
-											</div>
-
-										</div>
-
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="selectError"></label>
-											<div class="col-lg-10">
-												<select name="subTypeId" id="subTypeId" class="form-control">
-												</select> <span class="help-block"></span>
-											</div>
-										</div>
 
 										<div class="form-group">
 											<label class="col-lg-2 control-label" for="typeahead">标题</label>
 											<div class="col-lg-10">
 												<input name="title" type="text"
-													class="form-control col-md-6" id="title" autocomplete="off"
+													class="form-control col-md-6" id="title" value="${entity.title }" autocomplete="off"
 													data-provide="typeahead" data-items="4" data-source="">
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">封面图</label>
+											<label class="col-lg-2 control-label" for="typeahead">作品封面</label>
 											<div class="col-lg-10">
-												<img id="upimage" src="" alt="" width="120" height="90" />
-												<input name="thumb" id="thumb" value="" type="hidden" />
+												<img id="upimage" src="${entity.thumb }" alt="" width="120" height="90" />
+												<input name="thumb" id="thumb" value="${entity.thumb }" type="hidden" />
 											</div>
 										</div>
 
@@ -84,13 +67,7 @@
 											</div>
 										</div>
 
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">简介</label>
-											<div class="col-lg-10">
-												<textarea class="form-control col-md-6" name="description"></textarea>
-												
-											</div>
-										</div>
+
 										<div class="form-group">
 											<label class="col-lg-2 control-label"
 												for="textarea-wysihtml5">内容</label>
@@ -98,20 +75,12 @@
 
 												<textarea id="ckeditor_full" name="content"
 													class="form-control textarea-wysihtml5"
-													placeholder="输入正文..."></textarea>
+													placeholder="输入正文...">${entity.content }</textarea>
 
 											</div>
 										</div>
 
-										<div class="form-group">
-											<label class="col-lg-2 control-label" for="typeahead">跳转URL</label>
-											<div class="col-lg-10">
-												<input name="redirectUrl" type="text"
-													class="form-control col-md-6" id="redirectUrl"
-													autocomplete="off" data-provide="typeahead" data-items="4"
-													data-source="">
-											</div>
-										</div>
+
 
 										<button type="submit" class="btn btn-primary">提交</button>
 										<button type="reset" class="btn btn-default">取消</button>
@@ -159,40 +128,7 @@
 			height : '320px'
 		}).editor;
 
-		getParentType();
-
 	})
-
-	$('#parentTypeId').bind('change', function() {
-
-		getSubType($('#parentTypeId').val());
-
-	});
-
-	function getParentType() {
-		$.getJSON("${pageContext.request.contextPath}/articletype/json/list", {
-			parentId : ""
-		}, function(data) {
-			$.each(data, function(i, item) {
-				if (i == 0) {
-					getSubType(item.id);
-				}
-				selectAdd("#parentTypeId", item.id, item.name);
-			});
-		});
-	}
-
-	function getSubType(pid) {
-		selectClear("#subTypeId");
-		$.getJSON("${pageContext.request.contextPath}/articletype/json/list", {
-			parentId : pid,
-			t : new Date()
-		}, function(data) {
-			$.each(data, function(i, item) {
-				selectAdd("#subTypeId", item.id, item.name);
-			});
-		});
-	}
 
 	function selectAdd(name, value, text) {
 		var selObj = $(name);
@@ -208,13 +144,11 @@
 	function upfile(jsonstr) {
 		var obj = jQuery.parseJSON(jsonstr);
 
+		$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180))
 		$('#thumb').val(obj.path + getThumb(obj.name, 240, 180));
-		$('#upimage').attr('src', obj.path + getThumb(obj.name, 240, 180));
 		
 		if (obj.cover != 1) {
-			editor.insertHtml('<img src="' + obj.path
-					+ getThumb(obj.name, 1000, 1000) + '"/>');
-
+			editor.insertHtml('<img src="' + obj.path + getThumb(obj.name, 1000, 1000) + '"/>');
 		}
 
 	}

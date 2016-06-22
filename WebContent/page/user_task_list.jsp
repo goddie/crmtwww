@@ -65,7 +65,7 @@
 												<th role="columnheader">中标人</th>
 												<th role="columnheader">状态</th>
 												<th role="columnheader">发布时间</th>
-												<th role="columnheader" style="width: 140px;">操作</th>
+												<th role="columnheader">操作</th>
 											</tr>
 										</thead>
 
@@ -120,3 +120,4 @@
 </body>
 
 </html>
+ 

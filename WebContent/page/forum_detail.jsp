@@ -22,8 +22,18 @@
 				<div class="forum-block clearfix">
 
 					<div class="forum-user col-md-2">
-						<a href="${pageContext.request.contextPath}/user/usersite?uuid=${entity.user.id }"><img class="thumb" src="${entity.user.head }"
-							width="80" height="80" />${entity.user.nickname }</a>
+						<a
+							href="${pageContext.request.contextPath}/user/usersite?uuid=${entity.user.id }">
+
+							<c:if test="${entity.user.head!=null && entity.user.head!=''}">
+								<img class="thumb" src="${entity.user.head }" width="80"
+									height="80" />
+							</c:if> <c:if test="${entity.user.head==null || entity.user.head==''}">
+								<img class="thumb"
+									src="${pageContext.request.contextPath}/resource/web/images/nopic_83.png"
+									width="80" height="80" />
+							</c:if> ${entity.user.nickname }
+						</a>
 					</div>
 					<div class="forum-content col-md-10 ">
 						<div class="content-body">${entity.content }</div>
@@ -37,8 +47,16 @@
 					<div class="forum-block clearfix">
 
 						<div class="forum-user col-md-2">
-							<a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.user.id }"><img class="thumb" src="${m.user.head }"
-								width="80" height="80" />${m.user.nickname }</a>
+							<a
+								href="${pageContext.request.contextPath}/user/usersite?uuid=${m.user.id }">
+								<c:if test="${m.user.head!=null && m.user.head!=''}">
+								<img class="thumb" src="${m.user.head }" width="80"
+									height="80" />
+							</c:if> <c:if test="${m.user.head==null || m.user.head==''}">
+								<img class="thumb"
+									src="${pageContext.request.contextPath}/resource/web/images/nopic_83.png"
+									width="80" height="80" />
+							</c:if>${m.user.nickname }</a>
 						</div>
 						<div class="forum-content col-md-10 ">
 							<div class="content-body">${m.content }</div>
@@ -55,8 +73,10 @@
 
 			<div class="col-md-12 ">
 				<div class="forum-new">
-					<a href="${pageContext.request.contextPath}/forum/user/add?id=${entity.subType.id}" class="btn  btn-danger">发表新帖</a>
-					 
+					<a
+						href="${pageContext.request.contextPath}/forum/v/add?id=${entity.subType.id}"
+						class="btn  btn-danger">发表新帖</a>
+
 				</div>
 				<div class="forum-block clearfix">
 
@@ -128,13 +148,12 @@ ${msg }
 
 	function checkLogin() {
 
-		if($('#ckeditor_standard').val()==null)
-		{
+		if ($('#ckeditor_standard').val() == null) {
 			return false;
 		}
-		
-		var msg=false;
-		
+
+		var msg = false;
+
 		$.ajax({
 			type : "GET",
 			async : false,

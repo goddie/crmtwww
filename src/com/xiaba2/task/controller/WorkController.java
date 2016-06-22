@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +45,18 @@ public class WorkController {
 		return mv;
 	}
 	
+	/**
+	 * 修改
+	 * @return
+	 */
+	@RequestMapping(value = "/v/edit")
+	public ModelAndView edit(@RequestParam("id") UUID id) {
+		ModelAndView mv = new ModelAndView("user_work_edit");
+		Work work = workService.get(id);
+		mv.addObject("entity", work);
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "/action/add")
 	public ModelAndView actionAdd(Work entity, HttpServletRequest request, RedirectAttributes attr) {
@@ -61,6 +74,30 @@ public class WorkController {
 		attr.addFlashAttribute("msg", "上传成功");
 		
 		workService.save(entity);
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/action/update")
+	public ModelAndView actionUpdate(Work entity, HttpServletRequest request, RedirectAttributes attr) {
+		ModelAndView mv = new ModelAndView("redirect:/work/v/list?p=1");
+
+		User user = SessionUtil.getInstance().getSessionUser();
+		if (user != null) {
+			user = userService.get(user.getId());
+		}
+		
+		Work w = workService.get(entity.getId());
+		
+		w.setTitle(entity.getTitle());
+		w.setThumb(entity.getThumb());
+		w.setContent(entity.getContent());
+		
+		
+		
+		workService.saveOrUpdate(w);
+		
+		attr.addFlashAttribute("msg", "修改成功");
 
 		return mv;
 	}

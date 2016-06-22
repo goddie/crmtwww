@@ -246,6 +246,10 @@ public class ForumController {
 
 			ForumType type = forumTypeService.get(UUID.fromString(types[i]));
 			List<Forum> list = forumService.getTop(type, null, 15, false);
+			
+//			for (Forum forum : list) {
+//				forum.setThumb(forum.getThumb().trim());
+//			}
 			mv.addObject("list" + (i + 1), list);
 
 		}
@@ -459,10 +463,9 @@ public class ForumController {
 
 	}
 
-	@RequestMapping(value = "/user/add")
+	@RequestMapping(value = "/v/add")
 	public ModelAndView userAdd() {
-		ModelAndView mv = new ModelAndView("forum_add");
-
+		ModelAndView mv = new ModelAndView("forum_add");		
 		return mv;
 	}
 	

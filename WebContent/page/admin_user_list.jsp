@@ -49,7 +49,7 @@
 												<th role="columnheader">登录名</th>
 												<th role="columnheader">用户昵称</th>
 												<th role="columnheader">注册日期</th>
-												<th role="columnheader">实名认证</th>
+											 
 												<th role="columnheader" style="width: 20%;">操作</th>
 											</tr>
 										</thead>
@@ -63,7 +63,7 @@
 													<td class=""><a href="${pageContext.request.contextPath}/user/usersite?uuid=${m.id}" target="_blank">${m.username}</a></td>
 													<td class="">${m.nickname}</td>
 													<td class="">${m.createdDate}</td>
-													<td class="">${m.createdDate}</td>
+												 
 													<td class="action"><a
 														href="${pageContext.request.contextPath}/user/action/del?id=${m.id}">
 															删除 </a></td>

@@ -19,7 +19,7 @@
 					<h2 class="l-title">会员登录</h2>
 					<div class="col-sm-12 col-md-6">
 
-						<form name="form1"
+						<form name="form1" id="form1"
 							action="${pageContext.request.contextPath}/user/action/login"
 							method="POST">
 							<input name="redirect" value="${redirect}" type="hidden" />
@@ -89,19 +89,21 @@
 				<div class="help m_l20">
 					<h2 class="l-title">需要帮助？</h2>
 					<ul>
-						<li><a href="#">新用户注册</a></li>
-						<li><a href="#">忘记密码？</a></li>
-						<li><a href="#">查看帮助说明</a></li>
+						<li><a href="${pageContext.request.contextPath}/webpage/reg">新用户注册</a></li>
+				 
+						<li style="display:none"><a href="#">忘记密码？</a></li>
+						<li style="display:none"><a href="#">查看帮助说明</a></li>
+						
 						<li>
 							<dl>
 								<dt>联系客服：</dt>
 								<dd class="p_t10">
 									<img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-qq-boy.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-qq-boy.png"
 										width="60" height="60"><img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-qq-girl.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-qq-girl.png"
 										width="60" height="60"><img
-										src="${pageContext.request.contextPath}/resource/web/images//icon-weixin.png"
+										src="${pageContext.request.contextPath}/resource/web/images/icon-weixin.png"
 										width="60" height="60">
 								</dd>
 								<dd class="p_t25">
@@ -132,5 +134,12 @@ function checkSubmit()
 	form1.submit();
 	
 }
+
+
+$(document).keyup(function(event){
+	  if(event.keyCode ==13){
+		  checkSubmit();
+	  }
+});
 
 </script>

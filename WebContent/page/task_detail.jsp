@@ -19,7 +19,16 @@
 				<p>首页 > 任务大厅 > 任务列表 > 任务详情</p>
 				<h1 class="d-title">${entity.title }</h1>
 				<p class="p_t10">
-					<a href="${pageContext.request.contextPath}/user/usersite?uuid=${entity.user.id}" target="_blank"><img src="${entity.user.head }" width="27" height="27">&nbsp;&nbsp;${entity.user.nickname }</a>
+					<a href="${pageContext.request.contextPath}/user/usersite?uuid=${entity.user.id}" target="_blank">
+					<c:if test="${entity.user.head!=null && entity.user.head!=''}">
+								<img class="thumb" src="${entity.user.head }" width="27"
+									height="27" />
+							</c:if> <c:if test="${entity.user.head==null || entity.user.head==''}">
+								<img class="thumb"
+									src="${pageContext.request.contextPath}/resource/web/images/nopic_83.png"
+									width="27" height="27" />
+							</c:if>
+					&nbsp;&nbsp;${entity.user.nickname }</a>
 				</p>
 			</div>
 			<div class="col-xs-6 col-sm-3">

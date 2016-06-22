@@ -685,6 +685,10 @@ public class UserController {
 				{
 					mv.setViewName("redirect:/user/v/index");
 				}
+			}else
+			{
+				attr.addFlashAttribute("msg", "<script>alert('账号密码不正确!')</script>");
+				mv.setViewName("redirect:/webpage/login");
 			}
 						
 		}
@@ -1026,17 +1030,29 @@ public class UserController {
 	            	i++;
 	            }else
 	            {
-	            	user.setUsername(r.get(0));
+	            	continue;
+	            	//user.setUsername(r.get(0));
 	            }
 	            
 	            user.setNickname(r.get(1));
 	            user.setPassword("123456");
-	            user.setEmail(r.get(2));
-	            user.setPhone(r.get(3));
+	            //user.setEmail(r.get(2));
+	            //user.setPhone(r.get(3));
 	            user.setCreatedDate(new Date());
-	            user.setIntroduce(r.get(5));
+	            //user.setIntroduce(r.get(5));
 
-	            userService.save(user);
+	            
+	            try {
+	            	userService.save(user);
+				} catch (Exception e) {
+					i--;
+				}
+	            
+	            
+	            if(i==500)
+	            {
+	            	break;
+	            }
 	            
 	        }
 	        r.close();

@@ -125,3 +125,25 @@ function centerModals() {
 }
 $('.modal').on('show.bs.modal', centerModals);
 $(window).on('resize', centerModals);
+leftMenu();
+function leftMenu()
+{
+	if($('.nav navbar-collapse collapse')==null)
+	{
+		return;
+	}
+	$('i.glyphicon-chevron-down').parent().click(function(){
+		var ul = $(this).next('ul');
+		var btn = $(this).find("i");
+		ul.toggle();
+		if(ul.is(":visible"))
+		{
+			btn.addClass('glyphicon-chevron-down');
+			btn.removeClass('glyphicon-chevron-right');
+		}else
+		{
+			btn.removeClass('glyphicon-chevron-down');
+			btn.addClass('glyphicon-chevron-right');
+		}
+	});
+}

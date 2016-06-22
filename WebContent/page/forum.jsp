@@ -38,7 +38,7 @@
 
 					</div>
 					<div class="col-sm-2">
-						<a href="${pageContext.request.contextPath}/forum/user/add"
+						<a href="${pageContext.request.contextPath}/forum/v/add"
 							class="grayBtn2 m_l20" target="_blank">发帖子</a>
 					</div>
 

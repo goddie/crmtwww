@@ -43,10 +43,10 @@
 			<dl class="s-dllist">
 				<dt>商品分类</dt>
 				<dd>
-					<a href="${pageContext.request.contextPath}/product/index"
+					<a id="btnAll" href="${pageContext.request.contextPath}/product/index"
 						class="current">全部</a>
 					<c:forEach var="m" varStatus="status" items="${typeList}">
-						<a
+						<a class="ptype" id="btn_${m.id }"
 							href="${pageContext.request.contextPath}/product/index?ptype=${m.id}">${m.name }</a>
 					</c:forEach>
 				</dd>
@@ -115,3 +115,11 @@
 	<jsp:include page="/resource/inc/web_foot.jsp"></jsp:include>
 </body>
 </html>
+<script type="text/javascript">
+var curId = '${ptype}';
+if(curId!='')
+{
+	$('#btnAll').removeClass('current');
+	$('#btn_'+curId).addClass('current');
+}
+</script>

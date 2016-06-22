@@ -23,3 +23,4 @@
 	<jsp:include page="/resource/inc/admin_script.jsp"></jsp:include>
 </body>
 </html>
+

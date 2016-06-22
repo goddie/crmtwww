@@ -53,9 +53,7 @@
 													aria-label="Browser: activate to sort column ascending"
 													style="width: 10%;">收件人</th>
 												<th role="columnheader">标题</th>
-												<th class="sorting" role="columnheader" tabindex="0"
-													aria-controls="example" rowspan="1" colspan="1"
-													aria-label="Engine version: activate to sort column ascending">内容</th>
+												 
 
 
 												<th class="sorting" role="columnheader" tabindex="0"
@@ -76,11 +74,12 @@
 													<td class="sorting_1">${status.index+1}</td>
 													<td class="">${m.sendTo.username}</td>
 													<td class="">${m.title}</td>
-													<td class="center ">${m.content}</td>
+										 
 													<td class="center ">${m.createdDate}</td>
 													<td class="action"><a style="display: none;"
 														href="${pageContext.request.contextPath}/message/edit/${m.id}">
-															编辑 </a> <a
+															编辑 </a> <a href="${pageContext.request.contextPath}/message/v/detail?id=${m.id}">
+															查看</a> <a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/message/action/del?id=${m.id}">
 															删除 </a></td>

@@ -382,11 +382,33 @@ ${js}
 				return false;
 			}
 			
-			
+			if(!isCheckBank())
+			{
+				return false;
+			}
 
 			return true;
 		}
 		
+		function isCheckBank()
+		{
+			var bank1 = $('#bankNo').val();
+			var bank2 = $('#bankNo2').val();
+			
+			if(bank1=='' || bank2 =='' )
+			{
+				alert("请输入收款账号!");
+				return false;
+			}
+			
+			if(bank1 != bank2)
+			{
+				alert("两次收款账号不一致。");
+				return false;
+			}
+			
+			return true;
+		}
 		
 		
 		//验证手机号码

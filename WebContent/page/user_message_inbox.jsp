@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,9 +55,7 @@
 													aria-label="Browser: activate to sort column ascending"
 													style="width: 10%;">发件人</th>
 												<th role="columnheader">标题</th>
-												<th class="sorting" role="columnheader" tabindex="0"
-													aria-controls="example" rowspan="1" colspan="1"
-													aria-label="Engine version: activate to sort column ascending">内容</th>
+												 
 
 
 												<th class="sorting" role="columnheader" tabindex="0"
@@ -76,11 +76,12 @@
 													<td class="sorting_1">${status.index+1}</td>
 													<td class="">${m.from.username}</td>
 													<td class="">${m.title}</td>
-													<td class="center ">${m.content}</td>
-													<td class="center ">${m.createdDate}</td>
+								 
+													<td class="center "><fmt:formatDate value="${m.createdDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 													<td class="action"><a style="display: none;"
 														href="${pageContext.request.contextPath}/message/edit?id=${m.id}">
-															编辑 </a> <a
+															编辑 </a> <a href="${pageContext.request.contextPath}/message/v/detail?id=${m.id}">
+															查看</a> <a
 														class="btn btn-xs btn-primary" onclick="return confirm('确认删除?')"
 														href="${pageContext.request.contextPath}/message/action/del?id=${m.id}">
 															删除 </a></td>

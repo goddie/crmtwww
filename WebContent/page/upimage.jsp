@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,8 +16,12 @@
 				<td
 					style="text-align: center; vertical-align: middle; font-size: 9pt;"><input
 					type="file" name="file" /> <input type="submit" value="上传文件" />
-					&nbsp;&nbsp;&nbsp;&nbsp;<input name="cover" checked="checked"
-					type="checkbox" value="1" />只更新封面图，不写入内容中</td>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<c:if test="${ischeck}">
+					<input name="cover" checked="checked"
+					type="checkbox" value="1" />只更新封面图，不写入内容中
+					</c:if>
+					</td>
 			</tr>
 		</table>
 

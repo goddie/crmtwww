@@ -159,7 +159,7 @@
 											<label class="col-lg-2 control-label" for="typeahead">原创证明</label>
 											<div class="col-lg-10">
 												<img id="imgproof" name="imgproof" src="${entity.proof }" alt="" width="120"
-													height="90" /> <input name="hidproof" id="hidproof"
+													height="90" /> <input name="proof" id="proof"
 													value="${entity.proof }" type="hidden" />
 											</div>
 										</div>
@@ -244,6 +244,11 @@
 
 	<script type="text/javascript">
 		var editor;
+		
+		var pid = '${entity.parentType.id}';
+		var pname = '${entity.parentType.name}';
+		var sid = '${entity.subType.id}';
+		var sname = '${entity.subType.name}';
 
 		$(function() {
 
@@ -286,6 +291,12 @@
 							selectAdd("#subTypeId", item.id, item.name);
 						});
 					});
+			
+			selectAdd('#parentTypeId',pid,pname);
+			selectAdd('#subTypeId',sid,sname);
+			$("#parentTypeId option[value='"+pid+"']").attr("selected", "selected"); 
+			$("#subTypeId option[value='"+sid+"']").attr("selected", "selected");
+			
 		}
 
 		function selectAdd(name, value, text) {

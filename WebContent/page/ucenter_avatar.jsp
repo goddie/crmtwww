@@ -59,7 +59,7 @@
 											<label class="col-lg-2 control-label" for="fileInput">上传图片</label>
 											<div class="col-lg-10">
 												<iframe
-													src="${pageContext.request.contextPath}/album/page/upload"
+													src="${pageContext.request.contextPath}/album/page/upload?ischeck=0"
 													style="height: 34px; width: 100%;" frameborder="0"
 													marginheight="0" marginwidth="0" scrolling="no"></iframe>
 											</div>
